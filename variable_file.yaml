@@ -1,0 +1,58 @@
+tenant_name: "UM_Tenant1B"
+
+consumerBD_name: "externalBD"
+providerBD_name: "internalBD"
+
+appProfile_name: "ApplicationProfile"
+consumerEPG_name: "externalEPG"
+providerEPG_name: "internalEPG"
+
+logicalDeviceCluster_name: "UM_Tenant1B"
+
+device1_interface1_connectionPath: "pod-1/paths-102/pathep-[eth1/34]"
+device1_interface2_connectionPath: ""
+
+device2_interface1_connectionPath: "pod-1/paths-103/pathep-[eth1/34]"
+device2_interface2_connectionPath: ""
+
+SGtemplate_name: "Phys-UnManaged-2ARM-ServiceGraphTemplate"
+contract_name: "Unmanaged-2ARM-Contract"
+
+physical_domain_name: "ServiceUnmanagedPhy"
+
+#########
+
+consumer_vlan_name: "External_VLAN"
+consumer_vlan: "2196"
+
+provider_vlan_name: "Internal_VLAN"
+provider_vlan: "2696"
+
+vip_port: "80"
+vip_ip: "10.168.56.72"
+
+pool_members:
+- port: "80"
+  host: "192.168.56.140"
+- port: "80"
+  host: "192.168.56.141"
+
+bigip1_selfip_information:
+- name: 'External-SelfIP'
+  address: '10.168.56.10'
+  netmask: '255.255.255.0'
+  vlan: "External_VLAN"
+- name: 'Internal-SelfIP'
+  address: '192.168.56.10'
+  netmask: '255.255.255.0'
+  vlan: 'Internal_VLAN'
+
+bigip2_selfip_information:
+- name: 'External-SelfIP'
+  address: '10.168.56.11'
+  netmask: '255.255.255.0'
+  vlan: "External_VLAN"
+- name: 'Internal-SelfIP'
+  address: '192.168.56.11'
+  netmask: '255.255.255.0'
+  vlan: 'Internal_VLAN'

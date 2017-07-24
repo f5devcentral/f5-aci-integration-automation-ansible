@@ -1,0 +1,173 @@
+- name: ACI Setup
+  hosts: aci
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable_file.yaml
+
+  tasks:
+
+  - name: Create XML POSTS from templates
+    template: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: 'unManagedMode_posts/create_unmanged_ldev.j2',      dest: 'unManagedMode_posts/create_unmanged_ldev.xml' }
+      - { src: 'unManagedMode_posts/contract.j2',                  dest: 'unManagedMode_posts/contract.xml' }
+      - { src: 'unManagedMode_posts/service_graph_template.j2',    dest: 'unManagedMode_posts/service_graph_template.xml'}
+      - { src: 'unManagedMode_posts/deviceSelectionPolicy.j2',     dest: 'unManagedMode_posts/deviceSelectionPolicy.xml'}
+      - { src: 'unManagedMode_posts/apply_graph.j2',               dest: 'unManagedMode_posts/apply_graph.xml'}
+      - { src: 'unManagedMode_posts/attach_cons_prov_contract.j2', dest: 'unManagedMode_posts/attach_cons_prov_contract.xml'}
+
+  - name: Create unmanaged logical device cluster
+    aci_rest:
+      action: "post"
+      uri: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{inventory_hostname}}"
+      username: admin
+      password: cisco123
+    with_items:
+     - "unManagedMode_posts/create_unmanged_ldev.xml"
+
+  - name: Create contract
+    aci_rest:
+      action: "post"
+      uri: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{inventory_hostname}}"
+      username: admin
+      password: cisco123
+    with_items:
+     - "unManagedMode_posts/contract.xml"
+
+  - name: Create service graph template
+    aci_rest:
+      action: "post"
+      uri: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{inventory_hostname}}"
+      username: admin
+      password: cisco123
+    with_items:
+     - "unManagedMode_posts/service_graph_template.xml"
+
+  - name: Create device selection policy
+    aci_rest:
+      action: "post"
+      uri: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{inventory_hostname}}"
+      username: admin
+      password: cisco123
+    with_items:
+     - "unManagedMode_posts/deviceSelectionPolicy.xml"
+
+  - name: Assign service graph template to contract
+    aci_rest:
+      action: "post"
+      uri: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{inventory_hostname}}"
+      username: admin
+      password: cisco123
+    with_items:
+     - "unManagedMode_posts/apply_graph.xml"
+
+  - name: Apply consumed and provided contracts to Eng Point Group
+    aci_rest:
+      action: "post"
+      uri: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{inventory_hostname}}"
+      username: admin
+      password: cisco123
+    with_items:
+     - "unManagedMode_posts/attach_cons_prov_contract.xml"
+
+- name: BIG-IP1 vCMP guest Setup
+  hosts: unmanaged_Cust1_bigip1
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable_file.yaml
+
+  tasks:
+
+  - name: Configure SELF-IP
+    bigip_selfip:
+     server: "{{inventory_hostname}}"
+     user: "admin"
+     password: "admin"
+     validate_certs: False
+     name: "{{tenant_name}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name}}_{{item.vlan}}"
+    with_items: "{{ bigip1_selfip_information }}"
+    delegate_to: localhost
+
+  - name: Create pool
+    bigip_pool:
+      server: "{{inventory_hostname}}"
+      user: "admin"
+      password: "admin"
+      state: "present"
+      name: "{{tenant_name}}_http-pool"
+      lb_method: "round-robin"
+      monitors: "/Common/http"
+      monitor_type: "and_list"
+      quorum: 1
+    delegate_to: localhost
+  
+  - name: Add Pool members
+    bigip_pool:
+      server: "{{inventory_hostname}}"
+      user: "admin"
+      password: "admin"
+      name: "{{tenant_name}}_http-pool"
+      host: "{{item.host}}"
+      port: "{{item.port}}"
+      validate_certs: False
+    with_items: "{{pool_members}}"
+    delegate_to: localhost
+
+  - name: Add Virtual Server
+    bigip_virtual_server:
+      server: "{{inventory_hostname}}"
+      user: "admin"
+      password: "admin"
+      name: "{{tenant_name}}_http_vs"
+      destination: "{{vip_ip}}"
+      port: "{{vip_port}}"
+      enabled_vlans: 
+       - "{{tenant_name}}_{{consumer_vlan_name}}"
+       - "{{tenant_name}}_{{provider_vlan_name}}"
+      profiles_both: "http"
+      pool: "{{tenant_name}}_http-pool"
+      snat: "automap"
+      validate_certs: False
+    delegate_to: localhost
+
+- name: BIG-IP2 vCMP guest Setup
+  hosts: unmanaged_Cust1_bigip2
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable_file.yaml
+
+  tasks:
+
+  - name: Configure SELF-IP
+    bigip_selfip:
+     server: "{{inventory_hostname}}"
+     user: "admin"
+     password: "admin"
+     validate_certs: False
+     name: "{{tenant_name}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name}}_{{item.vlan}}"
+    with_items: "{{ bigip2_selfip_information }}"
+    delegate_to: localhost

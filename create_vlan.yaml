@@ -1,0 +1,67 @@
+- name: BIG-IP1 vCMP Host Setup
+  hosts: unmanaged_vcmpHost_bigip1
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable_file.yaml
+
+  tasks:
+
+  - name: Add Provider VLAN - vCMP Host
+    bigip_vlan:
+      server: "{{inventory_hostname}}"
+      user: "admin"
+      password: "admin"
+      name: "{{tenant_name}}_{{consumer_vlan_name}}"
+      tag: "{{consumer_vlan}}"
+      tagged_interfaces:
+      - "2.2"
+      validate_certs: "no"
+    delegate_to: localhost
+
+  - name: Add Consumer VLAN - vCMP Host
+    bigip_vlan:
+      server: "{{inventory_hostname}}"
+      user: "admin"
+      password: "admin"
+      name: "{{tenant_name}}_{{provider_vlan_name}}"
+      tag: "{{provider_vlan}}"
+      tagged_interfaces:
+      - "2.2"
+      validate_certs: "no"
+    delegate_to: localhost
+
+- name: BIG-IP2 vCMP Host Setup
+  hosts: unmanaged_vcmpHost_bigip2
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable_file.yaml
+
+  tasks:
+
+  - name: Add Provider VLAN - vCMP Host
+    bigip_vlan:
+      server: "{{inventory_hostname}}"
+      user: "admin"
+      password: "admin"
+      name: "{{tenant_name}}_{{consumer_vlan_name}}"
+      tag: "{{consumer_vlan}}"
+      tagged_interfaces:
+      - "2.2"
+      validate_certs: "no"
+    delegate_to: localhost
+
+  - name: Add Consumer VLAN - vCMP Host
+    bigip_vlan:
+      server: "{{inventory_hostname}}"
+      user: "admin"
+      password: "admin"
+      name: "{{tenant_name}}_{{provider_vlan_name}}"
+      tag: "{{provider_vlan}}"
+      tagged_interfaces:
+      - "2.2"
+      validate_certs: "no"
+    delegate_to: localhost

@@ -1,0 +1,25 @@
+<vnsLDevVip trunking="no" svcType="ADC" packageModel="" name="{{logicalDeviceCluster_name}}" mode="legacy-Mode" managed="no" isCopy="no" funcType="GoTo" dn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}" devtype="PHYSICAL" contextAware="single-Context">
+   <vnsRsALDevToPhysDomP tDn="uni/phys-{{physical_domain_name}}" />
+   <vnsCDev name="Device2" vmName="" vcenterName="" devCtxLbl="">
+      <vnsCCred name="username" value="a" />
+      <vnsCCredSecret name="password" />
+      <vnsCIf name="Device2_IntExt" vnicName="">
+         <vnsRsCIfPathAtt tDn="topology/{{device2_interface1_connectionPath}}" />
+      </vnsCIf>
+   </vnsCDev>
+   <vnsCDev name="Device1" vmName="" vcenterName="" devCtxLbl="">
+      <vnsCCred name="username" value="a" />
+      <vnsCCredSecret name="password" />
+      <vnsCIf name="Device1_IntExt" vnicName="">
+         <vnsRsCIfPathAtt tDn="topology/{{device1_interface1_connectionPath}}" />
+      </vnsCIf>
+   </vnsCDev>
+   <vnsLIf name="External" encap="vlan-{{consumer_vlan}}">
+      <vnsRsCIfAttN tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/cDev-Device1/cIf-[Device1_IntExt]" />
+      <vnsRsCIfAttN tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/cDev-Device2/cIf-[Device2_IntExt]" />
+   </vnsLIf>
+   <vnsLIf name="Internal" encap="vlan-{{provider_vlan}}">
+      <vnsRsCIfAttN tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/cDev-Device1/cIf-[Device1_IntExt]" />
+      <vnsRsCIfAttN tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/cDev-Device2/cIf-[Device2_IntExt]" />
+   </vnsLIf>
+</vnsLDevVip>
