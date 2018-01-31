@@ -1,0 +1,52 @@
+- name: Standalone Physical Unmanaged Mode BIG-IP setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable.yaml
+
+  tasks:
+
+  - include_tasks: ../common/onboarding.yaml 
+    when: '"yes" in onboarding '
+
+  - name: Add VLAN(s)
+    bigip_vlan:
+      server: "{{bigip_ip}}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      tag: "{{item.id}}"
+      untagged_interfaces:
+      - "{{item.interface}}"
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - name: Add SELF-IP(s)
+    bigip_selfip: 
+     server: "{{bigip_ip}}"
+     user: "{{ bigip_username }}"
+     password: "{{ bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name_aci}}_{{item.vlan}}"
+     validate_certs: "no"
+    with_items: "{{ bigip_selfip_information }}"
+
+  - name: Add route(s)
+    bigip_static_route:
+      server: "{{bigip_ip}}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{item.name}}"
+      gateway_address: "{{item.gw_address}}"
+      netmask: "{{item.netmask}}"
+      destination: "{{item.destination}}" 
+      validate_certs: "no"
+    with_items: "{{static_route}}"
+    delegate_to: localhost
+
+  - include_tasks: ../common/http_service.yaml 
+    when: '"yes" in service '

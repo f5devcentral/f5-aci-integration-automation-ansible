@@ -1,0 +1,33 @@
+--- 
+  - name: Delete Virtual Server
+    bigip_virtual_server:
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{tenant_name_aci}}_{{ldev_name_aci}}_{{vip_name}}"
+      state: absent
+      validate_certs: "no"
+    delegate_to: localhost
+
+  - name: Delete pool
+    bigip_pool:
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{tenant_name_aci}}_{{pool_name}}"
+      state: absent
+      validate_certs: "no"
+    delegate_to: localhost
+
+  - name: Delete nodes
+    bigip_node:
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      host: "{{item.host}}"
+      name: "{{item.host}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{pool_members}}"
+    delegate_to: localhost
+

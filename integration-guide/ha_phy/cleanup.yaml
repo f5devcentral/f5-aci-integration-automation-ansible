@@ -1,0 +1,77 @@
+- name: Cleanup High Availability Physical Unmanaged Mode BIG-IP setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable.yaml
+
+  tasks:
+
+  - include_tasks: ../common/http_service_cleanup.yaml
+      bigip_ip="{{bigip1_ip}}"
+      bigip_username="{{bigip1_username}}"
+      bigip_password="{{bigip1_password}}"
+
+  - name: Delete route(s) on BIG-IP1
+    bigip_static_route:
+      server: "{{bigip1_ip}}"
+      user: "{{ bigip1_username }}"
+      password: "{{ bigip1_password }}"
+      name: "{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{static_route}}"
+    delegate_to: localhost
+        
+  - name: Delete Floating SELF-IP(s) on BIG-IP1
+    bigip_selfip:
+     server: "{{bigip1_ip}}"
+     user: "{{ bigip1_username }}"
+     password: "{{ bigip1_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ floating_selfip_information }}"
+
+  - name: Delete SELF-IP(s) on BIG-IP1
+    bigip_selfip:
+     server: "{{bigip1_ip}}"
+     user: "{{ bigip1_username }}"
+     password: "{{ bigip1_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ bigip1_selfip_information }}"
+
+  - name: Delete SELF-IP(s) on BIG-IP2
+    bigip_selfip:
+     server: "{{bigip2_ip}}"
+     user: "{{ bigip2_username }}"
+     password: "{{ bigip2_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ bigip2_selfip_information }}"       
+        
+  - name: Delete VLAN(s) on BIG-IP1
+    bigip_vlan:
+      server: "{{bigip1_ip}}"
+      user: "{{ bigip1_username }}"
+      password: "{{ bigip1_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - name: Delete VLAN(s) on BIG-IP2
+    bigip_vlan:
+      server: "{{bigip2_ip}}"
+      user: "{{ bigip2_username }}"
+      password: "{{ bigip2_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - include_tasks: destroy_ha.yaml 

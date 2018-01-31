@@ -1,0 +1,42 @@
+- name: Cleanup Standalone VE Unmanaged Mode BIG-IP setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable.yaml
+
+  tasks:
+
+  - include_tasks: ../common/http_service_cleanup.yaml 
+
+  - name: Delete route(s)
+    bigip_static_route:
+      server: "{{bigip_ip}}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{static_route}}"
+    delegate_to: localhost
+
+  - name: Delete SELF-IP(s)
+    bigip_selfip:
+     server: "{{bigip_ip}}"
+     user: "{{ bigip_username }}"
+     password: "{{ bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ bigip_selfip_information }}"
+
+  - name: Delete VLAN(s)
+    bigip_vlan:
+      server: "{{bigip_ip}}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
