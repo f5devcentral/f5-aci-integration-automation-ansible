@@ -661,7 +661,6 @@ After running the playbook login to both the BIG-IP and that check all the objec
 ![](media/image26.png)
 
 ![](media/image27.png)
-
 To perform a cleanup of the BIG-IP configuration, run the following playbook:
 
 -   ansible-playbook playbooks/ha_ve/cleanup.yaml
