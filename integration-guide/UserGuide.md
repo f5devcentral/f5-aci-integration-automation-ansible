@@ -26,7 +26,7 @@
 Introduction
 ============
 
-Guie on how to Ansible can be used to configure BIG-IP to correspond to the Unmanaged mode of APIC deployment. Goal is to perform L2-L3 stitching between the Cisco ACI fabric and F5 BIG-IP.
+Guide on how Ansible can be used to configure BIG-IP to correspond to the Unmanaged mode of APIC deployment. Goal is to perform L2-L3 stitching between the Cisco ACI fabric and F5 BIG-IP.
 
 Pre-requisite
 =============
@@ -143,7 +143,7 @@ This variable file is designed to configure the following on the BIG-IP
     - SNAT is set to none (Assumption: Backend servers have the BIG-IP as their default gateway)
 - HTTP service: Pool members, Pool, Virtual Server
 
-### Sample variable file used
+### Sample variable file used: varible.yaml
 ```
 onboarding: "yes"                                   Do you want to onboard the BIG-IP - Options: yes/no
 banner_text: "--Standalone BIG-IP UnManaged ---"    SSH banner text
