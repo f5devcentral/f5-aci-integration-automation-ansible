@@ -1,4 +1,4 @@
-- name: Standalone Physical Unmanaged Mode BIG-IP setup
+- name: Standalone Virtual Unmanaged Mode BIG-IP setup
   hosts: localhost
   connection: local
   gather_facts: false
