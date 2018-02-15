@@ -1,4 +1,4 @@
-- name: Cleanup High Availability Physical Unmanaged Mode BIG-IP setup
+- name: Cleanup High Availability Physical Unmanaged Mode BIG-IP setup 
   hosts: localhost
   connection: local
   gather_facts: false
