@@ -143,7 +143,7 @@ This variable file is designed to configure the following on the BIG-IP
     - SNAT is set to none (Assumption: Backend servers have the BIG-IP as their default gateway)
 - HTTP service: Pool members, Pool, Virtual Server
 
-### Sample variable file used: varible.yaml
+### Sample variable file used: variable.yaml
 ```
 onboarding: "yes"                                   Do you want to onboard the BIG-IP - Options: yes/no
 banner_text: "--Standalone BIG-IP UnManaged ---"    SSH banner text
