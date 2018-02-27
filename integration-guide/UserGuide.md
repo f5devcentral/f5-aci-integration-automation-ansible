@@ -56,7 +56,7 @@ Please go through the [Standalone Physical BIG-IP](#standalone-physical-big-ip) 
 Topology
 ========
 
-![](media/image1.png)
+![](media/topology.png)
 
 **Physical BIG-IP(s) being used in this example:**
 
