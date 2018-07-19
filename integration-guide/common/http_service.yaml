@@ -1,0 +1,54 @@
+  - name: Create nodes
+    bigip_node:
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      host: "{{item.host}}"
+      name: "{{item.host}}"
+      validate_certs: "no"
+    with_items: "{{pool_members}}"
+    delegate_to: localhost
+
+  - name: Create pool
+    bigip_pool:
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{tenant_name_aci}}_{{pool_name}}"
+      lb_method: "round-robin"
+      monitors: "/Common/http"
+      monitor_type: "and_list"
+      validate_certs: "no"
+    delegate_to: localhost
+
+  - name: Add Pool members
+    bigip_pool_member:
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      state: "present"
+      name: "{{item.host}}"
+      host: "{{item.host}}"
+      port: "{{item.port}}"
+      pool: "{{tenant_name_aci}}_{{pool_name}}"
+      validate_certs: "no"
+    with_items: "{{pool_members}}"
+    delegate_to: localhost
+
+  - name: Add Virtual Server
+    bigip_virtual_server:
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
+      name: "{{tenant_name_aci}}_{{ldev_name_aci}}_{{vip_name}}"
+      destination: "{{vip_ip}}"
+      port: "{{vip_port}}"
+      enabled_vlans: 
+       - "{{tenant_name_aci}}_{{vlan_information[0]['name']}}"
+       - "{{tenant_name_aci}}_{{vlan_information[1]['name']}}"
+      all_profiles:
+       - http
+      pool: "{{tenant_name_aci}}_{{pool_name}}"
+      snat: "{{snat}}"
+      validate_certs: "no"
+    delegate_to: localhost

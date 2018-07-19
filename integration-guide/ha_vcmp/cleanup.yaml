@@ -1,0 +1,127 @@
+- name: Cleanup High Availability vCMP Unmanaged Mode BIG-IP setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable.yaml
+
+  tasks:
+
+  - include_tasks: ../common/http_service_cleanup.yaml
+      bigip_ip="{{vcmp_guest1_host1_bigip_ip}}"
+      bigip_username="{{vcmp_guest1_host1_bigip_username}}"
+      bigip_password="{{vcmp_guest1_host1_bigip_password}}"
+
+  - name: Delete route(s) on BIG-IP1
+    bigip_static_route:
+      server: "{{vcmp_guest1_host1_bigip_ip}}"
+      user: "{{ vcmp_guest1_host1_bigip_username }}"
+      password: "{{ vcmp_guest1_host1_bigip_password }}"
+      name: "{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{static_route}}"
+    delegate_to: localhost
+        
+  - name: Delete Floating SELF-IP(s) on BIG-IP1
+    bigip_selfip:
+     server: "{{vcmp_guest1_host1_bigip_ip}}"
+     user: "{{ vcmp_guest1_host1_bigip_username }}"
+     password: "{{ vcmp_guest1_host1_bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ floating_selfip_information }}"
+        
+  - name: Delete SELF-IP(s) on BIG-IP1
+    bigip_selfip:
+     server: "{{vcmp_guest1_host1_bigip_ip}}"
+     user: "{{ vcmp_guest1_host1_bigip_username }}"
+     password: "{{ vcmp_guest1_host1_bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ bigip1_selfip_information }}"
+
+  - name: Delete SELF-IP(s) on BIG-IP2
+    bigip_selfip:
+     server: "{{vcmp_guest1_host2_bigip_ip}}"
+     user: "{{ vcmp_guest1_host2_bigip_username }}"
+     password: "{{ vcmp_guest1_host2_bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ bigip2_selfip_information }}"
+      
+  - name: Unassign VLANs from host1
+    bigip_vcmp_guest:
+      server: "{{vcmp_host1_bigip_ip}}"
+      user: "{{ vcmp_host1_bigip_username }}"
+      password: "{{ vcmp_host1_bigip_password }}"
+      name: "{{vcmp_guest1_host1_name}}"
+      vlans:
+       - "{{ha_vlan_information[0]['name']}}"
+      validate_certs: False
+    delegate_to: localhost
+
+  - name: Unassign VLANs from host2
+    bigip_vcmp_guest:
+      server: "{{vcmp_host2_bigip_ip}}"
+      user: "{{ vcmp_host2_bigip_username }}"
+      password: "{{ vcmp_host2_bigip_password }}"
+      name: "{{vcmp_guest1_host2_name}}"
+      vlans:
+       - "{{ha_vlan_information[0]['name']}}"
+      validate_certs: False
+    delegate_to: localhost
+ 
+  - name: Delete VLAN(s) on vCMP guest1-host1
+    bigip_vlan:
+      server: "{{vcmp_guest1_host1_bigip_ip}}"
+      user: "{{ vcmp_guest1_host1_bigip_username }}"
+      password: "{{ vcmp_guest1_host1_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - name: Delete VLAN(s) on vCMP guest1-host2
+    bigip_vlan:
+      server: "{{vcmp_guest1_host2_bigip_ip}}"
+      user: "{{ vcmp_guest1_host2_bigip_username }}"
+      password: "{{ vcmp_guest1_host2_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+   
+  - name: Delete VLAN(s) on vCMP Host1
+    bigip_vlan:
+      server: "{{vcmp_host1_bigip_ip}}"
+      user: "{{ vcmp_host1_bigip_username }}"
+      password: "{{ vcmp_host1_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - name: Delete VLAN(s) on vCMP Host2
+    bigip_vlan:
+      server: "{{vcmp_host2_bigip_ip}}"
+      user: "{{ vcmp_host2_bigip_username }}"
+      password: "{{ vcmp_host2_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - include_tasks: destroy_ha.yaml 
+      bigip1_ip="{{vcmp_guest1_host1_bigip_ip}}"
+      bigip1_username="{{vcmp_guest1_host1_bigip_username}}"
+      bigip1_password="{{vcmp_guest1_host1_bigip_password}}"
+      bigip1_hostname="{{vcmp_guest1_host1_bigip_hostname}}"
+      bigip2_ip="{{vcmp_guest1_host2_bigip_ip}}"
+      bigip2_username="{{vcmp_guest1_host2_bigip_username}}"
+      bigip2_password="{{vcmp_guest1_host2_bigip_password}}"
+      bigip2_hostname="{{vcmp_guest1_host2_bigip_hostname}}"

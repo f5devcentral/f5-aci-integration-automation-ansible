@@ -1,0 +1,139 @@
+- name: High Availability Physical Unmanaged Mode BIG-IP setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable.yaml
+
+  tasks:
+
+  - include_tasks: ../common/onboarding.yaml 
+      bigip_ip="{{vcmp_guest1_host1_bigip_ip}}"
+      bigip_username="{{vcmp_guest1_host1_bigip_username}}"
+      bigip_password="{{vcmp_guest1_host1_bigip_password}}"
+      hostname="{{vcmp_guest1_host1_bigip_hostname}}"
+    when: '"yes" in onboarding '
+
+  - include_tasks: ../common/onboarding.yaml
+      bigip_ip="{{vcmp_guest1_host2_bigip_ip}}"
+      bigip_username="{{vcmp_guest1_host2_bigip_username}}"
+      bigip_password="{{vcmp_guest1_host2_bigip_password}}"
+      hostname="{{vcmp_guest1_host2_bigip_hostname}}"
+    when: '"yes" in onboarding '
+
+  - include_tasks: configure_ha.yaml
+      bigip1_ip="{{vcmp_guest1_host1_bigip_ip}}"
+      bigip1_username="{{vcmp_guest1_host1_bigip_username}}"
+      bigip1_password="{{vcmp_guest1_host1_bigip_password}}"
+      bigip1_hostname="{{vcmp_guest1_host1_bigip_hostname}}"
+      bigip2_ip="{{vcmp_guest1_host2_bigip_ip}}"
+      bigip2_username="{{vcmp_guest1_host2_bigip_username}}"
+      bigip2_password="{{vcmp_guest1_host2_bigip_password}}"
+      bigip2_hostname="{{vcmp_guest1_host2_bigip_hostname}}"
+
+  - name: Add VLAN(s) on vCMP Host1
+    bigip_vlan:
+      server: "{{vcmp_host1_bigip_ip}}"
+      user: "{{ vcmp_host1_bigip_username }}"
+      password: "{{ vcmp_host1_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      tag: "{{item.id}}"
+      tagged_interfaces:
+      - "{{item.interface}}"
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - name: Add VLAN(s) on vCMP Host2
+    bigip_vlan:
+      server: "{{vcmp_host2_bigip_ip}}"
+      user: "{{ vcmp_host2_bigip_username }}"
+      password: "{{ vcmp_host2_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      tag: "{{item.id}}"
+      tagged_interfaces:
+      - "{{item.interface}}"
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  - name: Assign VLANs from host1 to guest
+    bigip_vcmp_guest:
+      server: "{{vcmp_host1_bigip_ip}}"
+      user: "{{ vcmp_host1_bigip_username }}"
+      password: "{{ vcmp_host1_bigip_password }}"
+      name: "{{vcmp_guest1_host1_name}}"
+      vlans:
+       - "{{tenant_name_aci}}_{{vlan_information[0]['name']}}"
+       - "{{tenant_name_aci}}_{{vlan_information[1]['name']}}"
+       - "{{ha_vlan_information[0]['name']}}"
+      validate_certs: False
+    delegate_to: localhost
+
+  - name: Assign VLANs from host2 to guest
+    bigip_vcmp_guest:
+      server: "{{vcmp_host2_bigip_ip}}"
+      user: "{{ vcmp_host2_bigip_username }}"
+      password: "{{ vcmp_host2_bigip_password }}"
+      name: "{{vcmp_guest1_host2_name}}"
+      vlans:
+       - "{{tenant_name_aci}}_{{vlan_information[0]['name']}}"
+       - "{{tenant_name_aci}}_{{vlan_information[1]['name']}}"
+       - "{{ha_vlan_information[0]['name']}}"
+      validate_certs: False
+    delegate_to: localhost
+
+  - name: Add SELF-IP(s) on BIG-IP1
+    bigip_selfip: 
+     server: "{{vcmp_guest1_host1_bigip_ip}}"
+     user: "{{ vcmp_guest1_host1_bigip_username }}"
+     password: "{{ vcmp_guest1_host1_bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name_aci}}_{{item.vlan}}"
+     validate_certs: "no"
+    with_items: "{{ bigip1_selfip_information }}"
+
+  - name: Add SELF-IP(s) on BIG-IP2 
+    bigip_selfip:
+     server: "{{vcmp_guest1_host2_bigip_ip}}"
+     user: "{{ vcmp_guest1_host2_bigip_username }}"
+     password: "{{ vcmp_guest1_host2_bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name_aci}}_{{item.vlan}}"
+     validate_certs: "no"
+    with_items: "{{ bigip2_selfip_information }}"
+
+  - name: Add Floating SELF-IP(s) on BIG-IP1
+    bigip_selfip:
+     server: "{{vcmp_guest1_host1_bigip_ip}}"
+     user: "{{ vcmp_guest1_host1_bigip_username }}"
+     password: "{{ vcmp_guest1_host1_bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name_aci}}_{{item.vlan}}"
+     traffic_group: "traffic-group-1"
+     validate_certs: "no"
+    with_items: "{{ floating_selfip_information }}"
+
+  - name: Add route(s) on BIG-IP1
+    bigip_static_route:
+      server: "{{vcmp_guest1_host1_bigip_ip}}"
+      user: "{{ vcmp_guest1_host1_bigip_username }}"
+      password: "{{ vcmp_guest1_host1_bigip_password }}"
+      name: "{{item.name}}"
+      gateway_address: "{{item.gw_address}}"
+      netmask: "{{item.netmask}}"
+      destination: "{{item.destination}}" 
+      validate_certs: "no"
+    with_items: "{{static_route}}"
+    delegate_to: localhost
+
+  - include_tasks: ../common/http_service.yaml 
+      bigip_ip="{{vcmp_guest1_host1_bigip_ip}}"
+      bigip_username="{{vcmp_guest1_host1_bigip_username}}"
+      bigip_password="{{vcmp_guest1_host1_bigip_password}}"
+    when: '"yes" in service '

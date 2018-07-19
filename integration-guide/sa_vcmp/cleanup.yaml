@@ -1,0 +1,65 @@
+- name: Cleanup Standalone vCMP Unmanaged Mode BIG-IP setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable.yaml
+
+  tasks:
+
+  - include_tasks: ../common/http_service_cleanup.yaml
+      bigip_ip="{{vcmp_guest_bigip_ip}}"
+      bigip_username="{{vcmp_guest_bigip_username}}"
+      bigip_password="{{vcmp_guest_bigip_password}}"
+
+  - name: Delete route(s) on vCMP guest
+    bigip_static_route:
+      server: "{{vcmp_guest_bigip_ip}}"
+      user: "{{ vcmp_guest_bigip_username }}"
+      password: "{{ vcmp_guest_bigip_password }}"
+      name: "{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{static_route}}"
+    delegate_to: localhost
+        
+  - name: Delete SELF-IP(s) on vCMP guest
+    bigip_selfip:
+     server: "{{vcmp_guest_bigip_ip}}"
+     user: "{{ vcmp_guest_bigip_username }}"
+     password: "{{ vcmp_guest_bigip_password }}"
+     name: "{{tenant_name_aci}}_{{item.name}}"
+     state: absent
+     validate_certs: "no"
+    with_items: "{{ bigip_selfip_information }}"
+
+  - name: Delete VLAN(s) on vCMP guest
+    bigip_vlan:
+      server: "{{vcmp_guest_bigip_ip}}"
+      user: "{{ vcmp_guest_bigip_username }}"
+      password: "{{ vcmp_guest_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+
+  #Using bigip_command for this
+  - name: Unassign VLANS from guest on host
+    bigip_command:
+      server: "{{vcmp_host_bigip_ip}}"
+      user: "{{ vcmp_host_bigip_username }}"
+      password: "{{ vcmp_host_bigip_password }}"
+      commands: "modify vcmp guest {{vcmp_guest_name}} vlans none"
+      validate_certs: "no"
+    delegate_to: localhost
+
+  - name: Delete VLAN(s) on vCMP host
+    bigip_vlan:
+      server: "{{vcmp_host_bigip_ip}}"
+      user: "{{ vcmp_host_bigip_username }}"
+      password: "{{ vcmp_host_bigip_password }}"
+      name: "{{tenant_name_aci}}_{{item.name}}"
+      state: absent
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"

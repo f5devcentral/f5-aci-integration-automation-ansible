@@ -1,0 +1,72 @@
+## Onboarding BIG-IP ##
+onboarding: "yes" #Options: yes/no
+banner_text: "---Standalone BIG-IP vCMP UnManaged ---"
+
+hostname: 'bigipvCMP.local'
+
+ntp_servers:
+ - '172.27.1.1'
+ - '172.27.1.2'
+
+dns_servers:
+ - '8.8.8.8'
+ - '4.4.4.4'
+ip_version: 4
+
+module_provisioning:
+ - name: 'ltm'
+   level: 'nominal'
+
+#APIC information
+tenant_name_aci: "UM_F5_Tenant"
+ldev_name_aci: "BIGIP_vCMP"
+
+# Network information
+
+vcmp_host_bigip_ip: 10.192.73.80
+vcmp_host_bigip_username: "admin"
+vcmp_host_bigip_password: "admin"
+
+vcmp_guest_bigip_ip: 10.192.73.82
+vcmp_guest_bigip_username: "admin"
+vcmp_guest_bigip_password: "admin"
+vcmp_guest_name: "vCMP82"
+
+vlan_information:
+- name: "External_VLAN"
+  id: "1196"
+  interface: "1/1.3"
+- name: "Internal_VLAN"
+  id: "1696"
+  interface: "1/1.3"
+
+bigip_selfip_information:
+- name: 'External-SelfIP'
+  address: '10.168.56.10'
+  netmask: '255.255.255.0'
+  vlan: "{{vlan_information[0]['name']}}"
+- name: 'Internal-SelfIP'
+  address: '192.168.56.10'
+  netmask: '255.255.255.0'
+  vlan: "{{vlan_information[1]['name']}}"
+
+static_route:
+- name: "default"
+  gw_address: "10.168.56.1"
+  destination: "0.0.0.0"
+  netmask: "0.0.0.0"
+
+#Deploy http service on the BIG-IP
+service: "yes" #Options: yes/no
+
+vip_name: "http_vs"
+vip_port: "80"
+vip_ip: "10.168.56.105"
+snat: "Automap" #Options: none/automap/snat-pool name
+
+pool_name: "web-pool"
+pool_members:
+- port: "80"
+  host: "192.168.56.140"
+- port: "80"
+  host: "192.168.56.141"
