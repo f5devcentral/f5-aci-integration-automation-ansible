@@ -1,0 +1,39 @@
+- name: ACI Setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - variable.yaml
+    
+  vars:
+    posts: 'aci_posts-OneArmDeployment'
+    
+  tasks:
+
+  - name: Create XML POSTS from templates
+    template: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: '../{{posts}}/ldev.j2',                       dest: '../{{posts}}/ldev.xml' }
+      - { src: '../{{posts}}/contract.j2',                   dest: '../{{posts}}/contract.xml' }
+      - { src: '../{{posts}}/service_graph_template.j2',     dest: '../{{posts}}/service_graph_template.xml'}
+      - { src: '../{{posts}}/deviceSelectionPolicy.j2',      dest: '../{{posts}}/deviceSelectionPolicy.xml'}
+      - { src: '../{{posts}}/apply_graph.j2',                dest: '../{{posts}}/apply_graph.xml'}
+      - { src: '../{{posts}}/attach_cons_prov_contract.j2',  dest: '../{{posts}}/attach_cons_prov_contract.xml'}
+
+  - name: Execute POSTS
+    aci_rest:
+      action: "post"
+      uri: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{apic_ip}}"
+      username: "{{apic_username}}"
+      password: "{{apic_password}}"
+      validate_certs: "false"
+    with_items:
+     - "../{{posts}}/ldev.xml"
+     - "../{{posts}}/contract.xml"
+     - "../{{posts}}/service_graph_template.xml"
+     - "../{{posts}}/deviceSelectionPolicy.xml"
+     - "../{{posts}}/apply_graph.xml"
+     - "../{{posts}}/attach_cons_prov_contract.xml"

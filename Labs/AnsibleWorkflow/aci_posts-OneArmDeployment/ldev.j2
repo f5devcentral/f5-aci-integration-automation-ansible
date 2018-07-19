@@ -1,0 +1,14 @@
+<vnsLDevVip trunking="no" svcType="ADC" promMode="no"  name="{{logicalDeviceCluster_name}}" mode="legacy-Mode" managed="no" isCopy="no" funcType="GoTo" dn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}" devtype="VIRTUAL" contextAware="single-Context" >
+	<vnsRsALDevToDomP tDn="uni/vmmp-VMware/dom-CLBerlin2016" switchingMode="native"/>
+	<vnsLIf name="consumer" encap="unknown">
+		<vnsRsCIfAttN tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/cDev-Device1/cIf-[1_1]"/>
+	</vnsLIf>
+	<vnsLIf name="provider" encap="unknown">
+		<vnsRsCIfAttN tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/cDev-Device1/cIf-[1_1]"/>
+	</vnsLIf>
+	<vnsCDev name="Device1" vmName="BigIP-01" vcenterName="DMZ_VC" >
+		<vnsCIf name="1_1" vnicName="Network adapter 2"/>
+		<vnsCCredSecret name="password" />
+		<vnsCCred name="username" value="a"/>
+	</vnsCDev>
+</vnsLDevVip>

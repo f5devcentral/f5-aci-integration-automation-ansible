@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imdata totalCount="1">
+	<fvTenant annotation="" descr="" dn="uni/tn-student01-lab2" name="student01-lab2" nameAlias="" ownerKey="" ownerTag="">
+		<vzBrCP annotation="" descr="" name="s01-lab2-cntr2" nameAlias="" ownerKey="" ownerTag="" prio="unspecified" scope="tenant" targetDscp="unspecified">
+			<vzSubj annotation="" consMatchT="AtleastOne" descr="" name="Subject" nameAlias="" prio="unspecified" provMatchT="AtleastOne" revFltPorts="yes" targetDscp="unspecified">
+				<vzRsSubjGraphAtt annotation="" directives="" tnVnsAbsGraphName="s01-lab2-sg2"/>
+				<vzRsSubjFiltAtt action="permit" annotation="" directives="" priorityOverride="default" tnVzFilterName="default"/>
+			</vzSubj>
+		</vzBrCP>
+		<aaaDomainRef annotation="" descr="" name="student01" nameAlias="" ownerKey="" ownerTag=""/>
+		<fvAp annotation="" descr="" name="app" nameAlias="" ownerKey="" ownerTag="" prio="unspecified">
+			<fvAEPg annotation="" descr="" exceptionTag="" floodOnEncap="disabled" fwdCtrl="" isAttrBasedEPg="no" matchT="AtleastOne" name="web-epg" nameAlias="" pcEnfPref="unenforced" prefGrMemb="exclude" prio="unspecified">
+				<fvRsProv annotation="" matchT="AtleastOne" prio="unspecified" tnVzBrCPName="s01-lab2-cntr2"/>
+				<fvRsDomAtt annotation="" classPref="encap" delimiter="" encap="unknown" encapMode="auto" epgCos="Cos0" epgCosPref="disabled" instrImedcy="immediate" netflowDir="both" netflowPref="disabled" primaryEncap="unknown" primaryEncapInner="unknown" resImedcy="immediate" secondaryEncapInner="unknown" switchingMode="native" tDn="uni/vmmp-VMware/dom-CLBerlin2016">
+					<vmmSecP allowPromiscuous="accept" annotation="" descr="" forgedTransmits="accept" macChanges="accept" name="" nameAlias="" ownerKey="" ownerTag=""/>
+				</fvRsDomAtt>
+				<fvRsCustQosPol annotation="" tnQosCustomPolName=""/>
+				<fvRsBd annotation="" tnFvBDName="web-bd"/>
+			</fvAEPg>
+		</fvAp>
+		<fvRsTenantMonPol annotation="" tnMonEPGPolName=""/>
+		<fvCtx annotation="" bdEnforcedEnable="no" descr="" knwMcastAct="permit" name="web-ctx" nameAlias="" ownerKey="" ownerTag="" pcEnfDir="ingress" pcEnfPref="enforced">
+			<fvRsVrfValidationPol annotation="" tnL3extVrfValidationPolName=""/>
+			<vzAny annotation="" descr="" matchT="AtleastOne" name="" nameAlias="" prefGrMemb="disabled"/>
+			<fvRsOspfCtxPol annotation="" tnOspfCtxPolName=""/>
+			<fvRsCtxToEpRet annotation="" tnFvEpRetPolName=""/>
+			<fvRsCtxToExtRouteTagPol annotation="" tnL3extRouteTagPolName=""/>
+			<fvRsBgpCtxPol annotation="" tnBgpCtxPolName=""/>
+		</fvCtx>
+		<l3extOut annotation="" descr="" enforceRtctrl="export" name="student01-lab2-l3out" nameAlias="" ownerKey="" ownerTag="" targetDscp="unspecified">
+			<ospfExtP annotation="" areaCost="1" areaCtrl="redistribute,summary" areaId="backbone" areaType="regular" descr="" multipodInternal="no" nameAlias=""/>
+			<l3extRsL3DomAtt annotation="" tDn="uni/l3dom-student01-l3-dom"/>
+			<l3extRsEctx annotation="" tnFvCtxName="web-ctx"/>
+			<l3extLNodeP annotation="" configIssues="" descr="" name="node-l3out" nameAlias="" ownerKey="" ownerTag="" tag="yellow-green" targetDscp="unspecified">
+				<l3extRsNodeL3OutAtt annotation="" configIssues="" rtrId="2.2.49.1" rtrIdLoopBack="yes" tDn="topology/pod-1/node-102"/>
+				<l3extRsNodeL3OutAtt annotation="" configIssues="" rtrId="1.1.49.1" rtrIdLoopBack="yes" tDn="topology/pod-1/node-101"/>
+				<l3extLIfP annotation="" descr="" name="cat3k-vpc-l3out" nameAlias="" ownerKey="" ownerTag="" tag="yellow-green">
+					<ospfIfP annotation="" authKeyId="1" authType="none" descr="" name="" nameAlias="">
+						<ospfRsIfPol annotation="" tnOspfIfPolName="ospf-l3out"/>
+					</ospfIfP>
+					<l3extRsPathL3OutAtt addr="0.0.0.0" annotation="" autostate="disabled" descr="" encap="vlan-1102" encapScope="local" ifInstT="ext-svi" ipv6Dad="enabled" llAddr="::" mac="00:22:BD:F8:19:FF" mode="regular" mtu="1500" tDn="topology/pod-1/protpaths-101-102/pathep-[cat3k]" targetDscp="unspecified">
+						<l3extMember addr="199.1.0.50/28" annotation="" descr="" ipv6Dad="enabled" llAddr="::" name="" nameAlias="" side="B"/>
+						<l3extMember addr="199.1.0.49/28" annotation="" descr="" ipv6Dad="enabled" llAddr="::" name="" nameAlias="" side="A"/>
+					</l3extRsPathL3OutAtt>
+					<l3extRsNdIfPol annotation="" tnNdIfPolName=""/>
+					<l3extRsIngressQosDppPol annotation="" tnQosDppPolName=""/>
+					<l3extRsEgressQosDppPol annotation="" tnQosDppPolName=""/>
+				</l3extLIfP>
+			</l3extLNodeP>
+			<l3extInstP annotation="" descr="" exceptionTag="" floodOnEncap="disabled" matchT="AtleastOne" name="epg-l3out" nameAlias="" prefGrMemb="exclude" prio="unspecified" targetDscp="unspecified">
+				<l3extSubnet aggregate="" annotation="" descr="" ip="0.0.0.0/0" name="" nameAlias="" scope="import-security"/>
+				<fvRsCustQosPol annotation="" tnQosCustomPolName=""/>
+				<fvRsCons annotation="" prio="unspecified" tnVzBrCPName="s01-lab2-cntr2"/>
+			</l3extInstP>
+		</l3extOut>
+		<ospfIfPol annotation="" cost="unspecified" ctrl="" deadIntvl="40" descr="" helloIntvl="10" name="ospf-l3out" nameAlias="" nwT="bcast" ownerKey="" ownerTag="" pfxSuppress="inherit" prio="1" rexmitIntvl="5" xmitDelay="1"/>
+		<vnsLDevVip annotation="" contextAware="single-Context" devtype="VIRTUAL" funcType="GoTo" isCopy="no" managed="no" mode="legacy-Mode" name="s01-lab2-bigip" nameAlias="" packageModel="" promMode="no" svcType="ADC" trunking="no">
+			<vnsRsALDevToDomP annotation="" switchingMode="native" tDn="uni/vmmp-VMware/dom-CLBerlin2016"/>
+			<vnsLIf annotation="" encap="unknown" name="consumer" nameAlias="">
+				<vnsRsCIfAttN annotation="" tDn="uni/tn-student01-lab2/lDevVip-s01-lab2-bigip/cDev-Device1/cIf-[1_1]"/>
+			</vnsLIf>
+			<vnsLIf annotation="" encap="unknown" name="provider" nameAlias="">
+				<vnsRsCIfAttN annotation="" tDn="uni/tn-student01-lab2/lDevVip-s01-lab2-bigip/cDev-Device1/cIf-[1_1]"/>
+			</vnsLIf>
+			<vnsCDev annotation="" devCtxLbl="" name="Device1" nameAlias="" vcenterName="DMZ_VC" vmName="BigIP-01">
+				<vnsCIf annotation="" name="1_1" nameAlias="" vnicName="Network adapter 2"/>
+				<vnsCCredSecret annotation="" name="password" nameAlias=""/>
+				<vnsCCred annotation="" name="username" nameAlias="" value="a"/>
+			</vnsCDev>
+		</vnsLDevVip>
+		<fvBD OptimizeWanBandwidth="no" annotation="" arpFlood="yes" descr="" epClear="no" epMoveDetectMode="" intersiteBumTrafficAllow="no" intersiteL2Stretch="no" ipLearning="no" limitIpLearnToSubnets="no" llAddr="::" mac="00:22:BD:F8:19:FF" mcastAllow="no" multiDstPktAct="bd-flood" name="vip-bd" nameAlias="" ownerKey="" ownerTag="" type="regular" unicastRoute="yes" unkMacUcastAct="flood" unkMcastAct="flood" vmac="not-applicable">
+			<igmpIfP annotation="" descr="" name="" nameAlias=""/>
+			<fvSubnet annotation="" ctrl="" descr="" ip="69.2.101.1/24" name="" nameAlias="" preferred="no" scope="public" virtual="no"/>
+			<fvRsIgmpsn annotation="" tnIgmpSnoopPolName=""/>
+			<fvRsCtx annotation="" tnFvCtxName="web-ctx"/>
+			<fvRsBdToEpRet annotation="" resolveAct="resolve" tnFvEpRetPolName=""/>
+			<fvRsBDToOut annotation="" tnL3extOutName="student01-lab2-l3out"/>
+			<fvRsBDToNdP annotation="" tnNdIfPolName=""/>
+		</fvBD>
+		<fvBD OptimizeWanBandwidth="no" annotation="" arpFlood="yes" descr="" epClear="no" epMoveDetectMode="" intersiteBumTrafficAllow="no" intersiteL2Stretch="no" ipLearning="yes" limitIpLearnToSubnets="no" llAddr="::" mac="00:22:BD:F8:19:FF" mcastAllow="no" multiDstPktAct="bd-flood" name="web-bd" nameAlias="" ownerKey="" ownerTag="" type="regular" unicastRoute="yes" unkMacUcastAct="flood" unkMcastAct="flood" vmac="not-applicable">
+			<fvSubnet annotation="" ctrl="" descr="" ip="69.2.1.1/24" name="" nameAlias="" preferred="no" scope="public" virtual="no"/>
+			<fvRsIgmpsn annotation="" tnIgmpSnoopPolName=""/>
+			<fvRsCtx annotation="" tnFvCtxName="web-ctx"/>
+			<fvRsBdToEpRet annotation="" resolveAct="resolve" tnFvEpRetPolName=""/>
+			<fvRsBDToOut annotation="" tnL3extOutName="student01-lab2-l3out"/>
+			<fvRsBDToNdP annotation="" tnNdIfPolName=""/>
+		</fvBD>
+		<vnsAbsGraph annotation="" descr="" name="s01-lab2-sg2" nameAlias="" ownerKey="" ownerTag="" uiTemplateType="UNSPECIFIED">
+			<vnsAbsTermNodeProv annotation="" descr="" name="T2" nameAlias="" ownerKey="" ownerTag="">
+				<vnsOutTerm annotation="" descr="" name="" nameAlias=""/>
+				<vnsInTerm annotation="" descr="" name="" nameAlias=""/>
+				<vnsAbsTermConn annotation="" attNotify="no" descr="" name="1" nameAlias="" ownerKey="" ownerTag=""/>
+			</vnsAbsTermNodeProv>
+			<vnsAbsTermNodeCon annotation="" descr="" name="T1" nameAlias="" ownerKey="" ownerTag="">
+				<vnsOutTerm annotation="" descr="" name="" nameAlias=""/>
+				<vnsInTerm annotation="" descr="" name="" nameAlias=""/>
+				<vnsAbsTermConn annotation="" attNotify="no" descr="" name="1" nameAlias="" ownerKey="" ownerTag=""/>
+			</vnsAbsTermNodeCon>
+			<vnsAbsNode annotation="" descr="" funcTemplateType="ADC_ONE_ARM" funcType="GoTo" isCopy="no" managed="no" name="ADC" nameAlias="" ownerKey="" ownerTag="" routingMode="Redirect" sequenceNumber="0" shareEncap="no">
+				<vnsRsNodeToLDev annotation="" tDn="uni/tn-student01-lab2/lDevVip-s01-lab2-bigip"/>
+				<vnsAbsFuncConn annotation="" attNotify="no" descr="" name="consumer" nameAlias="" ownerKey="" ownerTag=""/>
+				<vnsAbsFuncConn annotation="" attNotify="no" descr="" name="provider" nameAlias="" ownerKey="" ownerTag=""/>
+			</vnsAbsNode>
+			<vnsAbsConnection adjType="L3" annotation="" connDir="provider" connType="external" descr="" directConnect="yes" name="C2" nameAlias="" ownerKey="" ownerTag="" unicastRoute="yes">
+				<vnsRsAbsConnectionConns annotation="" tDn="uni/tn-student01-lab2/AbsGraph-s01-lab2-sg2/AbsTermNodeProv-T2/AbsTConn"/>
+				<vnsRsAbsConnectionConns annotation="" tDn="uni/tn-student01-lab2/AbsGraph-s01-lab2-sg2/AbsNode-ADC/AbsFConn-provider"/>
+			</vnsAbsConnection>
+			<vnsAbsConnection adjType="L3" annotation="" connDir="provider" connType="external" descr="" directConnect="yes" name="C1" nameAlias="" ownerKey="" ownerTag="" unicastRoute="yes">
+				<vnsRsAbsConnectionConns annotation="" tDn="uni/tn-student01-lab2/AbsGraph-s01-lab2-sg2/AbsNode-ADC/AbsFConn-consumer"/>
+				<vnsRsAbsConnectionConns annotation="" tDn="uni/tn-student01-lab2/AbsGraph-s01-lab2-sg2/AbsTermNodeCon-T1/AbsTConn"/>
+			</vnsAbsConnection>
+		</vnsAbsGraph>
+		<vnsSvcCont annotation="">
+			<vnsSvcRedirectPol AnycastEnabled="no" annotation="" descr="" hashingAlgorithm="sip-dip-prototype" maxThresholdPercent="0" minThresholdPercent="0" name="student01-pbr" nameAlias="" ownerKey="" ownerTag="" programLocalPodOnly="no" resilientHashEnabled="no" thresholdDownAction="permit" thresholdEnable="no">
+				<vnsRedirectDest annotation="" descr="" destName="" ip="69.2.101.10" ip2="0.0.0.0" mac="00:50:56:9C:DE:88" name="" nameAlias="" podId="1"/>
+			</vnsSvcRedirectPol>
+		</vnsSvcCont>
+		<vnsLDevCtx annotation="" context="" ctrctNameOrLbl="s01-lab2-cntr2" descr="" graphNameOrLbl="s01-lab2-sg2" name="" nameAlias="" nodeNameOrLbl="ADC">
+			<vnsRsLDevCtxToLDev annotation="" tDn="uni/tn-student01-lab2/lDevVip-s01-lab2-bigip"/>
+			<vnsLIfCtx annotation="" connNameOrLbl="consumer" descr="" l3Dest="yes" name="" nameAlias="" permitLog="no">
+				<vnsRsLIfCtxToSvcRedirectPol annotation="" tDn="uni/tn-student01-lab2/svcCont/svcRedirectPol-student01-pbr"/>
+				<vnsRsLIfCtxToLIf annotation="" tDn="uni/tn-student01-lab2/lDevVip-s01-lab2-bigip/lIf-provider"/>
+				<vnsRsLIfCtxToCustQosPol annotation="" tnQosCustomPolName=""/>
+				<vnsRsLIfCtxToBD annotation="" tDn="uni/tn-student01-lab2/BD-vip-bd"/>
+			</vnsLIfCtx>
+			<vnsLIfCtx annotation="" connNameOrLbl="provider" descr="" l3Dest="yes" name="" nameAlias="" permitLog="no">
+				<vnsRsLIfCtxToSvcRedirectPol annotation="" tDn="uni/tn-student01-lab2/svcCont/svcRedirectPol-student01-pbr"/>
+				<vnsRsLIfCtxToLIf annotation="" tDn="uni/tn-student01-lab2/lDevVip-s01-lab2-bigip/lIf-provider"/>
+				<vnsRsLIfCtxToCustQosPol annotation="" tnQosCustomPolName=""/>
+				<vnsRsLIfCtxToBD annotation="" tDn="uni/tn-student01-lab2/BD-vip-bd"/>
+			</vnsLIfCtx>
+		</vnsLDevCtx>
+	</fvTenant>
+</imdata>

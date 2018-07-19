@@ -1,0 +1,13 @@
+<vnsLDevCtx nodeNameOrLbl="ADC" graphNameOrLbl="{{SGtemplate_name}}" dn="uni/tn-{{tenant_name}}/ldevCtx-c-{{contract_name}}-g-{{SGtemplate_name}}-n-ADC" ctrctNameOrLbl="{{contract_name}}" >
+	<vnsRsLDevCtxToLDev tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}"/>
+	<vnsLIfCtx permitLog="no" l3Dest="yes" connNameOrLbl="consumer">
+		<vnsRsLIfCtxToLIf  tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/lIf-provider"/>
+		<vnsRsLIfCtxToBD tDn="uni/tn-{{tenant_name}}/BD-{{consumerBD_name}}"/>
+		<vnsRsLIfCtxToCustQosPol />
+	</vnsLIfCtx>
+	<vnsLIfCtx permitLog="no" l3Dest="yes" connNameOrLbl="provider">
+		<vnsRsLIfCtxToLIf tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/lIf-provider"/>
+		<vnsRsLIfCtxToBD tDn="uni/tn-{{tenant_name}}/BD-{{providerBD_name}}"/>
+		<vnsRsLIfCtxToCustQosPol />
+	</vnsLIfCtx>
+</vnsLDevCtx>

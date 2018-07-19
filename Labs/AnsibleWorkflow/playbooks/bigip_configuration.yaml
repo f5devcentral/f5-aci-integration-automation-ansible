@@ -1,0 +1,139 @@
+- name: BIG-IP setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+  - include_tasks: ../common/onboarding.yaml 
+      bigip_ip="{{bigip1_ip}}"
+      bigip_username="{{bigip1_username}}"
+      bigip_password="{{bigip1_password}}"
+      hostname="{{bigip1_hostname}}"
+    when: '"yes" in onboarding '
+
+  - include_tasks: ../common/onboarding.yaml
+      bigip_ip="{{bigip2_ip}}"
+      bigip_username="{{bigip2_username}}"
+      bigip_password="{{bigip2_password}}"
+      hostname="{{bigip2_hostname}}"
+    when: 
+     - '"yes" in onboarding '
+     - '"HA" in mode '
+ 
+  - include_tasks: ../common/configure_ha.yaml 
+    when: '"HA" in mode '
+
+  - name: Add VLAN(s) on BIG-IP1
+    bigip_vlan:
+      server: "{{bigip1_ip}}"
+      user: "{{ bigip1_username }}"
+      password: "{{ bigip1_password }}"
+      name: "{{tenant_name}}_{{item.name}}"
+      tag: "{{item.id}}"
+      tagged_interfaces:
+      - "{{item.interface}}"
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+    when: '"physical" in device_type '
+
+  - name: Add VLAN(s) on BIG-IP2
+    bigip_vlan:
+      server: "{{bigip2_ip}}"
+      user: "{{ bigip2_username }}"
+      password: "{{ bigip2_password }}"
+      name: "{{tenant_name}}_{{item.name}}"
+      tag: "{{item.id}}"
+      tagged_interfaces:
+      - "{{item.interface}}"
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+    when:
+     - '"physical" in device_type '
+     - '"HA" in mode '
+     
+  - name: Add VLAN(s) on BIG-IP1
+    bigip_vlan:
+      server: "{{bigip1_ip}}"
+      user: "{{ bigip1_username }}"
+      password: "{{ bigip1_password }}"
+      name: "{{tenant_name}}_{{item.name}}"
+      tag: "{{item.id}}"
+      untagged_interfaces:
+      - "{{item.interface}}"
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+    when: '"virtual" in device_type '
+
+  - name: Add VLAN(s) on BIG-IP2
+    bigip_vlan:
+      server: "{{bigip2_ip}}"
+      user: "{{ bigip2_username }}"
+      password: "{{ bigip2_password }}"
+      name: "{{tenant_name}}_{{item.name}}"
+      tag: "{{item.id}}"
+      untagged_interfaces:
+      - "{{item.interface}}"
+      validate_certs: "no"
+    with_items: "{{vlan_information}}"
+    when:
+     - '"virtual" in device_type '
+     - '"HA" in mode '
+
+  - name: Add SELF-IP(s) on BIG-IP1
+    bigip_selfip: 
+     server: "{{bigip1_ip}}"
+     user: "{{ bigip1_username }}"
+     password: "{{ bigip1_password }}"
+     name: "{{tenant_name}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name}}_{{item.vlan}}"
+     validate_certs: "no"
+    with_items: "{{ bigip1_selfip_information }}"
+
+  - name: Add SELF-IP(s) on BIG-IP2
+    bigip_selfip:
+     server: "{{bigip2_ip}}"
+     user: "{{ bigip2_username }}"
+     password: "{{ bigip2_password }}"
+     name: "{{tenant_name}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name}}_{{item.vlan}}"
+     validate_certs: "no"
+    with_items: "{{ bigip2_selfip_information }}"
+    when: '"HA" in mode '
+    
+  - name: Add Floating SELF-IP(s) on BIG-IP1
+    bigip_selfip:
+     server: "{{bigip1_ip}}"
+     user: "{{ bigip1_username }}"
+     password: "{{ bigip1_password }}"
+     name: "{{tenant_name}}_{{item.name}}"
+     address: "{{item.address}}"
+     netmask: "{{item.netmask}}"
+     vlan: "{{tenant_name}}_{{item.vlan}}"
+     traffic_group: "traffic-group-1"
+     validate_certs: "no"
+    with_items: "{{ floating_selfip_information }}"
+    when: '"HA" in mode '
+
+  - name: Add route(s) on BIG-IP1
+    bigip_static_route:
+      server: "{{bigip1_ip}}"
+      user: "{{ bigip1_username }}"
+      password: "{{ bigip1_password }}"
+      name: "{{item.name}}"
+      gateway_address: "{{item.gw_address}}"
+      netmask: "{{item.netmask}}"
+      destination: "{{item.destination}}" 
+      validate_certs: "no"
+    with_items: "{{static_route}}"
+    delegate_to: localhost
+
+  - include_tasks: ../common/http_service.yaml 
+      bigip_ip="{{bigip1_ip}}" 
+      bigip_username="{{bigip1_username}}"
+      bigip_password="{{bigip1_password}}"
+    when: '"yes" in service '

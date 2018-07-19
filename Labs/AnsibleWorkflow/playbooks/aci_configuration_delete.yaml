@@ -1,0 +1,37 @@
+- name: ACI Setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+ 
+  vars_files:
+   - variable.yaml
+   
+  vars:
+    posts: 'aci_posts_delete'
+    
+  tasks:
+
+  - name: Create XML posts from templates
+    template: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - { src: '../{{posts}}/delete_ldev.j2',                   dest: '../{{posts}}/delete_ldev.xml' }
+      - { src: '../{{posts}}/delete_contract.j2',               dest: '../{{posts}}/delete_contract.xml' }
+      - { src: '../{{posts}}/delete_service_graph_template.j2', dest: '../{{posts}}/delete_service_graph_template.xml'}
+      - { src: '../{{posts}}/delete_deviceSelectionPolicy.j2',  dest: '../{{posts}}/delete_deviceSelectionPolicy.xml'}
+      - { src: '../{{posts}}/detach_contract.j2',               dest: '../{{posts}}/detach_contract.xml'}
+  
+  - name: Execute DELETE (Contract, Apply Contract to EPG, Create LDEV, Service Graph Template, Device selection policy , Apply graph)
+    aci_rest:
+      action: "post"
+      path: "/api/node/mo/uni/tn-{{tenant_name}}.xml"
+      config_file: "{{ item }}"
+      host: "{{apic_ip}}"
+      username: "{{apic_username}}"
+      password: "{{apic_password}}"
+      validate_certs: "false"
+    with_items:
+     - "../{{posts}}/delete_contract.xml"
+     - "../{{posts}}/detach_contract.xml"
+     - "../{{posts}}/delete_deviceSelectionPolicy.xml"
+     - "../{{posts}}/delete_service_graph_template.xml"
+     - "../{{posts}}/delete_ldev.xml"
