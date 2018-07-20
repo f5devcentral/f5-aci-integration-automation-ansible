@@ -3,6 +3,9 @@
   connection: local
   gather_facts: false
 
+  vars:
+    bigip1_selfip_information['vlan']: "{{vlan_information[0]['name']}}"
+    
   tasks:
 
   - include_tasks: ../common/onboarding.yaml 
