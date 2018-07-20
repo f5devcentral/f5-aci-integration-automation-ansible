@@ -46,7 +46,6 @@
     user: "{{ bigip_username }}"
     password: "{{ bigip_password }}"
     validate_certs: False
-    module: "{{ item.name }}"
-    level: "{{ item.level }}"
-  with_items: "{{ module_provisioning }}"
+    module: "ltm"
+    level: "nominal"
   delegate_to: localhost
