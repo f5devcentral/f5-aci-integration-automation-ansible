@@ -24,7 +24,7 @@
     user: "{{ bigip_username }}"
     password: "{{ bigip_password }}"
     banner: "enabled"
-    banner_text: " {{ banner_text }}"
+    banner_text: "Welcome to BIG-IP SSH login"
     validate_certs: False
   delegate_to: localhost
 
