@@ -60,10 +60,10 @@ appProfile_name: "app"
 consumerEPG_name: "epg-l3out"
 providerEPG_name: "web-epg" 
 
-SGtemplate_name: "sxx-sgt"
-contract_name: "sxx-cntr"
+SGtemplate_name: "sgt"
+contract_name: "cntr"
 
-logicalDeviceCluster_name: "sxx-bigip"
+logicalDeviceCluster_name: "bigip"
 
 #################
 #BIG-IP information
