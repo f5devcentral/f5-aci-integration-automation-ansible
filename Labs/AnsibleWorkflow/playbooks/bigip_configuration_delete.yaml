@@ -3,9 +3,6 @@
   connection: local
   gather_facts: false
 
-  vars_files:
-    - variable.yaml
-
   tasks:
 
   - include_tasks: ../common/http_service_cleanup.yaml
