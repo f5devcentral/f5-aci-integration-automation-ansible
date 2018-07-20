@@ -15,7 +15,7 @@
     user: "{{ bigip_username }}"
     password: "{{ bigip_password }}"
     validate_certs: False
-    hostname:  "{{ hostname }}"
+    hostname:  "bigip01.lab.test.local"
   delegate_to: localhost
 
 - name: Manage SSHD setting on BIG-IP
