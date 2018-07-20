@@ -3,7 +3,9 @@
     server: "{{ bigip_ip }}"
     user: "{{ bigip_username }}"
     password: "{{ bigip_password }}"
-    ntp_servers: "{{ ntp_servers }}"
+    ntp_servers:
+     - '172.27.1.1'
+     - '172.27.1.2'
     validate_certs: False
   delegate_to: localhost
 
@@ -31,8 +33,10 @@
    server: "{{ bigip_ip }}"
    user: "{{ bigip_username }}"
    password: "{{ bigip_password }}"
-   name_servers: "{{ dns_servers }}"
-   ip_version: "{{ ip_version }}"
+   name_servers:
+    - '8.8.8.8'
+    - '4.4.4.4
+   ip_version: "4"
    validate_certs: False
   delegate_to: localhost
 
