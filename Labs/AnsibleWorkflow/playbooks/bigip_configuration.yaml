@@ -89,7 +89,7 @@
      address: "{{item.address}}"
      netmask: "{{item.netmask}}"
      #vlan: "{{tenant_name}}_{{item.vlan}}"
-     vlan: "{{tenant_name}}_"{{vlan_information[0]['name']}}"
+     vlan: "{{tenant_name}}_{{vlan_information[0]['name']}}"
      validate_certs: "no"
     with_items: "{{ bigip1_selfip_information }}"
 
