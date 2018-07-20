@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars:
-    bigip1_selfip_information['vlan']: "{{vlan_information[0]['name']}}"
+    bigip1_selfip_information[0]['vlan']: "{{vlan_information[0]['name']}}"
     
   tasks:
 
