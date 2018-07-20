@@ -2,10 +2,7 @@
   hosts: localhost
   connection: local
   gather_facts: false
- 
-  vars_files:
-   - variable.yaml
-   
+
   vars:
     posts: 'aci_posts_delete'
     
