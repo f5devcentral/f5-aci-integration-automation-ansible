@@ -35,7 +35,7 @@
    password: "{{ bigip_password }}"
    name_servers:
     - '8.8.8.8'
-    - '4.4.4.4
+    - '4.4.4.4'
    ip_version: "4"
    validate_certs: False
   delegate_to: localhost
