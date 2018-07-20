@@ -50,7 +50,6 @@
       port: "{{item.0.vip_port}}"
       enabled_vlans:
        - "{{tenant_name}}_{{vlan_information[0]['name']}}"
-       - "{{tenant_name}}_{{vlan_information[1]['name']}}"
       all_profiles: "{{item.1}}"
       pool: "{{tenant_name}}_{{item.0.pool_name}}"
       snat: "{{item.0.snat}}"
