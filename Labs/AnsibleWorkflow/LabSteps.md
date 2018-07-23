@@ -170,7 +170,7 @@ You will see the Configure-Workflow job being executed, click on it. It will tak
 
 Once the playbook has executed sucessfully again click on **Jobs**. You will see five jobs got executed as part of the workflow. From the bottom
 
-* Git project SCM update (before a playbook is run the GIT repo is updated to make sure the latest code is available
+* Git project SCM update (before a playbook is run the GIT repo is updated to make sure the latest code is available)
 * Configure-ACI
 * Git project SCM update
 * Configure-BIG-IP
