@@ -150,6 +150,34 @@ Click Launch once the Survey is filled according to the parameters above
 
 At this point the playbook is executing. It will first configure the APIC and then the BIG-IP
 
+You will see the status of the playbook is in mode **Running**. The workflow will first execute Configure-ACI playbook. Click on details
+
+![](images/Tower-RunWorflow1.png)
+
+The new window will indicate the progress of running playbook **Configure-ACI**
+
+![](images/Tower-RunWorflow2.png)
+
+After the playbook has executed sucessfully click on **Jobs** on the top left hand corner
+
+![](images/Tower-RunWorflow3.png)
+
+You will see the Configure-Workflow job being executed, click on it. It will take you back to the workflow execution, at this point the **Configure-ACI** playbook would have executed sucessfully and the playbook **Configure-BIG-IP** will be getting executed. Click on details
+
+![](images/Tower-RunWorflow4.png)
+
+![](images/Tower-RunWorflow5.png)
+
+Once the playbook has executed sucessfully again click on **Jobs**. You will see five jobs got executed as part of the workflow. From the bottom
+
+* Git project SCM update (before a playbook is run the GIT repo is updated to make sure the latest code is available
+* Configure-ACI
+* Git project SCM update
+* Configure-BIG-IP
+* Workflow execution
+
+![](images/Tower-RunWorflow6.png)
+
 ## Verifying the Deployment
 
 Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser (if the previous session has timed out): 
