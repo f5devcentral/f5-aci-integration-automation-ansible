@@ -71,7 +71,6 @@ Edit the paramters to the following:
 #################
 #APIC information
 #################
-tenant_name: "studentxx"
 consumerBD_name: "vip-bd" 
 providerBD_name: "vip-bd"
 
@@ -143,6 +142,7 @@ BIG-IP password = 'cisco123'
 APIC IPAddress = '172.21.208.173'
 APIC username = 'studentxx'
 APIC password = 'ciscolive.2018'
+APIC Tenant Name = 'studentxx'
 ```
 Click Launch once the Survey is filled according to the parameters above
 
