@@ -125,6 +125,9 @@ vips:
 ```
 
 Scroll to the bottom and click on the 'Rocket' icon next to the template.
+
+![](images/Tower-LaunchWorkflow.png)
+
 This will launch the playbook. A survey will pop up when the rocket button is clicked.
 The survey is an Ansible Tower feature to allow users to provide input to the playbook while executing the playbook. These are variables passed to the playbook along with the input provided in the 'Extra Variables' text box earlier.
 
@@ -141,6 +144,9 @@ APIC IPAddress = '172.21.208.173'
 APIC username = 'studentxx'
 APIC password = 'ciscolive.2018'
 ```
+Click Launch once the Survey is filled according to the parameters above
+
+![](images/Tower-LaunchSurvey.png)
 
 ## Verifying the Deployment
 
