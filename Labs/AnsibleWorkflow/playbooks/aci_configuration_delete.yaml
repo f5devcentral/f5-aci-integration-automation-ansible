@@ -15,7 +15,8 @@
       - { src: '../{{posts}}/delete_contract.j2',               dest: '../{{posts}}/delete_contract.xml' }
       - { src: '../{{posts}}/delete_service_graph_template.j2', dest: '../{{posts}}/delete_service_graph_template.xml'}
       - { src: '../{{posts}}/delete_deviceSelectionPolicy.j2',  dest: '../{{posts}}/delete_deviceSelectionPolicy.xml'}
-      - { src: '../{{posts}}/detach_contract.j2',               dest: '../{{posts}}/detach_contract.xml'}
+      - { src: '../{{posts}}/detach_prov_contract.j2',          dest: '../{{posts}}/detach_prov_contract.xml'}
+      - { src: '../{{posts}}/detach_cons_contract.j2',          dest: '../{{posts}}/detach_cons_contract.xml'}
   
   - name: Execute DELETE (Contract, Apply Contract to EPG, Create LDEV, Service Graph Template, Device selection policy , Apply graph)
     aci_rest:
@@ -28,7 +29,8 @@
       validate_certs: "false"
     with_items:
      - "../{{posts}}/delete_contract.xml"
-     - "../{{posts}}/detach_contract.xml"
+     - "../{{posts}}/detach_prov_contract.xml"
+     - "../{{posts}}/detach_cons_contract.xml"
      - "../{{posts}}/delete_deviceSelectionPolicy.xml"
      - "../{{posts}}/delete_service_graph_template.xml"
      - "../{{posts}}/delete_ldev.xml"
