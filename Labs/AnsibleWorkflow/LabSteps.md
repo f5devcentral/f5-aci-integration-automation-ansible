@@ -25,6 +25,8 @@ Click on **Lab-Git-Project**. This is a view only permission.
 
 The SCM URL defines the Github repo from where the playbooks and other content is being pulled from.
 
+![](images/Tower-Project2.png)
+
 Click on **Templates** located in the top level menu: 
 
 Click on the template **Configure-ACI**
@@ -32,17 +34,21 @@ Click on the template **Configure-ACI**
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - aci_configuration.yaml).
 
-![](images/Tower-Project2.png)
+![](images/Tower-Template1.png)
 
+![](images/Tower-Template2.png)
+
+Scroll down
 Click on the template **Configure-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
 
-![](images/Tower-Project3.png)
+![](images/Tower-Template3.png)
 
 A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
+Scroll down
 Click on the template **Configure-Workflow**. 
 This is a workflow template consisting of two playbooks we viewed earlier
 1) Configure-ACI
