@@ -35,11 +35,9 @@ Click on the template **Configure-ACI**
 * There is a ansible playbook associated with the template (pulled from GIT - aci_configuration.yaml).
 
 ![](images/Tower-Template1.png)
-
 ![](images/Tower-Template2.png)
 
-Scroll down
-Click on the template **Configure-BIG-IP**
+Scroll down -> Click on the template **Configure-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
@@ -48,20 +46,22 @@ Click on the template **Configure-BIG-IP**
 
 A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
-Scroll down
-Click on the template **Configure-Workflow**. 
+Scroll down -> Click on the template **Configure-Workflow**. 
 This is a workflow template consisting of two playbooks we viewed earlier
 1) Configure-ACI
 2) Configure-BIG-IP
 
-![](images/Tower-Workflow1.png)
+![](images/Tower-Workflow.png)
 
 Click on the 'Workflow Editor' button to view the workflow configured
+
+![](images/Tower-Workflow1.png)
+
 After viewing 'close' the workflow editor
 
 ![](images/Tower-Workflow2.png)
 
-View the paramters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow
+View the paramters in the **Extra Variables** text box. Values that you provide here will be provided as input to the playbooks in the workflow
 
 ![](images/Tower-Workflow3.png)
 
