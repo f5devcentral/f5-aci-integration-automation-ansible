@@ -19,7 +19,10 @@ Connect to the Ansible tower using the following information:
 * **password**: cisco123
 
 Once you are logged in click on **Projects** located in the top level menu
-Click on 'Lab-Git-Project'. This is a view only permission.
+Click on **Lab-Git-Project**. This is a view only permission.
+
+![](images/images.png)
+
 The SCM URL defines the Github repo from where the playbooks and other content is being pulled from.
 
 Click on **Templates** located in the top level menu: 
