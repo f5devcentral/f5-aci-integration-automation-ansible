@@ -21,7 +21,7 @@ Connect to the Ansible tower using the following information:
 Once you are logged in click on **Projects** located in the top level menu
 Click on **Lab-Git-Project**. This is a view only permission.
 
-![](images/images.png)
+![](images/Tower-Project1.png)
 
 The SCM URL defines the Github repo from where the playbooks and other content is being pulled from.
 
