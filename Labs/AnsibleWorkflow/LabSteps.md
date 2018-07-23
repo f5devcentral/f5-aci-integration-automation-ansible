@@ -148,6 +148,8 @@ Click Launch once the Survey is filled according to the parameters above
 
 ![](images/Tower-LaunchSurvey.png)
 
+At this point the playbook is executing. It will first configure the APIC and then the BIG-IP
+
 ## Verifying the Deployment
 
 Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser (if the previous session has timed out): 
