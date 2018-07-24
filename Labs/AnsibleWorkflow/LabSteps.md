@@ -45,12 +45,16 @@ Click on the template **Configure-ACI**
 ![](images/Tower-Template1.png)
 ![](images/Tower-Template2.png)
 
+PUT IN WHAT THE PLAYBOOK DOES
+
 Scroll down -> Click on the template **Configure-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
 
 ![](images/Tower-Template3.png)
+
+PUT IN WHAT THE PLAYBOOK DOES
 
 A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
@@ -157,6 +161,7 @@ APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
 Click Launch once the Survey is filled according to the parameters above
 
 ![](images/Tower-LaunchSurvey.png)
+CHANGE THIS IMAGE TO NOT SHOW student01 !!!!!
 
 At this point the playbook is executing. It will first configure the APIC and then the BIG-IP
 
