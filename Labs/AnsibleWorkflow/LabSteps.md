@@ -8,6 +8,12 @@ We will use the F5 BIG-IP VE Virtual ADC to demonstrate this functionality.
 
 ## Topology ##
 
+## Getting started ##
+- Talk about ACI
+- Talk about Ansible Tower
+
+What is stitching about, what are we accomplishing here.
+
 ## Automate configuration on APIC and BIG-IP device using Ansible
 
 We will provision the APIC and BIG-IP using Ansible for a couple of reasons. Ansible is an open source automation platform that can help with configuration management, application deployment, and task automation. It can also do IT orchestration, where you have to run tasks in sequence and create a chain of events which must happen on several different servers or devices.
