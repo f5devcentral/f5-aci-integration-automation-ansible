@@ -65,23 +65,23 @@ View the paramters in the **Extra Variables** text box. Values that you provide 
 
 ![](images/Tower-Workflow3.png)
 
-Edit the paramters to the following:
+Scroll through and make sure the following paramters are specified:
 
 ```
 #################
 #APIC information
 #################
-consumerBD_name: "vip-bd" 
-providerBD_name: "vip-bd"
+consumerBD_name: "vip-bd" 			#Consumer Bridge domain name
+providerBD_name: "vip-bd"			#Provider bridge domain name
 
-appProfile_name: "app"
-consumerEPG_name: "epg-l3out"
-providerEPG_name: "web-epg" 
+appProfile_name: "app"				#Application profile name
+consumerEPG_name: "epg-l3out"			#Consumer EPG name
+providerEPG_name: "web-epg" 			#Provider EPG name
 
-SGtemplate_name: "sgt"
-contract_name: "cntr"
+SGtemplate_name: "sgt"				#Service graph template name
+contract_name: "cntr"				#Contract name
 
-logicalDeviceCluster_name: "bigip"
+logicalDeviceCluster_name: "bigip"		#Logical Device Cluster name
 
 #################
 #BIG-IP information
@@ -140,9 +140,9 @@ BIG-IP IPAddress = '172.21.208.109'
 BIG-IP username = 'admin'
 BIG-IP password = 'cisco123'
 APIC IPAddress = '172.21.208.173'
-APIC username = 'studentxx'
+APIC username = 'studentxx'	#Replace xx to your student ID
 APIC password = 'ciscolive.2018'
-APIC Tenant Name = 'studentxx'
+APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
 ```
 Click Launch once the Survey is filled according to the parameters above
 
