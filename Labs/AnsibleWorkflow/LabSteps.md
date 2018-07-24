@@ -73,6 +73,8 @@ View the paramters in the **Extra Variables** text box. Values that you provide 
 
 ![](images/Tower-Workflow3.png)
 
+PUT in an IMAGE for extra variable and survey input !!!!!
+
 Scroll through and make sure the following paramters are specified:
 
 ```
