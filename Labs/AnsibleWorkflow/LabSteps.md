@@ -176,6 +176,8 @@ Once the playbook has executed sucessfully again click on **Jobs**. You will see
 * Configure-BIG-IP
 * Workflow execution
 
+The JOB ID in the screen shot does not need to match what you see
+
 ![](images/Tower-RunWorflow6.png)
 
 ## Verifying the Deployment
@@ -217,15 +219,15 @@ Connect to the Ansible tower using the following information:
 
 Click on **Templates** located in the top level menu: 
 
-Click on the template **Cleanup-ACI**
-* This is a view only template. This template will not be launched.
-* There is a project associated with the template (which is the GIT project).
-* There is a ansible playbook associated with the template (pulled from GIT - aci_configuration.yaml).
-
 Click on the template **Cleanup-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
-* There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
+* There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration_delete.yaml).
+
+Click on the template **Cleanup-ACI**
+* This is a view only template. This template will not be launched.
+* There is a project associated with the template (which is the GIT project).
+* There is a ansible playbook associated with the template (pulled from GIT - aci_configuration_delete.yaml).
 
 A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
@@ -237,11 +239,7 @@ This is a workflow template consisting of two playbooks we viewed earlier
 Click on the 'Workflow Editor' button to view the workflow configured
 After viewing 'close' the workflow editor
 
-View the paramters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow. We will use the same paramters as used in the configuration workflow. Here the values have been provided by default in the 'Extra Variables' text box. Edit only the tenant name to refect your tenant
-
-```
-tenant_name: 'studentxx'
-```
+View the paramters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow. We will use the same paramters as used in the configuration workflow. 
 
 Scroll to the bottom and click on the 'Rocket' icon next to the template.
 This will launch the playbook. A survey will pop up when the rocket button is clicked. The survey values have default values specified.
@@ -249,6 +247,7 @@ Enter the value for the APIC username to refect you student ID
 
 ```
 APIC username = 'studentxx'
+Tenant name = 'studentxx'
 ```
 
 Click next to launch the playbook
