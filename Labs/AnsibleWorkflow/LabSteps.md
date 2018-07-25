@@ -202,7 +202,7 @@ After the playbook has executed sucessfully click on **Jobs** on the top left ha
 
 ![](images/Tower-RunWorflow3.png)
 
-You will see the Configure-Workflow job being executed, click on it. It will take you back to the workflow execution, at this point the **Configure-ACI** playbook would have executed sucessfully and the playbook **Configure-BIG-IP** will be getting executed. Click on details
+You will see the Configure-Workflow job being executed (blinking green icon next to it), click it. It will take you back to the workflow execution, at this point the **Configure-ACI** playbook would have executed sucessfully and the playbook **Configure-BIG-IP** will be getting executed. Click on details
 
 ![](images/Tower-RunWorflow4.png)
 
