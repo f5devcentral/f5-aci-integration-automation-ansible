@@ -352,12 +352,13 @@ Connect to the Ansible tower using the following information:
 
 Click on **Templates** located in the top level menu: 
 
+![](images/Tower-Cleanup-Template1.png)
+
 Click on the template **Cleanup-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration_delete.yaml).
 
-![](images/Tower-Cleanup-Template1.png)
 ![](images/Tower-Cleanup-Template2.png)
 
 **Playbook contents - bigip_configuration_delete.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration_delete.yaml)
