@@ -220,6 +220,8 @@ The JOB ID in the screen shot does not need to match what you see
 
 ![](images/Tower-RunWorflow6.png)
 
+This concludes the section on using Ansible playbooks to configure APIC and BIG-IP
+
 ## Verifying the Deployment
 
 ### Verify APIC configuration
@@ -295,23 +297,41 @@ The graph is in state **applied** which indicates it was deployed correctly
 
 ### Verify BIG-IP configuration
 
-Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser (if the previous session has timed out): 
- 
+Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser 
+
 * BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
 * Username: **admin**  
 * Password: **cisco123**  
 
-On the **Main** menu click **Local Traffic -> Network Map**. You should be able to see the virtual server is created along with its pool and pool members.
+On the left Navigation menu, click the **Network -> VLAN** and you should be able to see the vlan assigned to the interface 1_1
 
-On the left Navigation menu, click the **Local Traffic -> Virtual Servers** and you should be able to see the brief Virtual IP information. You can see that the VIP is currently listening on HTTP port 80.
+![](images/BIGIP-vlan.png)
+
+On the left Navigation menu, click the **Network -> Self IPs** and you should be able to see the Self-IP added and assigend to VLAN above
+
+![](images/BIGIP-Selfip.png)
+
+On the left Navigation menu, Click **Local Traffic -> Nodes** and you should see the brief information of the real server pool information
+
+![](images/BIGIP-nodes.png)
+
+Click **Local Traffic -> Pools** , click on the Pool
+
+![](images/BIGIP-pool.png)
+
+Click the hyperlink under **Name** and you should be directed to the Pool **Properties** page. Now click the **Members** tab and you should see the real servers (pool members) we configured when we were deploying the service graph.
+
+![](images/BIGIP-poolmembers.png)
+
+Click the **Local Traffic -> Virtual Servers** and you should be able to see the brief Virtual IP information. You can see that the VIP is currently listening on HTTP port 80.
+
+![](images/BIGIP-vs.png)
 
 In the **Virtual Server List**, click the **Name** in the hyperlink and you will see the **Property** of the Virtual Server with more detailed information. The configured the parameters will appear here. 
 
-Click the **Resources** tab and you should see the both **Default** and **Fallback** persistence profiles are set to **None**.  
+Click the **Resources** tab and you should see the both **Default** and **Fallback** persistence profiles are set to **None**. Also the **Default Pool** has been set.
 
-Click **Local Traffic -> Pools** and you should see the brief information of the real server pool information:
-
-Click the hyperlink under **Name** and you should be directed to the Pool **Properties** page. Now click the **Members** tab and you should see the real servers (pool members) we configured when we were deploying the service graph.
+![](images/BIGIP-vs1.png)
 
 You can now verify the Virtual Server (or VIP) by using your browser and entering the VIP into the address window:  
 
@@ -323,7 +343,7 @@ Press the enter button (do not use the refresh button of your browser) at the IP
 
 We have verified connectivity to the web server via the ADC VIP.
 
-## Automate cleanup on BIG-IP and APIC device using Ansible
+## Automate cleanup on BIG-IP and APIC using Ansible
 
 Connect to the Ansible tower using the following information:
 * **Ansible Tower Address**: 172.21.208.250
@@ -337,12 +357,35 @@ Click on the template **Cleanup-BIG-IP**
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration_delete.yaml).
 
-Click on the template **Cleanup-ACI**
+**Playbook contents - bigip_configuration_delete.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration_delete.yaml)
+* Calls another playbook named **http_service_cleanup.yaml** to delete L7 configuration. To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/http_service_cleanup.yaml)
+* Deletes the L7 configuration
+	* Node members
+	* Pool
+	* Virtual Server
+* Delete the network configuration
+	* VLAN
+	* Self-IP
+	* Static route
+
+Go back to Ansible Tower, Click on the template **Cleanup-ACI**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - aci_configuration_delete.yaml).
 
-A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
+**Playbook contents - aci_configuration_delete.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration_delete.yaml)
+* Take as input Jinga2 files and covert them to XML files
+	* Jinga2 files allow the user to variabalize the content as needed. To view the Jinga2 files used for this playbook [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/tree/master/Labs/AnsibleWorkflow/aci_posts_delete)
+* Use the aci_rest Ansible module and post the XML files created in the above step to ACI. Following is what is getting deleted on the APIC. To view the playbook contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration_delete.yaml)
+	* Contract
+	* Dettach service graph template to contract
+		* Device selection policy
+		* Unassign provided contract to provider EPG
+		* Unassign consumer contract to consumer EPG
+	* Service graph template
+	* Logical Device Cluster
+
+Go back to Ansible Tower, a workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
 Click on the template **Cleanup-Workflow**. 
 This is a workflow template consisting of two playbooks we viewed earlier
