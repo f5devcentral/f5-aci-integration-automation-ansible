@@ -187,7 +187,6 @@ APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
 Click Launch once the Survey is filled according to the parameters above
 
 ![](images/Tower-LaunchSurvey.png)
-CHANGE THIS IMAGE TO NOT SHOW student01 !!!!!
 
 At this point the playbook is executing. It will first configure the APIC and then the BIG-IP
 
@@ -222,6 +221,44 @@ The JOB ID in the screen shot does not need to match what you see
 ![](images/Tower-RunWorflow6.png)
 
 ## Verifying the Deployment
+
+# Verify APIC configuration
+Let's login into the APIC with the following username and password from the web browser
+
+* APIC : http://172.21.208.173
+* Username: {TSTUDENT}
+* Password: ciscolive.2018
+
+On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your student ID. Example: student01. This will open up your tenant on the left hand side of the APIC GUI pane
+
+![](images/APIC-tenant.png)
+
+In the left hand pane under your tenant to view the logical device cluster deployed click on Services->L4-L7->Devices->bigip
+
+![](images/APIC-LDC.png)
+
+In the logical device cluster the following has been configured
+* Name: **bigip**  
+* Service Type: **ADC**  
+* Device Type: **Virtual**  
+* VMM Domain: **VMware/CLBerlin2016** 
+* View: **Single Node**
+* Context Aware: **Single**  
+* Function Type: **GoTo**  
+* Device 1
+	* VM Nme: **{TBIGIPVM}** #Name of the BIG-IP Virtual Edition
+	* vCenter name: **DMZ_VC**
+	* Interface: 1_1 (One arm mode so only one interface on BIG-IP specified for client and server traffic)
+* Logical interface
+	* Consumer is mapped to Device1 interface 1_1
+	* Provider is mapped to Device1 interface 1_1
+
+Under your tenant to view the service graph template click on Services->L4-L7->Service Graph Template->sgt
+
+![](images/APIC-SGT.png)
+
+
+# Verify BIG-IP configuration
 
 Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser (if the previous session has timed out): 
  
