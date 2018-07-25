@@ -295,23 +295,41 @@ The graph is in state **applied** which indicates it was deployed correctly
 
 ### Verify BIG-IP configuration
 
-Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser (if the previous session has timed out): 
- 
+Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser 
+
 * BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
 * Username: **admin**  
 * Password: **cisco123**  
 
-On the **Main** menu click **Local Traffic -> Network Map**. You should be able to see the virtual server is created along with its pool and pool members.
+On the left Navigation menu, click the **Network -> VLAN** and you should be able to see the vlan assigned to the interface 1_1
 
-On the left Navigation menu, click the **Local Traffic -> Virtual Servers** and you should be able to see the brief Virtual IP information. You can see that the VIP is currently listening on HTTP port 80.
+![](images/BIGIP-vlan.png)
+
+On the left Navigation menu, click the **Network -> Self IPs** and you should be able to see the Self-IP added and assigend to VLAN above
+
+![](images/BIGIP-Selfip.png)
+
+On the left Navigation menu, Click **Local Traffic -> Nodes** and you should see the brief information of the real server pool information
+
+![](images/BIGIP-nodes.png)
+
+Click **Local Traffic -> Pools** , click on the Pool
+
+![](images/BIGIP-pools.png)
+
+Click the hyperlink under **Name** and you should be directed to the Pool **Properties** page. Now click the **Members** tab and you should see the real servers (pool members) we configured when we were deploying the service graph.
+
+![](images/BIGIP-poolmembers.png)
+
+Click the **Local Traffic -> Virtual Servers** and you should be able to see the brief Virtual IP information. You can see that the VIP is currently listening on HTTP port 80.
+
+![](images/BIGIP-vs.png)
 
 In the **Virtual Server List**, click the **Name** in the hyperlink and you will see the **Property** of the Virtual Server with more detailed information. The configured the parameters will appear here. 
 
-Click the **Resources** tab and you should see the both **Default** and **Fallback** persistence profiles are set to **None**.  
+Click the **Resources** tab and you should see the both **Default** and **Fallback** persistence profiles are set to **None**. Also the **Default Pool** has been set.
 
-Click **Local Traffic -> Pools** and you should see the brief information of the real server pool information:
-
-Click the hyperlink under **Name** and you should be directed to the Pool **Properties** page. Now click the **Members** tab and you should see the real servers (pool members) we configured when we were deploying the service graph.
+![](images/BIGIP-vs1.png)
 
 You can now verify the Virtual Server (or VIP) by using your browser and entering the VIP into the address window:  
 
