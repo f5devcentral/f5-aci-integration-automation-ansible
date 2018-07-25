@@ -410,22 +410,18 @@ After viewing 'close' the workflow editor
 
 View the parameters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow. We will use the same paramters as used in the configuration workflow. 
 
-![](images/Tower-Cleanup-Launchworkflow.png)
-
 Scroll to the bottom and click on the 'Rocket' icon next to the template.
+
+![](images/Tower-Cleanup-Launchworkflow.png)
 
 This will launch the playbook. A survey will pop up when the rocket button is clicked. The survey values have default values specified.
 Enter the value for the APIC username and APIC tenant to refect you student ID
 
-```
-APIC username = 'studentxx'
-Tenant name = 'studentxx'
-```
 ![](images/Tower-Cleanup-Launchsurvey.png)
 
 Click next to launch the playbook
 
-At this point the playbook is executing. It will first configure the APIC and then the BIG-IP
+At this point the playbook is executing. It will first cleanup the BIG-IP and then the APIC
 
 You will see the status of the playbook is in mode **Pending**. The workflow will first execute Cleanup-BIG-IP playbook. Click on **details**
 
@@ -455,7 +451,7 @@ The JOB ID in the screen shot does not need to match what you see
 
 ![](images/Tower-Cleanup-Workflowexecution4.png)
 
-This concludes the section on using Ansible playbooks to cleanup the  APIC and BIG-IP
+This concludes the section on using Ansible playbooks to cleanup the APIC and BIG-IP
 
 ## Verifying the cleanup of the deployment
 
