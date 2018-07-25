@@ -2,17 +2,27 @@
 
 >**Please note that the images used in the lab guide are representative and NOT based on any specific pod. Please use the information in the lab guide instead.**
 
-Lab will be used to demonstrate L4-L7 service insertion in unmanaged mode to simulate an enterprise network and/or cloud provider’s application delivery offering while allowing the application owner to manage the L4-L7 device using their prefered tool. 
-
-We will use the F5 BIG-IP VE Virtual ADC to demonstrate this functionality.
-
-## Topology ##
-
 ## Getting started ##
-- Talk about ACI
-- Talk about Ansible Tower
 
-What is stitching about, what are we accomplishing here.
+Cisco Application Centric Infrastructure (ACI) technology provides the capability to insert Layer 4 through Layer 7 (L4-L7) functions using an approach called a service graph. The servive graph controls network connectivity consisting of VLANs, IP addresses, etc.
+
+![]/(images/Ansible-topology.png)
+
+Lab will be used to demonstrate L4-L7 service insertion in unmanaged mode to simulate an enterprise network and/or cloud provider’s application delivery offering while allowing the application owner to manage the L4-L7 device using Ansible. 
+
+The goal is to provide a central point of control to configure both the Cisco APIC as well as the F5 BIG-IP. Network stitching is achieved by automating the deployment of a service graph on APIC and L4-L7 configuration is automated directly on the BIG-IP
+
+![]/images/Ansible-logicaldiagram.png)
+
+In this lab
+* We will use the F5 BIG-IP VE Virtual ADC to demonstrate this functionality
+* The service graph will be deployed in One-ARM mode which implies **one** interface will be consumed on the BIG-IP which handles the client as well as server traffic
+* A default route will be configured on the BIG-IP
+* SNAT = Automap will be configured on the BIG-IP (return traffic from backend servers and forced to pass back through the BIG-IP)
+
+The EPG's used **web-epg** (provider) and **l3out-epg** (consumer)
+
+![](images/Ansible-topology1.png)
 
 ## Automate configuration on APIC and BIG-IP using Ansible
 
