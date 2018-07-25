@@ -283,7 +283,7 @@ In the left hand pane under your tenant to view the provided contract assigned t
 
 Contract **cntr** is assigned as a Provided contract to EPG **web-epg**
 
-In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on **Networking->External Routed Networks->studentxx-l3out->Netwokrs->epg-l3out**
+In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
 
 ![](images/APIC-Cons-Contract.png)
 
@@ -483,7 +483,7 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 * Click on **Contracts->Standard**
 * Click on **Services->L4-L7->Device Selection Policy**
 * Click on **Application Profiles->app->Application EPGs->web-epg->Contracts** 
-* Click on **Networking->External Routed Networks->studentxx-l3out->Netwokrs->epg-l3out**
+* Click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
 * Click on **Services->L4-L7-Deployed Graph Instances**
 
 This concludes this section of the Lab
