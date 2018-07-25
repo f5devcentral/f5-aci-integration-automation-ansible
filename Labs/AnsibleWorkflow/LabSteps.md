@@ -220,6 +220,8 @@ The JOB ID in the screen shot does not need to match what you see
 
 ![](images/Tower-RunWorflow6.png)
 
+This concludes the section on using Ansible playbooks to configure APIC and BIG-IP
+
 ## Verifying the Deployment
 
 ### Verify APIC configuration
@@ -341,7 +343,7 @@ Press the enter button (do not use the refresh button of your browser) at the IP
 
 We have verified connectivity to the web server via the ADC VIP.
 
-## Automate cleanup on BIG-IP and APIC device using Ansible
+## Automate cleanup on BIG-IP and APIC using Ansible
 
 Connect to the Ansible tower using the following information:
 * **Ansible Tower Address**: 172.21.208.250
@@ -355,12 +357,35 @@ Click on the template **Cleanup-BIG-IP**
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration_delete.yaml).
 
-Click on the template **Cleanup-ACI**
+**Playbook contents - bigip_configuration_delete.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration_delete.yaml)
+* Calls another playbook named **http_service_cleanup.yaml** to delete L7 configuration. To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/http_service_cleanup.yaml)
+* Deletes the L7 configuration
+	* Node members
+	* Pool
+	* Virtual Server
+* Delete the network configuration
+	* VLAN
+	* Self-IP
+	* Static route
+
+Go back to Ansible Tower, Click on the template **Cleanup-ACI**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - aci_configuration_delete.yaml).
 
-A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
+**Playbook contents - aci_configuration_delete.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration_delete.yaml)
+* Take as input Jinga2 files and covert them to XML files
+	* Jinga2 files allow the user to variabalize the content as needed. To view the Jinga2 files used for this playbook [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/tree/master/Labs/AnsibleWorkflow/aci_posts_delete)
+* Use the aci_rest Ansible module and post the XML files created in the above step to ACI. Following is what is getting deleted on the APIC. To view the playbook contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration_delete.yaml)
+	* Contract
+	* Dettach service graph template to contract
+		* Device selection policy
+		* Unassign provided contract to provider EPG
+		* Unassign consumer contract to consumer EPG
+	* Service graph template
+	* Logical Device Cluster
+
+Go back to Ansible Tower, a workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
 Click on the template **Cleanup-Workflow**. 
 This is a workflow template consisting of two playbooks we viewed earlier
