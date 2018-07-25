@@ -231,7 +231,7 @@ Let's login into the APIC with the following username and password from the web 
 
 On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your student ID. Example: student01. This will open up your tenant on the left hand side of the APIC GUI pane
 
-![](images/APIC-tenant.png)
+![](images/APIC-Tenant.png)
 
 In the left hand pane under your tenant to view the logical device cluster deployed click on Services->L4-L7->Devices->bigip
 
@@ -253,13 +253,46 @@ In the logical device cluster the following has been configured
 	* Consumer is mapped to Device1 interface 1_1
 	* Provider is mapped to Device1 interface 1_1
 
-Under your tenant to view the service graph template click on Services->L4-L7->Service Graph Template->sgt
+In the left hand pane under your tenant to view the service graph template click on Services->L4-L7->Service Graph Template->sgt
 
 ![](images/APIC-SGT.png)
 
 The service graph template has been configured
 * One-Arm mode
-* Associated to logical device cluster **bigip** created above
+* Associated to logical device cluster **bigip** 
+
+To deploy the service graph a few steps are needed 1) Assign service graph template to contract 2)Create device selection policy 3) Attach contracts to the correct EPG's
+
+In the left hand pane under your tenant to view the contract click on Contracts->Standard->cntr
+
+![](images/APIC-Contract.png)
+
+The service graph template **sgt** has been assigned to the contract
+
+In the left hand pane under your tenant to view the device selection policy click on Services->L4-L7->DEvice Selection Policy->cntr->sgt->ADC
+
+![](images/APIC-SGT.png)
+
+The logical device context instructs Cisco Application Centric Infrastructure (ACI) about which load balancer device to use to render a graph. The device **bigip** is assigned for rendering the graph
+
+In the left hand pane under your tenant to view the provided contract assigned to the EPG's click on Application Profiles->app->Application EPGs->web-epg->Contracts
+
+![](images/APIC-Prov-Contract.png)
+
+Contract **cntr** is assigned as a Provided contract to EPG **web-epg**
+
+In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on Networking->External Routed Networks->studentxx-l3out->Netwokrs->epg-l3out
+
+![](images/APIC-Cons-Contract.png)
+
+Contract **cntr** is assigned as a Consumer contract to EPG **epg-l3out**
+
+In the left hand pane under your tenant to view the deployed graph click on Services->L4-L7-Deployed Graph Instances
+
+![](images/APIC-Deployed-Graph.png)
+
+The graph is in state **applied** which indicates it was deployed correctly
+
 ### Verify BIG-IP configuration
 
 Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser (if the previous session has timed out): 
