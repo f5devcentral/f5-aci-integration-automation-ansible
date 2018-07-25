@@ -235,7 +235,7 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 
 ![](images/APIC-Tenant.png)
 
-In the left hand pane under your tenant to view the logical device cluster deployed click on Services->L4-L7->Devices->bigip
+In the left hand pane under your tenant to view the logical device cluster deployed click on **Services->L4-L7->Devices->bigip**
 
 ![](images/APIC-LDC.png)
 
@@ -255,7 +255,7 @@ In the logical device cluster the following has been configured
 	* Consumer is mapped to Device1 interface 1_1
 	* Provider is mapped to Device1 interface 1_1
 
-In the left hand pane under your tenant to view the service graph template click on Services->L4-L7->Service Graph Template->sgt
+In the left hand pane under your tenant to view the service graph template click on **Services->L4-L7->Service Graph Template->sgt**
 
 ![](images/APIC-SGT.png)
 
@@ -265,31 +265,31 @@ The service graph template has been configured
 
 To deploy the service graph a few steps are needed 1) Assign service graph template to contract 2)Create device selection policy 3) Attach contracts to the correct EPG's
 
-In the left hand pane under your tenant to view the contract click on Contracts->Standard->cntr
+In the left hand pane under your tenant to view the contract click on **Contracts->Standard->cntr**
 
 ![](images/APIC-Contract.png)
 
 The service graph template **sgt** has been assigned to the contract
 
-In the left hand pane under your tenant to view the device selection policy click on Services->L4-L7->DEvice Selection Policy->cntr->sgt->ADC
+In the left hand pane under your tenant to view the device selection policy click on **Services->L4-L7->Device Selection Policy->cntr-sgt-ADC**
 
 ![](images/APIC-SGT.png)
 
 The logical device context instructs Cisco Application Centric Infrastructure (ACI) about which load balancer device to use to render a graph. The device **bigip** is assigned for rendering the graph
 
-In the left hand pane under your tenant to view the provided contract assigned to the EPG's click on Application Profiles->app->Application EPGs->web-epg->Contracts
+In the left hand pane under your tenant to view the provided contract assigned to the EPG's click on **Application Profiles->app->Application EPGs->web-epg->Contracts**
 
 ![](images/APIC-Prov-Contract.png)
 
 Contract **cntr** is assigned as a Provided contract to EPG **web-epg**
 
-In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on Networking->External Routed Networks->studentxx-l3out->Netwokrs->epg-l3out
+In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on **Networking->External Routed Networks->studentxx-l3out->Netwokrs->epg-l3out**
 
 ![](images/APIC-Cons-Contract.png)
 
 Contract **cntr** is assigned as a Consumer contract to EPG **epg-l3out**
 
-In the left hand pane under your tenant to view the deployed graph click on Services->L4-L7-Deployed Graph Instances
+In the left hand pane under your tenant to view the deployed graph click on **Services->L4-L7-Deployed Graph Instances**
 
 ![](images/APIC-Deployed-Graph.png)
 
@@ -454,5 +454,38 @@ The JOB ID in the screen shot does not need to match what you see
 This concludes the section on using Ansible playbooks to cleanup the APIC and BIG-IP
 
 ## Verifying the cleanup of the deployment
+
+### Verify BIG-IP configuration cleanup
+
+Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser 
+
+* BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
+* Username: **admin**  
+* Password: **cisco123**  
+
+Click on the following in the Navigation menu and make sure there is no configuration
+* Click the **Network -> VLAN** 
+* Click the **Network -> Self IPs** 
+* Click **Local Traffic -> Nodes** 
+* Click **Local Traffic -> Pools** 
+* Click the **Local Traffic -> Virtual Servers** 
+
+### Verify APIC configuration cleanup
+Let's login into the APIC with the following username and password from the web browser
+
+* APIC : http://172.21.208.173
+* Username: {TSTUDENT}
+* Password: ciscolive.2018
+
+On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your student ID. Example: student01. This will open up your tenant on the left hand side of the APIC GUI pane. Navigate to the following and make sure there is no configuration
+* Click on **Services->L4-L7->Devices**
+* Click on **Services->L4-L7->Service Graph Template**
+* Click on **Contracts->Standard**
+* Click on **Services->L4-L7->Device Selection Policy**
+* Click on **Application Profiles->app->Application EPGs->web-epg->Contracts** 
+* Click on **Networking->External Routed Networks->studentxx-l3out->Netwokrs->epg-l3out**
+* Click on **Services->L4-L7-Deployed Graph Instances**
+
+This concludes this section of the Lab
 
 >**Congratulations! This session of the lab is completed, please proceed to the next lab session via the menu**
