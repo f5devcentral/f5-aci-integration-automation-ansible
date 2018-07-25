@@ -45,18 +45,41 @@ Click on the template **Configure-ACI**
 ![](images/Tower-Template1.png)
 ![](images/Tower-Template2.png)
 
-PUT IN WHAT THE PLAYBOOK DOES
+**Playbook contents - aci_configuration.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration.yaml)
+* Take as input Jinga2 files and covert them to XML files
+	* Jinga2 files allow the user to variabalize the content as needed. To view the Jinga2 files used for this playbook [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/tree/master/Labs/AnsibleWorkflow/aci_posts-OneArmDeployment)
+* Use the aci_rest Ansible module and post the XML files created in the above step to ACI. Following is what is getting configured on the APIC. To view the playbook contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration.yaml)
+	* Logical Device Cluster
+	* Contract
+	* Service graph template
+	* Attach service graph template to contract
+		* Device selection policy
+		* Assign provided contract to provider EPG
+		* Assign consumer contract to consumer EPG
 
-Scroll down -> Click on the template **Configure-BIG-IP**
+Back on Ansible tower scroll down -> Click on the template **Configure-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
 
 ![](images/Tower-Template3.png)
 
-PUT IN WHAT THE PLAYBOOK DOES
+**Playbook contents - bigip_configuration.yaml** - To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration.yaml
+* Calls another playbook named **onboarding.yaml** to configure onboarding tasks. To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/onboarding.yaml
+	* NTP
+	* DNS
+	* Hostname
+	* SSHD setting
+* Configures the network
+	* VLAN
+	* Self-IP
+	* Static route
+* Calls another playbook names **http-service.yaml** to configure L7 tasks. To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/http_service.yaml
+	* Node members
+	* Pool
+	* Virtual Server
 
-A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
+Go back to Ansible Tower. A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
 Scroll down -> Click on the template **Configure-Workflow**. 
 This is a workflow template consisting of two playbooks we viewed earlier
@@ -73,11 +96,14 @@ After viewing 'close' the workflow editor
 
 ![](images/Tower-Workflow2.png)
 
+Now we will view the parameters that we are going to pass to the playbook for execution. There are two methods through which we are passing variables to the playbook. One is through the **Extra Variables** text box and the other is through the **Survey**
+
+![](images)/Tower-variables.png)
+
 View the paramters in the **Extra Variables** text box. Values that you provide here will be provided as input to the playbooks in the workflow
 
 ![](images/Tower-Workflow3.png)
 
-PUT in an IMAGE for extra variable and survey input !!!!!
 
 Scroll through and make sure the following paramters are specified:
 
