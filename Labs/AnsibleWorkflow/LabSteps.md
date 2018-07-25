@@ -24,6 +24,8 @@ The EPG's used are **web-epg** (provider) and **l3out-epg** (consumer)
 
 ![](images/Ansible-topology1.png)
 
+Let's execute the lab
+
 ## Automate configuration on APIC and BIG-IP using Ansible
 
 We will provision the APIC and BIG-IP using Ansible for a couple of reasons. Ansible is an open source automation platform that can help with configuration management, application deployment, and task automation. It can also do IT orchestration, where you have to run tasks in sequence and create a chain of events which must happen on several different servers or devices.
