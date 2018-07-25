@@ -315,7 +315,7 @@ On the left Navigation menu, Click **Local Traffic -> Nodes** and you should see
 
 Click **Local Traffic -> Pools** , click on the Pool
 
-![](images/BIGIP-pools.png)
+![](images/BIGIP-pool.png)
 
 Click the hyperlink under **Name** and you should be directed to the Pool **Properties** page. Now click the **Members** tab and you should see the real servers (pool members) we configured when we were deploying the service graph.
 
