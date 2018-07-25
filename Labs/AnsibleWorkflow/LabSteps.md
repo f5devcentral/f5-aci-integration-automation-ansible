@@ -395,8 +395,8 @@ Go back to Ansible Tower, a workflow has been created in Ansible Tower to chain 
 
 Click on the template **Cleanup-Workflow**. 
 This is a workflow template consisting of two playbooks we viewed earlier
-1) Cleanup-ACI
-2) Cleanup-BIG-IP
+1) Cleanup-BIG-IP
+2) Cleanup-ACI
 
 ![](images/Tower-Cleanup-Workflow.png)
 
@@ -449,7 +449,7 @@ Once the playbook has executed sucessfully again click on **Jobs**. You will see
 
 The JOB ID in the screen shot does not need to match what you see
 
-![](images/Tower-Cleanup-Workflowexecution4.png)
+![](images/Tower-Cleanup-Workflowexecution5.png)
 
 This concludes the section on using Ansible playbooks to cleanup the APIC and BIG-IP
 
