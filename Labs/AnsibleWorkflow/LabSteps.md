@@ -45,7 +45,17 @@ Click on the template **Configure-ACI**
 ![](images/Tower-Template1.png)
 ![](images/Tower-Template2.png)
 
-PUT IN WHAT THE PLAYBOOK DOES
+**Playbook contents - aci_configuration.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration.yaml)
+* Take as input Jinga2 files and covert them to XML files
+	* Jinga2 files allow the user to variabalize the content as needed. To view the Jinga2 files used for this playbook [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/tree/master/Labs/AnsibleWorkflow/aci_posts-OneArmDeployment)
+* Use the aci_rest Ansible module and post the XML files created in the above step to ACI. Following is what is getting configured on the APIC. To view the playbook contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration.yaml)
+	* Logical Device Cluster
+	* Contract
+	* Service graph template
+	* Attach service graph template to contract
+		* Device selection policy
+		* Assign provided contract to provider EPG
+		* Assign consumer contract to consumer EPG
 
 Scroll down -> Click on the template **Configure-BIG-IP**
 * This is a view only template. This template will not be launched.
@@ -54,9 +64,22 @@ Scroll down -> Click on the template **Configure-BIG-IP**
 
 ![](images/Tower-Template3.png)
 
-PUT IN WHAT THE PLAYBOOK DOES
+**Playbook contents - bigip_configuration.yaml** - To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration.yaml
+* Calls another playbook named **onboarding.yaml** to configure onboarding tasks. To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/onboarding.yaml
+	* NTP
+	* DNS
+	* Hostname
+	* SSHD setting
+* Configures the network
+	* VLAN
+	* Self-IP
+	* Static route
+* Calls another playbook names **http-service.yaml** to configure L7 tasks. To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/http_service.yaml
+	* Node members
+	* Pool
+	* Virtual Server
 
-A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
+Go back to Ansible Tower. A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
 Scroll down -> Click on the template **Configure-Workflow**. 
 This is a workflow template consisting of two playbooks we viewed earlier
