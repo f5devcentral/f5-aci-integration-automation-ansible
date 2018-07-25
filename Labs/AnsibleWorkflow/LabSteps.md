@@ -357,6 +357,9 @@ Click on the template **Cleanup-BIG-IP**
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration_delete.yaml).
 
+![](images/Tower-Cleanup-Template1.png)
+![](images/Tower-Cleanup-Template2.png)
+
 **Playbook contents - bigip_configuration_delete.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration_delete.yaml)
 * Calls another playbook named **http_service_cleanup.yaml** to delete L7 configuration. To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/http_service_cleanup.yaml)
 * Deletes the L7 configuration
@@ -372,6 +375,8 @@ Go back to Ansible Tower, Click on the template **Cleanup-ACI**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - aci_configuration_delete.yaml).
+
+![](images/Tower-Cleanup-Template3.png)
 
 **Playbook contents - aci_configuration_delete.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/aci_configuration_delete.yaml)
 * Take as input Jinga2 files and covert them to XML files
@@ -392,21 +397,64 @@ This is a workflow template consisting of two playbooks we viewed earlier
 1) Cleanup-ACI
 2) Cleanup-BIG-IP
 
+![](images/Tower-Cleanup-Workflow.png)
+
 Click on the 'Workflow Editor' button to view the workflow configured
+
+![](images/Tower-Cleanup-Workfloweditor.png)
+
 After viewing 'close' the workflow editor
 
-View the paramters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow. We will use the same paramters as used in the configuration workflow. 
+![](images/Tower-Cleanup-Workfloweditor1.png)
+
+View the parameters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow. We will use the same paramters as used in the configuration workflow. 
+
+![](images/Tower-Cleanup-Launchworkflow.png)
 
 Scroll to the bottom and click on the 'Rocket' icon next to the template.
+
 This will launch the playbook. A survey will pop up when the rocket button is clicked. The survey values have default values specified.
-Enter the value for the APIC username to refect you student ID
+Enter the value for the APIC username and APIC tenant to refect you student ID
 
 ```
 APIC username = 'studentxx'
 Tenant name = 'studentxx'
 ```
+![](images/Tower-Cleanup-Launchsurvey.png)
 
 Click next to launch the playbook
+
+At this point the playbook is executing. It will first configure the APIC and then the BIG-IP
+
+You will see the status of the playbook is in mode **Pending**. The workflow will first execute Cleanup-BIG-IP playbook. Click on **details**
+
+![](images/Tower-Cleanup-Workflowexecution1.png)
+
+The new window will indicate the progress of running playbook **Cleanup-BIG-IP**
+
+![](images/Tower-Cleanup-Workflowexecution2.png)
+
+After the playbook has executed sucessfully click on **Jobs** on the top left hand corner
+
+You will see the Cleanup-Workflow job being executed (blinking green icon next to it), click on it. It will take you back to the workflow execution, at this point the **Cleanup-BIG-IP** playbook would have executed sucessfully and the playbook **Cleanup-ACI** will be getting executed. Click on details
+
+![](images/Tower-Cleanup-Workflowexecution3.png)
+
+![](images/Tower-Cleanup-Workflowexecution4.png)
+
+Once the playbook has executed sucessfully again click on **Jobs**. You will see five jobs got executed as part of the workflow. From the bottom
+
+* Git project SCM update (before a playbook is run the GIT repo is updated to make sure the latest code is available)
+* Configure-ACI
+* Git project SCM update
+* Configure-BIG-IP
+* Workflow execution
+
+The JOB ID in the screen shot does not need to match what you see
+
+![](images/Tower-Cleanup-Workflowexecution4.png)
+
+This concludes the section on using Ansible playbooks to cleanup the  APIC and BIG-IP
 
 ## Verifying the cleanup of the deployment
 
