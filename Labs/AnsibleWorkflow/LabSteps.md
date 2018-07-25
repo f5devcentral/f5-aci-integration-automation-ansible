@@ -64,8 +64,8 @@ Back on Ansible tower scroll down -> Click on the template **Configure-BIG-IP**
 
 ![](images/Tower-Template3.png)
 
-**Playbook contents - bigip_configuration.yaml** - To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration.yaml
-* Calls another playbook named **onboarding.yaml** to configure onboarding tasks. To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/onboarding.yaml
+**Playbook contents - bigip_configuration.yaml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_configuration.yaml)
+* Calls another playbook named **onboarding.yaml** to configure onboarding tasks. To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/onboarding.yaml)
 	* NTP
 	* DNS
 	* Hostname
@@ -74,7 +74,7 @@ Back on Ansible tower scroll down -> Click on the template **Configure-BIG-IP**
 	* VLAN
 	* Self-IP
 	* Static route
-* Calls another playbook names **http-service.yaml** to configure L7 tasks. To view contents [click here]https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/http_service.yaml
+* Calls another playbook names **http-service.yaml** to configure L7 tasks. To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/http_service.yaml)
 	* Node members
 	* Pool
 	* Virtual Server
@@ -98,7 +98,7 @@ After viewing 'close' the workflow editor
 
 Now we will view the parameters that we are going to pass to the playbook for execution. There are two methods through which we are passing variables to the playbook. One is through the **Extra Variables** text box and the other is through the **Survey**
 
-![](images)/Tower-variables.png)
+![](images/Tower-variables.png)
 
 View the paramters in the **Extra Variables** text box. Values that you provide here will be provided as input to the playbooks in the workflow
 
