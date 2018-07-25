@@ -1,8 +1,6 @@
 <vzBrCP ownerTag="" ownerKey="" name="{{contract_name}}" descr="" scope="context" prio="unspecified" >
-	<vzSubj name="http" descr="" prio="unspecified" revFltPorts="yes" provMatchT="AtleastOne" consMatchT="AtleastOne">
-		<vzRsSubjFiltAtt tnVzFilterName="default"/>
-	</vzSubj>
-	<vzSubj name="https" descr="" prio="unspecified" revFltPorts="yes" provMatchT="AtleastOne" consMatchT="AtleastOne">
-		<vzRsSubjFiltAtt tnVzFilterName="default"/>
-	</vzSubj>
+  <vzSubj targetDscp="unspecified" prio="unspecified" name="all" revFltPorts="yes" provMatchT="AtleastOne" consMatchT="AtleastOne">
+    <vzRsSubjGraphAtt tnVnsAbsGraphName="{{SGtemplate_name}}"/>
+    <vzRsSubjFiltAtt tnVzFilterName="default" priorityOverride="default" action="permit"/>
+  </vzSubj>
 </vzBrCP>

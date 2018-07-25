@@ -6,7 +6,15 @@ Lab will be used to demonstrate L4-L7 service insertion in unmanaged mode to sim
 
 We will use the F5 BIG-IP VE Virtual ADC to demonstrate this functionality.
 
-## Automate configuration on APIC and BIG-IP device using Ansible
+## Topology ##
+
+## Getting started ##
+- Talk about ACI
+- Talk about Ansible Tower
+
+What is stitching about, what are we accomplishing here.
+
+## Automate configuration on APIC and BIG-IP using Ansible
 
 We will provision the APIC and BIG-IP using Ansible for a couple of reasons. Ansible is an open source automation platform that can help with configuration management, application deployment, and task automation. It can also do IT orchestration, where you have to run tasks in sequence and create a chain of events which must happen on several different servers or devices.
 
@@ -37,12 +45,16 @@ Click on the template **Configure-ACI**
 ![](images/Tower-Template1.png)
 ![](images/Tower-Template2.png)
 
+PUT IN WHAT THE PLAYBOOK DOES
+
 Scroll down -> Click on the template **Configure-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
 
 ![](images/Tower-Template3.png)
+
+PUT IN WHAT THE PLAYBOOK DOES
 
 A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
@@ -65,23 +77,25 @@ View the paramters in the **Extra Variables** text box. Values that you provide 
 
 ![](images/Tower-Workflow3.png)
 
-Edit the paramters to the following:
+PUT in an IMAGE for extra variable and survey input !!!!!
+
+Scroll through and make sure the following paramters are specified:
 
 ```
 #################
 #APIC information
 #################
-consumerBD_name: "vip-bd" 
-providerBD_name: "vip-bd"
+consumerBD_name: "vip-bd" 			#Consumer Bridge domain name
+providerBD_name: "vip-bd"			#Provider bridge domain name
 
-appProfile_name: "app"
-consumerEPG_name: "epg-l3out"
-providerEPG_name: "web-epg" 
+appProfile_name: "app"				#Application profile name
+consumerEPG_name: "epg-l3out"			#Consumer EPG name
+providerEPG_name: "web-epg" 			#Provider EPG name
 
-SGtemplate_name: "sgt"
-contract_name: "cntr"
+SGtemplate_name: "sgt"				#Service graph template name
+contract_name: "cntr"				#Contract name
 
-logicalDeviceCluster_name: "bigip"
+logicalDeviceCluster_name: "bigip"		#Logical Device Cluster name
 
 #################
 #BIG-IP information
@@ -140,13 +154,14 @@ BIG-IP IPAddress = '172.21.208.109'
 BIG-IP username = 'admin'
 BIG-IP password = 'cisco123'
 APIC IPAddress = '172.21.208.173'
-APIC username = 'studentxx'
+APIC username = 'studentxx'	#Replace xx to your student ID
 APIC password = 'ciscolive.2018'
-APIC Tenant Name = 'studentxx'
+APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
 ```
 Click Launch once the Survey is filled according to the parameters above
 
 ![](images/Tower-LaunchSurvey.png)
+CHANGE THIS IMAGE TO NOT SHOW student01 !!!!!
 
 At this point the playbook is executing. It will first configure the APIC and then the BIG-IP
 
@@ -175,6 +190,8 @@ Once the playbook has executed sucessfully again click on **Jobs**. You will see
 * Git project SCM update
 * Configure-BIG-IP
 * Workflow execution
+
+The JOB ID in the screen shot does not need to match what you see
 
 ![](images/Tower-RunWorflow6.png)
 
@@ -217,15 +234,15 @@ Connect to the Ansible tower using the following information:
 
 Click on **Templates** located in the top level menu: 
 
-Click on the template **Cleanup-ACI**
-* This is a view only template. This template will not be launched.
-* There is a project associated with the template (which is the GIT project).
-* There is a ansible playbook associated with the template (pulled from GIT - aci_configuration.yaml).
-
 Click on the template **Cleanup-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
-* There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
+* There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration_delete.yaml).
+
+Click on the template **Cleanup-ACI**
+* This is a view only template. This template will not be launched.
+* There is a project associated with the template (which is the GIT project).
+* There is a ansible playbook associated with the template (pulled from GIT - aci_configuration_delete.yaml).
 
 A workflow has been created in Ansible Tower to chain the execution of the above two playbooks
 
@@ -237,11 +254,7 @@ This is a workflow template consisting of two playbooks we viewed earlier
 Click on the 'Workflow Editor' button to view the workflow configured
 After viewing 'close' the workflow editor
 
-View the paramters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow. We will use the same paramters as used in the configuration workflow. Here the values have been provided by default in the 'Extra Variables' text box. Edit only the tenant name to refect your tenant
-
-```
-tenant_name: 'studentxx'
-```
+View the paramters in the 'Extra Variables' text box. Values that you provide here will be provided as input to the playbooks in the workflow. We will use the same paramters as used in the configuration workflow. 
 
 Scroll to the bottom and click on the 'Rocket' icon next to the template.
 This will launch the playbook. A survey will pop up when the rocket button is clicked. The survey values have default values specified.
@@ -249,6 +262,7 @@ Enter the value for the APIC username to refect you student ID
 
 ```
 APIC username = 'studentxx'
+Tenant name = 'studentxx'
 ```
 
 Click next to launch the playbook
