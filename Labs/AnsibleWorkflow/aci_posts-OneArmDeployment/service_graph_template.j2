@@ -14,11 +14,11 @@
 		<vnsAbsFuncConn name="consumer" attNotify="no"/>
 		<vnsAbsFuncConn name="provider" attNotify="no"/>
 	</vnsAbsNode>
-	<vnsAbsConnection  name="C2" unicastRoute="yes" directConnect="yes" connType="external" connDir="provider" adjType="L3">
+	<vnsAbsConnection  name="C2" unicastRoute="yes" directConnect="no" connType="external" connDir="provider" adjType="L3">
 		<vnsRsAbsConnectionConns tDn="uni/tn-{{tenant_name}}/AbsGraph-{{SGtemplate_name}}/AbsTermNodeProv-T2/AbsTConn"/>
 		<vnsRsAbsConnectionConns tDn="uni/tn-{{tenant_name}}/AbsGraph-{{SGtemplate_name}}/AbsNode-ADC/AbsFConn-provider"/>
 	</vnsAbsConnection>
-	<vnsAbsConnection name="C1" unicastRoute="yes" directConnect="yes" connType="external" connDir="provider" adjType="L3">
+	<vnsAbsConnection name="C1" unicastRoute="yes" directConnect="no" connType="external" connDir="provider" adjType="L3">
 		<vnsRsAbsConnectionConns tDn="uni/tn-{{tenant_name}}/AbsGraph-{{SGtemplate_name}}/AbsNode-ADC/AbsFConn-consumer"/>
 		<vnsRsAbsConnectionConns tDn="uni/tn-{{tenant_name}}/AbsGraph-{{SGtemplate_name}}/AbsTermNodeCon-T1/AbsTConn"/>
 	</vnsAbsConnection>
