@@ -222,7 +222,7 @@ The JOB ID in the screen shot does not need to match what you see
 
 ## Verifying the Deployment
 
-# Verify APIC configuration
+### Verify APIC configuration
 Let's login into the APIC with the following username and password from the web browser
 
 * APIC : http://172.21.208.173
@@ -257,8 +257,10 @@ Under your tenant to view the service graph template click on Services->L4-L7->S
 
 ![](images/APIC-SGT.png)
 
-
-# Verify BIG-IP configuration
+The service graph template has been configured
+* One-Arm mode
+* Associated to logical device cluster **bigip** created above
+### Verify BIG-IP configuration
 
 Let’s log into the F5 BIG-IP **{TBIGIPIP}** with the following username and password from the web browser (if the previous session has timed out): 
  
