@@ -57,7 +57,7 @@ Click on the template **Configure-ACI**
 		* Assign provided contract to provider EPG
 		* Assign consumer contract to consumer EPG
 
-Scroll down -> Click on the template **Configure-BIG-IP**
+Back on Ansible tower scroll down -> Click on the template **Configure-BIG-IP**
 * This is a view only template. This template will not be launched.
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - bigip_configuration.yaml).
@@ -96,11 +96,14 @@ After viewing 'close' the workflow editor
 
 ![](images/Tower-Workflow2.png)
 
+Now we will view the parameters that we are going to pass to the playbook for execution. There are two methods through which we are passing variables to the playbook. One is through the **Extra Variables** text box and the other is through the **Survey**
+
+![](images)/Tower-variables.png)
+
 View the paramters in the **Extra Variables** text box. Values that you provide here will be provided as input to the playbooks in the workflow
 
 ![](images/Tower-Workflow3.png)
 
-PUT in an IMAGE for extra variable and survey input !!!!!
 
 Scroll through and make sure the following paramters are specified:
 
