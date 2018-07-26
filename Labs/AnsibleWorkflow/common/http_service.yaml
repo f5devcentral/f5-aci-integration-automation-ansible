@@ -51,7 +51,7 @@
       port: "{{vip_port}}"
       enabled_vlans:
        - "{{tenant_name}}_{{vlan_name}}"
-      all_profiles: "{{profiles}"
+      all_profiles: "{{profiles}}"
       pool: "{{tenant_name}}_{{pool_name}}"
       snat: "{{snat}}"
       validate_certs: "no"
