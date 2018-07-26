@@ -248,7 +248,8 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 
 ![](images/APIC-Tenant.png)
 
-In the left hand pane under your tenant to view the logical device cluster deployed click on **Services->L4-L7->Devices->bigip**
+In the left hand pane under your tenant to view the logical device cluster deployed click on 
+**Services->L4-L7->Devices->bigip**
 
 ![](images/APIC-LDC.png)
 
@@ -268,7 +269,8 @@ In the logical device cluster the following has been configured
 	* Consumer is mapped to Device1 interface 1_1
 	* Provider is mapped to Device1 interface 1_1
 
-In the left hand pane under your tenant to view the service graph template click on **Services->L4-L7->Service Graph Template->sgt**
+In the left hand pane under your tenant to view the service graph template click on 
+**Services->L4-L7->Service Graph Template->sgt**
 
 ![](images/APIC-SGT.png)
 
@@ -276,33 +278,41 @@ The service graph template has been configured
 * One-Arm mode
 * Associated to logical device cluster **bigip** 
 
-To deploy the service graph a few steps are needed 1) Assign service graph template to contract 2)Create device selection policy 3) Attach contracts to the correct EPG's
+To deploy the service graph a few steps are needed 
+* Assign service graph template to contract
+* Create device selection policy
+* Attach contracts to the correct EPG's
 
-In the left hand pane under your tenant to view the contract click on **Contracts->Standard->cntr**
+In the left hand pane under your tenant to view the contract click on  
+**Contracts->Standard->cntr**
 
 ![](images/APIC-Contract.png)
 
 The service graph template **sgt** has been assigned to the contract
 
-In the left hand pane under your tenant to view the device selection policy click on **Services->L4-L7->Device Selection Policy->cntr-sgt-ADC**
+In the left hand pane under your tenant to view the device selection policy click on   
+**Services->L4-L7->Device Selection Policy->cntr-sgt-ADC**
 
-![](images/APIC-SGT.png)
+![](images/APIC-DSP.png)
 
 The logical device context instructs Cisco Application Centric Infrastructure (ACI) about which load balancer device to use to render a graph. The device **bigip** is assigned for rendering the graph
 
-In the left hand pane under your tenant to view the provided contract assigned to the EPG's click on **Application Profiles->app->Application EPGs->web-epg->Contracts**
+In the left hand pane under your tenant to view the provided contract assigned to the EPG's click on   
+**Application Profiles->app->Application EPGs->web-epg->Contracts**
 
 ![](images/APIC-Prov-Contract.png)
 
 Contract **cntr** is assigned as a Provided contract to EPG **web-epg**
 
-In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
+In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on  
+**Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
 
 ![](images/APIC-Cons-Contract.png)
 
 Contract **cntr** is assigned as a Consumer contract to EPG **epg-l3out**
 
-In the left hand pane under your tenant to view the deployed graph click on **Services->L4-L7-Deployed Graph Instances**
+In the left hand pane under your tenant to view the deployed graph click on  
+**Services->L4-L7-Deployed Graph Instances**
 
 ![](images/APIC-Deployed-Graph.png)
 
