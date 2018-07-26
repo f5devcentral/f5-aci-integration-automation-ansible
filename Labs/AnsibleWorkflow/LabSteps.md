@@ -21,11 +21,11 @@ The goal is to provide a central point of control to configure both the Cisco AP
 * The service graph will be deployed in One-ARM mode which implies **one** interface will be consumed on the BIG-IP which handles the client as well as server traffic
 * A default route will be configured on the BIG-IP
 * SNAT = 'Automap' will be configured on the BIG-IP (return traffic from backend servers are forced to pass back through the BIG-IP)
-* The EPG's used are **web-epg** (provider) and **l3out-epg** (consumer)
+* The EPG's used are **web-epg**(provider) and **l3out-epg** (consumer). Bridge domain **vip-bd**
 
 ![](images/Ansible-topology1.png)
 
-Let's begin the lab
+**Let's begin the lab**
 
 ## Automate configuration on APIC and BIG-IP using Ansible
 
