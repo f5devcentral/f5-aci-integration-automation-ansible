@@ -22,7 +22,6 @@
       untagged_interfaces:
       - "{{vlan_interface}}"
       validate_certs: "no"
-    when: '"virtual" in device_type '
 
   - name: Add SELF-IP(s) on BIG-IP1
     bigip_selfip: 
