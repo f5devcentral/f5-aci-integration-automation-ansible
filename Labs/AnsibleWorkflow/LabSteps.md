@@ -284,7 +284,7 @@ To deploy the service graph a few steps are needed
 * Attach contracts to the correct EPG's
 
 In the left hand pane under your tenant to view the contract click on  
-**Contracts->Standard->cntr**
+**Contracts->Standard->cntr->all**
 
 ![](images/APIC-Contract.png)
 
