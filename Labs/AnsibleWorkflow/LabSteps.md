@@ -140,40 +140,27 @@ logicalDeviceCluster_name: "bigip"		#Logical Device Cluster name
 #BIG-IP information
 #################
 
-vlan_information:
-- name: "VLAN"
-  id: "1234"					#Vlan ID
-  interface: "1.1"  				#Interface on BIG-IP to which the VLAN is untagged
+vlan_name: vlan
+vlan_id: '1234'
+vlan_interface: '1.1'
 
-bigip_selfip_information:
-- name: 'SelfIP'
-  address: '69.2.101.10'			#Self-IP address
-  netmask: '255.255.255.0'  
-  vlan: "{{vlan_information[0]['name']}}"	#VLAN to be assinged to the BIG-IP
+bigip1_selfip_name: 'SelfIP'
+bigip1_selfip_netmask: 255.255.255.0
 
-static_route:
-- name: "default"
-  gw_address: "69.2.101.1"			#Default gateway assigned on the BIG-IP
-  destination: "0.0.0.0"
-  netmask: "0.0.0.0"
+static_route_name: default
+static_route_destination: 0.0.0.0
+static_route_netmask: 0.0.0.0
 
-pools:
-- pool_name: "http-pool"			#Pool name
-  pool_members:					#Members belonging to the BIG-IP Pool
-   - port: "80"
-     host: "69.2.1.100"
-   - port: "80"
-     host: "69.2.1.101"
-	 
-vips:
-- vip_name: "http"				#Virtual IP Name
-  vip_port: "80"
-  vip_ip: "69.2.101.11"				#IP address where the client traffic will be directed to
-  snat: "automap"				#SNAT set to automap, so that return traffic is forced back to the BIG-IP
-						#No changes needed on the network routing on the backend servers (pool members)
-  pool_name: "http-pool"			#Pool to be assigned to the VIP
-  profiles:					#Profiles to be assigned to the VIP
-   - http
+pool_name: http-pool
+pool_member1_port: '80'
+pool_member2_port: '80'
+
+vip_name: http
+vip_port: '80'
+snat: automap
+pool_name: http-pool
+profiles:
+ - http
 ```
 
 Scroll to the bottom and click on the 'Rocket' icon next to the template.
@@ -185,13 +172,16 @@ The survey is an Ansible Tower feature to allow users to provide input to the pl
 
 ```
 In the Survey enter the following:
-BIG-IP - device type = 'virtual'
-BIG-IP - High Availability or Stand Alone = "SA"
 BIG-IP - Do you want to on-board? = 'yes'
 BIG-IP - Deploy L7 configuration? = 'yes'
-BIG-IP IPAddress = '172.21.208.109'
+BIG-IP IPAddress = '{TBIGIPIP}'
 BIG-IP username = 'admin'
 BIG-IP password = 'cisco123'
+BIG-IP Virtual IP Address: '{TL2F5VIP}'
+BIG-IP Self IP Address: '{TL2F5INTSIP}'
+BIG-IP Default Route: '{TL2F5VIPGW}'
+BIG-IP Pool Member1: '{TVM2IP}'
+BIG-IP Pool Member2: '{TVM3IP}'
 APIC IPAddress = '172.21.208.173'
 APIC username = 'studentxx'	#Replace xx to your student ID
 APIC password = 'ciscolive.2018'
@@ -248,7 +238,8 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 
 ![](images/APIC-Tenant.png)
 
-In the left hand pane under your tenant to view the logical device cluster deployed click on **Services->L4-L7->Devices->bigip**
+In the left hand pane under your tenant to view the logical device cluster deployed click on 
+**Services->L4-L7->Devices->bigip**
 
 ![](images/APIC-LDC.png)
 
@@ -268,7 +259,8 @@ In the logical device cluster the following has been configured
 	* Consumer is mapped to Device1 interface 1_1
 	* Provider is mapped to Device1 interface 1_1
 
-In the left hand pane under your tenant to view the service graph template click on **Services->L4-L7->Service Graph Template->sgt**
+In the left hand pane under your tenant to view the service graph template click on 
+**Services->L4-L7->Service Graph Template->sgt**
 
 ![](images/APIC-SGT.png)
 
@@ -276,33 +268,41 @@ The service graph template has been configured
 * One-Arm mode
 * Associated to logical device cluster **bigip** 
 
-To deploy the service graph a few steps are needed 1) Assign service graph template to contract 2)Create device selection policy 3) Attach contracts to the correct EPG's
+To deploy the service graph a few steps are needed 
+* Assign service graph template to contract
+* Create device selection policy
+* Attach contracts to the correct EPG's
 
-In the left hand pane under your tenant to view the contract click on **Contracts->Standard->cntr**
+In the left hand pane under your tenant to view the contract click on  
+**Contracts->Standard->cntr->all**
 
 ![](images/APIC-Contract.png)
 
 The service graph template **sgt** has been assigned to the contract
 
-In the left hand pane under your tenant to view the device selection policy click on **Services->L4-L7->Device Selection Policy->cntr-sgt-ADC**
+In the left hand pane under your tenant to view the device selection policy click on   
+**Services->L4-L7->Device Selection Policy->cntr-sgt-ADC**
 
-![](images/APIC-SGT.png)
+![](images/APIC-DSP.png)
 
 The logical device context instructs Cisco Application Centric Infrastructure (ACI) about which load balancer device to use to render a graph. The device **bigip** is assigned for rendering the graph
 
-In the left hand pane under your tenant to view the provided contract assigned to the EPG's click on **Application Profiles->app->Application EPGs->web-epg->Contracts**
+In the left hand pane under your tenant to view the provided contract assigned to the EPG's click on   
+**Application Profiles->app->Application EPGs->web-epg->Contracts**
 
 ![](images/APIC-Prov-Contract.png)
 
 Contract **cntr** is assigned as a Provided contract to EPG **web-epg**
 
-In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
+In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on  
+**Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
 
 ![](images/APIC-Cons-Contract.png)
 
 Contract **cntr** is assigned as a Consumer contract to EPG **epg-l3out**
 
-In the left hand pane under your tenant to view the deployed graph click on **Services->L4-L7-Deployed Graph Instances**
+In the left hand pane under your tenant to view the deployed graph click on  
+**Services->L4-L7-Deployed Graph Instances**
 
 ![](images/APIC-Deployed-Graph.png)
 
@@ -429,12 +429,30 @@ Scroll to the bottom and click on the 'Rocket' icon next to the template.
 
 ![](images/Tower-Cleanup-Launchworkflow.png)
 
-This will launch the playbook. A survey will pop up when the rocket button is clicked. The survey values have default values specified.
-Enter the value for the APIC username and APIC tenant to refect you student ID
+
+This will launch the playbook. A survey will pop up when the rocket button is clicked.
+The survey is an Ansible Tower feature to allow users to provide input to the playbook while executing the playbook. These are variables passed to the playbook along with the input provided in the 'Extra Variables' text box.
+
+```
+In the Survey enter the following:
+BIG-IP - Do you want to on-board? = 'yes'
+BIG-IP - Deploy L7 configuration? = 'yes'
+BIG-IP IPAddress = '{TBIGIPIP}'
+BIG-IP username = 'admin'
+BIG-IP password = 'cisco123'
+BIG-IP Virtual IP Address: '{TL2F5VIP}'
+BIG-IP Self IP Address: '{TL2F5INTSIP}'
+BIG-IP Default Route: '{TL2F5VIPGW}'
+BIG-IP Pool Member1: '{TVM2IP}'
+BIG-IP Pool Member2: '{TVM3IP}'
+APIC IPAddress = '172.21.208.173'
+APIC username = 'studentxx'	#Replace xx to your student ID
+APIC password = 'ciscolive.2018'
+APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
+```
+Click Launch once the Survey is filled according to the parameters above
 
 ![](images/Tower-Cleanup-Launchsurvey.png)
-
-Click next to launch the playbook
 
 At this point the playbook is executing. It will first cleanup the BIG-IP and then the APIC
 

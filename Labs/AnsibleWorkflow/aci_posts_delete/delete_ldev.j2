@@ -1,9 +1,2 @@
-{% if device_type=='physical' %}
-<vnsLDevVip contextAware="single-Context" devtype="PHYSICAL" dn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}" funcType="GoTo" isCopy="no" managed="no" mode="legacy-Mode" name="{{logicalDeviceCluster_name}}" promMode="no" svcType="ADC" trunking="no" status="deleted">
-</vnsLDevVip>
-{% endif %}
-
-{% if device_type=='virtual' %}
 <vnsLDevVip contextAware="single-Context" devtype="VIRTUAL" dn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}" funcType="GoTo" isCopy="no" managed="no" mode="legacy-Mode" name="{{logicalDeviceCluster_name}}" promMode="no" svcType="ADC" trunking="no" status="deleted">
 </vnsLDevVip>
-{% endif %}

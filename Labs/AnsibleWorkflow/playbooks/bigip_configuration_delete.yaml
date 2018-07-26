@@ -15,64 +15,25 @@
       server: "{{bigip1_ip}}"
       user: "{{ bigip1_username }}"
       password: "{{ bigip1_password }}"
-      name: "{{item.name}}"
+      name: "{{static_route_name}}"
       state: absent
       validate_certs: "no"
-    with_items: "{{static_route}}"
     delegate_to: localhost
-        
-  - name: Delete Floating SELF-IP(s) on BIG-IP1
-    bigip_selfip:
-     server: "{{bigip1_ip}}"
-     user: "{{ bigip1_username }}"
-     password: "{{ bigip1_password }}"
-     name: "{{tenant_name}}_{{item.name}}"
-     state: absent
-     validate_certs: "no"
-    with_items: "{{ floating_selfip_information }}"
-    when: '"HA" in mode '
     
   - name: Delete SELF-IP(s) on BIG-IP1
     bigip_selfip:
      server: "{{bigip1_ip}}"
      user: "{{ bigip1_username }}"
      password: "{{ bigip1_password }}"
-     name: "{{tenant_name}}_{{item.name}}"
+     name: "{{tenant_name}}_{{bigip1_selfip_name}}"
      state: absent
      validate_certs: "no"
-    with_items: "{{ bigip1_selfip_information }}"
 
-  - name: Delete SELF-IP(s) on BIG-IP2
-    bigip_selfip:
-     server: "{{bigip2_ip}}"
-     user: "{{ bigip2_username }}"
-     password: "{{ bigip2_password }}"
-     name: "{{tenant_name}}_{{item.name}}"
-     state: absent
-     validate_certs: "no"
-    with_items: "{{ bigip2_selfip_information }}"
-    when: '"HA" in mode '
-    
   - name: Delete VLAN(s) on BIG-IP1
     bigip_vlan:
       server: "{{bigip1_ip}}"
       user: "{{ bigip1_username }}"
       password: "{{ bigip1_password }}"
-      name: "{{tenant_name}}_{{item.name}}"
+      name: "{{tenant_name}}_{{vlan_name}}"
       state: absent
       validate_certs: "no"
-    with_items: "{{vlan_information}}"
-
-  - name: Delete VLAN(s) on BIG-IP2
-    bigip_vlan:
-      server: "{{bigip2_ip}}"
-      user: "{{ bigip2_username }}"
-      password: "{{ bigip2_password }}"
-      name: "{{tenant_name}}_{{item.name}}"
-      state: absent
-      validate_certs: "no"
-    with_items: "{{vlan_information}}"
-    when: '"HA" in mode '
-    
-  - include_tasks: ../common/destroy_ha.yaml 
-    when: '"HA" in mode '

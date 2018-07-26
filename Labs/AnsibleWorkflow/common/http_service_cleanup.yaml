@@ -4,10 +4,9 @@
       server: "{{ bigip_ip }}"
       user: "{{ bigip_username }}"
       password: "{{ bigip_password }}"
-      name: "{{tenant_name}}_{{logicalDeviceCluster_name}}_{{item.vip_name}}"
+      name: "{{tenant_name}}_{{logicalDeviceCluster_name}}_{{vip_name}}"
       state: absent
       validate_certs: "no"
-    with_items: "{{vips}}"
     delegate_to: localhost
 
   - name: Delete pool
@@ -15,10 +14,9 @@
       server: "{{ bigip_ip }}"
       user: "{{ bigip_username }}"
       password: "{{ bigip_password }}"
-      name: "{{tenant_name}}_{{item.pool_name}}"
+      name: "{{tenant_name}}_{{pool_name}}"
       state: absent
       validate_certs: "no"
-    with_items: "{{pools}}"
     delegate_to: localhost
 
   - name: Delete nodes
@@ -26,11 +24,11 @@
       server: "{{ bigip_ip }}"
       user: "{{ bigip_username }}"
       password: "{{ bigip_password }}"
-      host: "{{item.1.host}}"
-      name: "{{item.1.host}}"
+      host: "{{item.host}}"
+      name: "{{item.host}}"
       state: absent
       validate_certs: "no"
-    with_subelements:
-     - "{{ pools }}"
-     - pool_members
     delegate_to: localhost
+    loop:
+    - host:  "{{pool_member1_host}}"
+    - host:  "{{pool_member2_host}}"
