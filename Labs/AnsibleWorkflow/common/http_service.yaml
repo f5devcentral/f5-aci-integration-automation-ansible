@@ -1,22 +1,15 @@
-  - name: Create node1
+  - name: Create nodes
     bigip_node:
       server: "{{ bigip_ip }}"
       user: "{{ bigip_username }}"
       password: "{{ bigip_password }}"
-      host: "{{pool_member1_host}}"
-      name: "{{pool_member1_host}}"
+      host: "{{item.host}}"
+      name: "{{item.host}}"
       validate_certs: "no"
     delegate_to: localhost
-    
-  - name: Create node2
-    bigip_node:
-      server: "{{ bigip_ip }}"
-      user: "{{ bigip_username }}"
-      password: "{{ bigip_password }}"
-      host: "{{pool_member2_host}}"
-      name: "{{pool_member2_host}}"
-      validate_certs: "no"
-    delegate_to: localhost
+    loop:
+    - host:  "{{pool_member1_host}}"
+    - host:  "{{pool_member2_host}}"
     
   - name: Create pool
     bigip_pool:
