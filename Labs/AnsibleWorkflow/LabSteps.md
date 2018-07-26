@@ -435,8 +435,6 @@ The survey is an Ansible Tower feature to allow users to provide input to the pl
 
 ```
 In the Survey enter the following:
-BIG-IP - Do you want to on-board? = 'yes'
-BIG-IP - Deploy L7 configuration? = 'yes'
 BIG-IP IPAddress = '{TBIGIPIP}'
 BIG-IP username = 'admin'
 BIG-IP password = 'cisco123'
