@@ -4,27 +4,28 @@
 
 ## Getting started ##
 
-Cisco Application Centric Infrastructure (ACI) technology provides the capability to insert Layer 4 through Layer 7 (L4-L7) functions using an approach called a service graph. The servive graph controls network connectivity consisting of VLANs, IP addresses, etc.
-
-![](images/Ansible-topology.png)
+Cisco Application Centric Infrastructure (ACI) technology provides the capability to insert Layer 4 through Layer 7 (L4-L7) functions using an approach called a service graph. The servive graph controls network connectivity consisting of VLANs.
 
 Lab will be used to demonstrate L4-L7 service insertion in unmanaged mode to simulate an enterprise network and/or cloud provider’s application delivery offering while allowing the application owner to manage the L4-L7 device using Ansible. 
+
+The topology used for this Lab is as follows:
+
+![](images/Ansible-topology.png)
 
 The goal is to provide a central point of control to configure both the Cisco APIC as well as the F5 BIG-IP. Network stitching is achieved by automating the deployment of a service graph on APIC and L4-L7 configuration is automated directly on the BIG-IP
 
 ![](images/Ansible-logicaldiagram.png)
 
-In this lab
+**For this lab**
 * We will use the F5 BIG-IP VE Virtual ADC to demonstrate this functionality
 * The service graph will be deployed in One-ARM mode which implies **one** interface will be consumed on the BIG-IP which handles the client as well as server traffic
 * A default route will be configured on the BIG-IP
-* SNAT = Automap will be configured on the BIG-IP (return traffic from backend servers and forced to pass back through the BIG-IP)
-
-The EPG's used are **web-epg** (provider) and **l3out-epg** (consumer)
+* SNAT = 'Automap' will be configured on the BIG-IP (return traffic from backend servers are forced to pass back through the BIG-IP)
+* The EPG's used are **web-epg** (provider) and **l3out-epg** (consumer)
 
 ![](images/Ansible-topology1.png)
 
-Let's execute the lab
+Let's begin the lab
 
 ## Automate configuration on APIC and BIG-IP using Ansible
 
@@ -232,7 +233,7 @@ The JOB ID in the screen shot does not need to match what you see
 
 ![](images/Tower-RunWorflow6.png)
 
-This concludes the section on using Ansible playbooks to configure APIC and BIG-IP
+**This concludes the section on using Ansible playbooks to configure APIC and BIG-IP**
 
 ## Verifying the Deployment
 
@@ -355,6 +356,8 @@ Press the enter button (do not use the refresh button of your browser) at the IP
 
 We have verified connectivity to the web server via the ADC VIP.
 
+**This concludes the section for the Lab**
+
 ## Automate cleanup on BIG-IP and APIC using Ansible
 
 Connect to the Ansible tower using the following information:
@@ -459,11 +462,11 @@ Once the playbook has executed sucessfully again click on **Jobs**. You will see
 * Configure-BIG-IP
 * Workflow execution
 
-The JOB ID in the screen shot does not need to match what you see
+The **JOB ID** in the screen shot does not need to match what you see
 
 ![](images/Tower-Cleanup-Workflowexecution5.png)
 
-This concludes the section on using Ansible playbooks to cleanup the APIC and BIG-IP
+**This concludes the section on using Ansible playbooks to cleanup the APIC and BIG-IP**
 
 ## Verifying the cleanup of the deployment
 
@@ -498,6 +501,6 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 * Click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
 * Click on **Services->L4-L7-Deployed Graph Instances**
 
-This concludes this section of the Lab
+**This concludes the section of the Lab**
 
->**Congratulations! This session of the lab is completed, please proceed to the next lab session via the menu**
+>**Congratulations! This session of the lab is completed, please proceed to the next lab session**
