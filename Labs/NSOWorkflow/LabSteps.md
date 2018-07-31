@@ -103,7 +103,7 @@ Under section **/sdn-controller/tenant/**, fill in the following
 Under section **/sdn-controller/tenant/vns-ldev-vip**, fill in the following
 * name - **bigip**
 * device-type - leave it as **VIRTUAL**
-* domain-name - **CLBerlin2016**
+* domain-name (drop down list) - **CLBerlin2016**
 
 **IMAGE**
 
