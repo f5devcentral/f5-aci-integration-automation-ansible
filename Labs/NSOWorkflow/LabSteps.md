@@ -247,6 +247,9 @@ Once completed, click the **commit** buttom on the top right hand corner
 
 **IMAGE**
 
+When commited successfully you will see Current Transaction - **empty**
+
+**IMAGE**
 
 --------------------------------------------------------------------------------------------------
 Click on **Lab-Git-Project**. This is a view only permission.
