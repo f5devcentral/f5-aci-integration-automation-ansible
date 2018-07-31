@@ -87,7 +87,18 @@ Click on the **vlan** created
 Enter the vlan tag **1234**.  
 Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**studentxx-demo**}/vlans{vlan}/ to go back to the service added
 
-From the section **/sdn-controller**, from the drop down list choose **cisco-apic**. This information is automatically getting pulled from the NSO. This drop down is a list of all devices that are of type 'Cisco-ACI'. In our lab we have only one device configured on the NSO hence only one device in the drop down menu.
+Under section **/sdn-controller**, from the drop down list choose **cisco-apic**. This information is automatically getting pulled from the NSO. This drop down is a list of all devices that are of type 'Cisco-ACI'. In our lab we have only one device configured on the NSO hence only one device in the drop down menu.
+
+Under section **/sdn-controller/tenant/**, fill in the following
+* name (drop down list) - **studentxx** -> your student pod
+* application-profile-name (drop down list) - **app**
+* epg-provider-name(drop down list) - **web-epg**
+* epg-consumer-name (drop down list) - **epg-l3out**
+* bd-provider-name (drop down list) - **vip-bd** 
+* bd-comsumer-name (drop down list) - **vip-bd**
+* contract-name (type it in) - **cntr**
+
+**IMAGE**
 
 
 
