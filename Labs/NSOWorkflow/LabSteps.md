@@ -38,7 +38,59 @@ Connect to NSO using the following information:
 * **username**: admin
 * **password**: C1sc0123
 
-Once you are logged in click on **Configuration Editor** located in the dashboard
+Once you are logged in click on **Device Manager** located on the dashboard
+
+**IMAGE**
+
+Before procedding we are going to sync NSO to have the latest APIC and BIG-IP configuration.  
+Select both the devices using the checkbox, click on the **running man icon** and click on **sync-from**
+
+**IMAGE**
+
+While the device is syncing a yellow tab will show up next to the device.
+
+**IMAGE**
+
+Once the devices are synced, there will be green tabs with **yes** for **found**, **connected** and **in-sync**
+
+Click on the **Cisco** icon on the top left corner to go back to the dashboard
+
+Click on **Configuration Editor** located on the dashboard.  
+Click on **ncs:services**
+
+**IMAGE**
+
+Click on **+** sign next to **aci-bigip:aci-bigip** service
+
+**IMAGE**
+
+There will will a pop up, this is the name of the service enter **studentxx-demo** where **xx** is your student pod.Example 'student01-demo' and click on **confirm**
+
+**IMAGE**
+
+This will take you back to the services page, click on the service created **studentxx-demo**
+
+**IMAGE**
+
+Under the section **vlans/**, click the **+** sign
+
+**IMAGE**
+
+There will be a pop up, enter the name of the VLAN **vlan** and click **confirm**
+
+**IMAGE**
+
+Click on the **vlan** created
+
+**IMAGE**
+
+Enter the vlan tag **1234**.  
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**studentxx-demo**}/vlans{vlan}/ to go back to the service added
+
+From the section **/sdn-controller**, from the drop down list choose **cisco-apic**. This information is automatically getting pulled from the NSO. This drop down is a list of all devices that are of type 'Cisco-ACI'. In our lab we have only one device configured on the NSO hence only one device in the drop down menu.
+
+
+
 
 --------------------------------------------------------------------------------------------------
 Click on **Lab-Git-Project**. This is a view only permission.
