@@ -100,6 +100,16 @@ Under section **/sdn-controller/tenant/**, fill in the following
 
 **IMAGE**
 
+Under section **/sdn-controller/tenant/vns-ldev-vip**, fill in the following
+* name - **bigip**
+* device-type - leave it as **VIRTUAL**
+* domain-name - **CLBerlin2016**
+
+**IMAGE**
+
+Under section **/sdn-controller/tenant/vns-abs-graph**, fill in the following
+* name - **sgt**
+* template-type - leave it as **ADC-ONE-ARM**
 
 
 
