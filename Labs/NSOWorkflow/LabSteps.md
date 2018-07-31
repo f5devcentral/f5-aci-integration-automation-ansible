@@ -111,7 +111,96 @@ Under section **/sdn-controller/tenant/vns-abs-graph**, fill in the following
 * name - **sgt**
 * template-type - leave it as **ADC-ONE-ARM**
 
+Under section **/load-balancer** from the drop down list choose **f5-bigip**
 
+**IMAGE**
+
+Under section **/load-balancer-vlans/**, click on the '+' sign
+
+A pop up window will appear, from the drop down list choose **vlan** and click **confirm**
+
+**IMAGE*
+
+Click on the **vlan** created
+
+**IMAGE**
+
+Under section **/interfaces** click on the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, choose interface **1.1** from the drop down list and click **confirm**
+
+**IMAGE**
+
+Click on the iterface name.
+
+**IMAGE**
+
+Change the tagging value to **untagged** from the dropdown list
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/vlans{vlan}/interfaces{1.1}/
+in the upper left corner
+
+**IMAGE**
+
+Scroll down to section **/load-balancer/self-ip/**, click the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter the name of the self-ip **selfip** and click on **confirm**
+
+**IMAGE**
+
+Click on the self-ip created
+
+**IMAGE**
+
+Enter the IP address - {}/24
+Choose **vlan** from the drop down list
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
+in the upper left corner
+
+Scroll down to section **/load-balancer/virtual-server/**, click the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter the name of the virtual server **http_vs** and click on **confirm**
+
+**IMAGE**
+
+Click on the virtual server created
+
+**IMAGE**
+
+Enter the destination-ip - {}
+Enter the port number - 80
+
+Under section /profiles , click on the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter **http** and click **confrim**
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/virtual-server/self-ip{http_vs}/
+in the upper left corner
+
+**IMAGE**
+
+Scroll down to section **/load-balancer/pool/**, enter the following
+* name - **http_pool**
+* load-balancing-method - leave it as **round-robin**
+
+**IMAGE**
+
+Under section **/load-balancer/pool/monitor*
 
 --------------------------------------------------------------------------------------------------
 Click on **Lab-Git-Project**. This is a view only permission.
