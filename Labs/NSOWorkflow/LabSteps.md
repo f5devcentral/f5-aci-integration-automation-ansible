@@ -185,7 +185,7 @@ Under section /profiles , click on the **+** sign
 
 **IMAGE**
 
-A pop up window will appear, enter **http** and click **confrim**
+A pop up window will appear, enter **http** and click **confirm**
 
 **IMAGE**
 
@@ -200,7 +200,53 @@ Scroll down to section **/load-balancer/pool/**, enter the following
 
 **IMAGE**
 
-Under section **/load-balancer/pool/monitor*
+Under section **/load-balancer/pool/monitor**, click on the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter the monitor **http** and click **confirm**
+
+**IMAGE**
+
+Scroll down to section **/load-balancer/pool/members**, click on the **+** sign 
+
+**IMAGE**
+
+A pop up window will appear, enter **node1** and click **confrim**
+
+**IMAGE**
+
+Click on the node created 
+
+**IMAGE**
+
+Enter Node IP address = {}
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
+in the upper left corner
+
+**IMAGE**
+
+Scroll to the bottom and add another node like you did previosuly.  
+* name - **node2**
+* IP address - **{}**
+
+**IMAGE**
+
+Now we are going to commit the configuration
+
+Click on **commit manager** at the bottom of the page
+
+You will see four different tabs **changes**, **warnings**, **config** and **native config**. Click on each and familarize yourself with the configuration that is going to be pushed. Make sure there are NO warnings.
+
+**IMAGE**
+
+Once completed, click the **commit** buttom on the top right hand corner
+
+**IMAGE**
+
 
 --------------------------------------------------------------------------------------------------
 Click on **Lab-Git-Project**. This is a view only permission.
