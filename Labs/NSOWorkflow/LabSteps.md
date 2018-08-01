@@ -1,3 +1,4 @@
+
 # Lab Exercise 
 
 >**Please note that the images used in the lab guide are representative and NOT based on any specific pod. Please use the information in the lab guide instead.**
@@ -10,36 +11,247 @@ Lab will be used to demonstrate L4-L7 service insertion in unmanaged mode to sim
 
 The topology used for this Lab is as follows:
 
-![](images/Ansible-topology.png)
+**IMAGE**
 
 The goal is to provide a central point of control to configure both the Cisco APIC as well as the F5 BIG-IP. Network stitching is achieved by automating the deployment of a service graph on APIC and L4-L7 configuration is automated directly on the BIG-IP
 
-![](images/Ansible-logicaldiagram.png)
+**IMAGE**
 
 **For this lab**
 * We will use the F5 BIG-IP VE Virtual ADC to demonstrate this functionality
 * The service graph will be deployed in One-ARM mode which implies **one** interface will be consumed on the BIG-IP which handles the client as well as server traffic
 * A default route will be configured on the BIG-IP
 * SNAT = 'Automap' will be configured on the BIG-IP (return traffic from backend servers are forced to pass back through the BIG-IP)
-* The EPG's used are **web-epg**(provider) and **l3out-epg** (consumer). Bridge domain **vip-bd**
+* The EPG's used are **web-epg**(provider) and **epg-l3out** (consumer). Bridge domain **vip-bd**
 
-![](images/Ansible-topology1.png)
+**IMAGE**
 
 **Let's begin the lab**
 
-## Automate configuration on APIC and BIG-IP using Ansible
+## Automate configuration on APIC and BIG-IP using Cisco NSO
 
-We will provision the APIC and BIG-IP using Ansible for a couple of reasons. Ansible is an open source automation platform that can help with configuration management, application deployment, and task automation. It can also do IT orchestration, where you have to run tasks in sequence and create a chain of events which must happen on several different servers or devices.
+We will provision the APIC and BIG-IP using NSO.
 
-Red Hat Ansible Tower provides a single point of control your IT infrastructure with a visual dashboard, role-based access control, job scheduling, integrated notifications and graphical inventory management. 
+Connect to NSO using the following information:
 
-Connect to the Ansible tower using the following information:
+* **NSO Address**: 172.21.208.249
+* **username**: admin
+* **password**: C1sc0123
 
-* **Ansible Tower Address**: 172.21.208.250
-* **username**: {TSTUDENT}
-* **password**: cisco123
+Once you are logged in click on **Device Manager** located on the dashboard
 
-Once you are logged in click on **Projects** located in the top level menu
+**IMAGE**
+
+Before procedding we are going to sync NSO to have the latest APIC and BIG-IP configuration.  
+Select both the devices using the checkbox, click on the **running man icon** and click on **sync-from**
+
+**IMAGE**
+
+While the device is syncing a yellow tab will show up next to the device.
+
+**IMAGE**
+
+Once the devices are synced, there will be green tabs with **yes** for **found**, **connected** and **in-sync**
+
+Click on the **Cisco** icon on the top left corner to go back to the dashboard
+
+Click on **Configuration Editor** located on the dashboard.  
+Click on **ncs:services**
+
+**IMAGE**
+
+Click on **+** sign next to **aci-bigip:aci-bigip** service
+
+**IMAGE**
+
+There will will a pop up, this is the name of the service enter **studentxx-demo** where **xx** is your student pod.Example 'student01-demo' and click on **confirm**
+
+**IMAGE**
+
+This will take you back to the services page, click on the service created **studentxx-demo**
+
+**IMAGE**
+
+Under the section **vlans/**, click the **+** sign
+
+**IMAGE**
+
+There will be a pop up, enter the name of the VLAN **vlan** and click **confirm**
+
+**IMAGE**
+
+Click on the **vlan** created
+
+**IMAGE**
+
+Enter the vlan tag **1234**.  
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**studentxx-demo**}/vlans{vlan}/ to go back to the service added
+
+Under section **/sdn-controller**, from the drop down list choose **cisco-apic**. This information is automatically getting pulled from the NSO. This drop down is a list of all devices that are of type 'Cisco-ACI'. In our lab we have only one device configured on the NSO hence only one device in the drop down menu.
+
+Under section **/sdn-controller/tenant/**, fill in the following
+* name (drop down list) - **studentxx** -> your student pod
+* application-profile-name (drop down list) - **app**
+* epg-provider-name(drop down list) - **web-epg**
+* epg-consumer-name (drop down list) - **epg-l3out**
+* bd-provider-name (drop down list) - **vip-bd** 
+* bd-comsumer-name (drop down list) - **vip-bd**
+* contract-name (type it in) - **cntr**
+
+**IMAGE**
+
+Under section **/sdn-controller/tenant/vns-ldev-vip**, fill in the following
+* name - **bigip**
+* device-type - leave it as **VIRTUAL**
+* domain-name (drop down list) - **CLBerlin2016**
+
+**IMAGE**
+
+Under section **/sdn-controller/tenant/vns-abs-graph**, fill in the following
+* name - **sgt**
+* template-type - leave it as **ADC-ONE-ARM**
+
+Under section **/load-balancer** from the drop down list choose **f5-bigip**
+
+**IMAGE**
+
+Under section **/load-balancer-vlans/**, click on the '+' sign
+
+A pop up window will appear, from the drop down list choose **vlan** and click **confirm**
+
+**IMAGE*
+
+Click on the **vlan** created
+
+**IMAGE**
+
+Under section **/interfaces** click on the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, choose interface **1.1** from the drop down list and click **confirm**
+
+**IMAGE**
+
+Click on the iterface name.
+
+**IMAGE**
+
+Change the tagging value to **untagged** from the dropdown list
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/vlans{vlan}/interfaces{1.1}/
+in the upper left corner
+
+**IMAGE**
+
+Scroll down to section **/load-balancer/self-ip/**, click the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter the name of the self-ip **selfip** and click on **confirm**
+
+**IMAGE**
+
+Click on the self-ip created
+
+**IMAGE**
+
+Enter the IP address - {}/24
+Choose **vlan** from the drop down list
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
+in the upper left corner
+
+Scroll down to section **/load-balancer/virtual-server/**, click the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter the name of the virtual server **http_vs** and click on **confirm**
+
+**IMAGE**
+
+Click on the virtual server created
+
+**IMAGE**
+
+Enter the destination-ip - {}
+Enter the port number - 80
+
+Under section /profiles , click on the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter **http** and click **confirm**
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/virtual-server/self-ip{http_vs}/
+in the upper left corner
+
+**IMAGE**
+
+Scroll down to section **/load-balancer/pool/**, enter the following
+* name - **http_pool**
+* load-balancing-method - leave it as **round-robin**
+
+**IMAGE**
+
+Under section **/load-balancer/pool/monitor**, click on the **+** sign
+
+**IMAGE**
+
+A pop up window will appear, enter the monitor **http** and click **confirm**
+
+**IMAGE**
+
+Scroll down to section **/load-balancer/pool/members**, click on the **+** sign 
+
+**IMAGE**
+
+A pop up window will appear, enter **node1** and click **confrim**
+
+**IMAGE**
+
+Click on the node created 
+
+**IMAGE**
+
+Enter Node IP address = {}
+
+**IMAGE**
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
+in the upper left corner
+
+**IMAGE**
+
+Scroll to the bottom and add another node like you did previosuly.  
+* name - **node2**
+* IP address - **{}**
+
+**IMAGE**
+
+Now we are going to commit the configuration
+
+Click on **commit manager** at the bottom of the page
+
+You will see four different tabs **changes**, **warnings**, **config** and **native config**. Click on each and familarize yourself with the configuration that is going to be pushed. Make sure there are NO warnings.
+
+**IMAGE**
+
+Once completed, click the **commit** buttom on the top right hand corner
+
+**IMAGE**
+
+When commited successfully you will see Current Transaction - **empty**
+
+**IMAGE**
+
+--------------------------------------------------------------------------------------------------
 Click on **Lab-Git-Project**. This is a view only permission.
 
 ![](images/Tower-Project1.png)
