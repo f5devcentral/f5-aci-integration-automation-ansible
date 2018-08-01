@@ -125,38 +125,38 @@ Under section **/sdn-controller/tenant/vns-abs-graph**, fill in the following
 
 Under section **/load-balancer** from the drop down list choose **f5-bigip**
 
-**IMAGE**
+![](images/NSO-sm-lb.png)
 
 Under section **/load-balancer-vlans/**, click on the '+' sign
 
+![](images/NSO-sm-lb-vlan.png)
+
 A pop up window will appear, from the drop down list choose **vlan** and click **confirm**
 
-**IMAGE*
+![](images/NSO-sm-lb-vlan1.png)
 
 Click on the **vlan** created
 
-**IMAGE**
+![](images/NSO-sm-lb-vlan2.png)
 
 Under section **/interfaces** click on the **+** sign
 
-**IMAGE**
+![](images/NSO-sm-lb-vlan5.png)
 
 A pop up window will appear, choose interface **1.1** from the drop down list and click **confirm**
 
-**IMAGE**
+![](images/NSO-sm-lb-vlan6.png)
 
-Click on the iterface name.
+Click on the interface name **1.1**.
 
-**IMAGE**
+![](images/NSO-sm-lb-vlan7.png)
 
 Change the tagging value to **untagged** from the dropdown list
-
-**IMAGE**
 
 Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/vlans{vlan}/interfaces{1.1}/
 in the upper left corner
 
-**IMAGE**
+![](images/NSO-sm-lb-vlan8.png)
 
 Scroll down to section **/load-balancer/self-ip/**, click the **+** sign
 
