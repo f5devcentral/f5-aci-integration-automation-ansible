@@ -160,23 +160,22 @@ in the upper left corner
 
 Scroll down to section **/load-balancer/self-ip/**, click the **+** sign
 
-**IMAGE**
+![](images/NSO-sm-lb-selfip.png)
 
 A pop up window will appear, enter the name of the self-ip **selfip** and click on **confirm**
 
-**IMAGE**
+![](images/NSO-sm-lb-selfip1.png)
 
 Click on the self-ip created
 
-**IMAGE**
+![](images/NSO-sm-lb-selfip2.png)
 
-Enter the IP address - {}/24
-Choose **vlan** from the drop down list
-
-**IMAGE**
-
-Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
+* Enter the IP address - {}/24
+* Choose **vlan** from the drop down list
+* Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
 in the upper left corner
+
+![](images/NSO-sm-lb-selfip3.png)
 
 Scroll down to section **/load-balancer/virtual-server/**, click the **+** sign
 
