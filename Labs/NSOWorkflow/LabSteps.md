@@ -96,8 +96,10 @@ Click on the **vlan** created
 
 Under section **/sdn-controller**, from the drop down list choose **cisco-apic**. This information is automatically getting pulled from the NSO. This drop down is a list of all devices that are of type 'Cisco-ACI'. In our lab we have only one device configured on the NSO hence only one device in the drop down menu.
 
+![](images/NSO-sm-apic.png)
+
 Under section **/sdn-controller/tenant/**, fill in the following
-* name (drop down list) - **studentxx** -> your student pod
+* name (drop down list) - **studentxx** -> xx to represent your student pod
 * application-profile-name (drop down list) - **app**
 * epg-provider-name(drop down list) - **web-epg**
 * epg-consumer-name (drop down list) - **epg-l3out**
@@ -105,18 +107,21 @@ Under section **/sdn-controller/tenant/**, fill in the following
 * bd-comsumer-name (drop down list) - **vip-bd**
 * contract-name (type it in) - **cntr**
 
-**IMAGE**
+![](images/NSO-sm-apic1.png)
 
 Under section **/sdn-controller/tenant/vns-ldev-vip**, fill in the following
 * name - **bigip**
 * device-type - leave it as **VIRTUAL**
 * domain-name (drop down list) - **CLBerlin2016**
+* vm-name - **BigIP-xx** -> xx to represent your student Pod
 
-**IMAGE**
+![](images/NSO-sm-apic2.png)
 
 Under section **/sdn-controller/tenant/vns-abs-graph**, fill in the following
 * name - **sgt**
 * template-type - leave it as **ADC-ONE-ARM**
+
+![](images/NSO-sm-apic3.png)
 
 Under section **/load-balancer** from the drop down list choose **f5-bigip**
 
