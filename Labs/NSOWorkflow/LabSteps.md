@@ -89,8 +89,8 @@ Click on the **vlan** created
 
 ![](images/NSO-sm-vlan2.png)
 
-Enter the vlan tag **1234**.  
-Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**studentxx-demo**}/vlans{vlan}/ to go back to the service added
+* Enter the vlan tag **1234**.  
+* Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**studentxx-demo**}/vlans{vlan}/ to go back to the service added
 
 ![](images/NSO-sm-vlan3.png)
 
