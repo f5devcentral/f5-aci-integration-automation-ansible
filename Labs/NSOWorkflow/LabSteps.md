@@ -71,26 +71,28 @@ Click on **+** sign next to **aci-bigip:aci-bigip** service
 
 There will will a pop up, this is the name of the service enter **studentxx-demo** where **xx** is your student pod.Example 'student01-demo' and click on **confirm**
 
-**IMAGE**
+![](images/NSO-sm.png)
 
 This will take you back to the services page, click on the service created **studentxx-demo**
 
-**IMAGE**
+![](images/NSO-sm1.png)
 
 Under the section **vlans/**, click the **+** sign
 
-**IMAGE**
+![](images/NSO-sm-vlan.png)
 
 There will be a pop up, enter the name of the VLAN **vlan** and click **confirm**
 
-**IMAGE**
+![](images/NSO-sm-vlan1.png)
 
 Click on the **vlan** created
 
-**IMAGE**
+![](images/NSO-sm-vlan2.png)
 
 Enter the vlan tag **1234**.  
 Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**studentxx-demo**}/vlans{vlan}/ to go back to the service added
+
+![](images/NSO-sm-vlan3.png)
 
 Under section **/sdn-controller**, from the drop down list choose **cisco-apic**. This information is automatically getting pulled from the NSO. This drop down is a list of all devices that are of type 'Cisco-ACI'. In our lab we have only one device configured on the NSO hence only one device in the drop down menu.
 
