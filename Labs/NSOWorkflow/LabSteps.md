@@ -228,59 +228,52 @@ in the upper left corner
 Scroll down to section **/load-balancer/pool/**, enter the following
 * name - **http_pool**
 * load-balancing-method - leave it as **round-robin**
+* Under section **/load-balancer/pool/monitor**, click on the **+** sign
 
-**IMAGE**
-
-Under section **/load-balancer/pool/monitor**, click on the **+** sign
-
-**IMAGE**
+![](images/NSO-sm-lb-pool.png)
 
 A pop up window will appear, enter the monitor **http** and click **confirm**
 
-**IMAGE**
+![](images/NSO-sm-lb-pool1.png)
 
 Scroll down to section **/load-balancer/pool/members**, click on the **+** sign 
 
-**IMAGE**
+![](images/NSO-sm-lb-poolmember.png)
 
 A pop up window will appear, enter **node1** and click **confrim**
 
-**IMAGE**
+![](images/NSO-sm-lb-poolmember1.png)
 
 Click on the node created 
-
-**IMAGE**
-
-Enter Node IP address = {}
-
-**IMAGE**
-
-Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
+* Enter Node IP address = {}
+* Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
 in the upper left corner
 
-**IMAGE**
+![](images/NSO-sm-lb-poolmember2.png)
 
 Scroll to the bottom and add another node like you did previosuly.  
 * name - **node2**
 * IP address - **{}**
 
-**IMAGE**
+After adding node 2, you should see two nodes under **/load-balancer/pool/members**
 
-Now we are going to commit the configuration
+![](images/NSO-sm-lb-poolmember3.png)
+
+**Now we are going to commit the configuration**
 
 Click on **commit manager** at the bottom of the page
 
+![](images/NSO-sm-commit.png)
+
 You will see four different tabs **changes**, **warnings**, **config** and **native config**. Click on each and familarize yourself with the configuration that is going to be pushed. Make sure there are NO warnings.
 
-**IMAGE**
+Once checked, click the **commit** buttom on the top right hand corner
 
-Once completed, click the **commit** buttom on the top right hand corner
-
-**IMAGE**
+![](images/NSO-sm-commit1.png)
 
 When commited successfully you will see Current Transaction - **empty**
 
-**IMAGE**
+![](images/NSO-sm-commit2.png)
 
 --------------------------------------------------------------------------------------------------
 Click on **Lab-Git-Project**. This is a view only permission.
