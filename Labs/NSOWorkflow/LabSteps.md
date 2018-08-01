@@ -177,33 +177,53 @@ in the upper left corner
 
 ![](images/NSO-sm-lb-selfip3.png)
 
+Scroll down to section **/load-balancer/route/**, click the **+** sign
+
+![](images/NSO-sm-lb-route.png)
+
+A pop up window will appear, enter the name of the virtual server **default** and click on **confirm**
+
+![](images/NSO-sm-lb-route1.png)
+
+Click on the route created
+
+![](images/NSO-sm-lb-route2.png)
+
+Enter the gw-address - {}
+Enter the destination-network - 0.0.0.0/00
+
+Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/route{default}/
+in the upper left corner
+
+![](images/NSO-sm-lb-route3.png)
+
 Scroll down to section **/load-balancer/virtual-server/**, click the **+** sign
 
-**IMAGE**
+![](images/NSO-sm-lb-vip.png)
 
 A pop up window will appear, enter the name of the virtual server **http_vs** and click on **confirm**
 
-**IMAGE**
+![](images/NSO-sm-lb-vip1.png)
 
 Click on the virtual server created
 
-**IMAGE**
+![](images/NSO-sm-lb-vip2.png)
 
 Enter the destination-ip - {}
 Enter the port number - 80
 
 Under section /profiles , click on the **+** sign
 
-**IMAGE**
+![](images/NSO-sm-lb-vip3.png)
 
 A pop up window will appear, enter **http** and click **confirm**
 
-**IMAGE**
+![](images/NSO-sm-lb-vip4.png)
 
 Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/virtual-server/self-ip{http_vs}/
 in the upper left corner
 
-**IMAGE**
+![](images/NSO-sm-lb-vip5.png)
 
 Scroll down to section **/load-balancer/pool/**, enter the following
 * name - **http_pool**
