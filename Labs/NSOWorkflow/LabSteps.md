@@ -261,7 +261,7 @@ After adding node 2, you should see two nodes under **/load-balancer/pool/member
 
 **Now we are going to commit the configuration**
 
-Click on **commit manager** at the bottom of the page
+Click on the **cisco** logo on the top left corner. Click **commit manager** on the dashboard
 
 ![](images/NSO-sm-commit.png)
 
