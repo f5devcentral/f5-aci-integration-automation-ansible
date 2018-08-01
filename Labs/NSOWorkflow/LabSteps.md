@@ -410,6 +410,7 @@ Press the enter button (do not use the refresh button of your browser) at the IP
 We have verified connectivity to the web server via the ADC VIP.
 
 **This concludes the section for the Lab**
+
 --------------------------------------------------------------------------------------------------
 
 ## Automate cleanup on BIG-IP and APIC using NSO
@@ -417,7 +418,9 @@ We have verified connectivity to the web server via the ADC VIP.
 
 
 **This concludes the section on using NSO to cleanup the APIC and BIG-IP**
+
 --------------------------------------------------------------------------------------------------
+
 ## Verifying the cleanup of the deployment
 
 ### Verify BIG-IP configuration cleanup
