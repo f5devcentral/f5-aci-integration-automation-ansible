@@ -186,6 +186,7 @@ APIC IPAddress = '172.21.208.173'
 APIC username = 'studentxx'	#Replace xx to your student ID
 APIC password = 'ciscolive.2018'
 APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
+APIC - BIG-IP VE name in vcenter = 'BigIP-xx' #Replace xx with your student ID
 ```
 Click Launch once the Survey is filled according to the parameters above
 
