@@ -6,7 +6,7 @@
 	<vnsLIf name="provider" encap="unknown">
 		<vnsRsCIfAttN tDn="uni/tn-{{tenant_name}}/lDevVip-{{logicalDeviceCluster_name}}/cDev-Device1/cIf-[1_1]"/>
 	</vnsLIf>
-	<vnsCDev name="Device1" vmName="BigIP-01" vcenterName="DMZ_VC" >
+	<vnsCDev name="Device1" vmName="{{vm_name}}" vcenterName="DMZ_VC" >
 		<vnsCIf name="1_1" vnicName="Network adapter 2"/>
 		<vnsCCredSecret name="password" />
 		<vnsCCred name="username" value="a"/>
