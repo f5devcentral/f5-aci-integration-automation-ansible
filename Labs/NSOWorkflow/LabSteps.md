@@ -40,29 +40,34 @@ Connect to NSO using the following information:
 
 Once you are logged in click on **Device Manager** located on the dashboard
 
-**IMAGE**
+![](images/NSO-dm.png)
 
 Before procedding we are going to sync NSO to have the latest APIC and BIG-IP configuration.  
 Select both the devices using the checkbox, click on the **running man icon** and click on **sync-from**
 
-**IMAGE**
+![](images/NSO-dm1.png)
 
 While the device is syncing a yellow tab will show up next to the device.
 
-**IMAGE**
+![](images/NSO-dm2.png)
 
 Once the devices are synced, there will be green tabs with **yes** for **found**, **connected** and **in-sync**
+
+![](images/NSO-dm3.png)
 
 Click on the **Cisco** icon on the top left corner to go back to the dashboard
 
 Click on **Configuration Editor** located on the dashboard.  
+
+![](images/NSO-cm.png)
+
 Click on **ncs:services**
 
-**IMAGE**
+![](images/NSO-cm1.png)
 
 Click on **+** sign next to **aci-bigip:aci-bigip** service
 
-**IMAGE**
+![](images/NSO-cm2.png)
 
 There will will a pop up, this is the name of the service enter **studentxx-demo** where **xx** is your student pod.Example 'student01-demo' and click on **confirm**
 
