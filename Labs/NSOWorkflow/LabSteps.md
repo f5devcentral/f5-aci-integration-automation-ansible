@@ -42,7 +42,7 @@ Once you are logged in click on **Device Manager** located on the dashboard
 
 ![](images/NSO-dm.png)
 
-Before procedding we are going to sync NSO to have the latest APIC and BIG-IP configuration.  
+Before proceeding we are going to sync NSO to have the latest APIC and BIG-IP configuration.  
 Select both the devices using the checkbox, click on the **running man icon** and click on **sync-from**
 
 ![](images/NSO-dm1.png)
@@ -414,6 +414,16 @@ We have verified connectivity to the web server via the ADC VIP.
 --------------------------------------------------------------------------------------------------
 
 ## Automate cleanup on BIG-IP and APIC using NSO
+
+Connect to NSO using the following information:
+
+* **NSO Address**: 172.21.208.249
+* **username**: admin
+* **password**: C1sc0123
+
+Click on the **Cisco** icon on the top left corner to go back to the dashboard
+
+Click on **Service Manager** located on the dashboard.  
 
 
 
