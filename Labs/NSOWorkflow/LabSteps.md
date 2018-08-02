@@ -425,7 +425,29 @@ Click on the **Cisco** icon on the top left corner to go back to the dashboard
 
 Click on **Service Manager** located on the dashboard.  
 
+![](images/NSO-cleanup-commit.png)
 
+* Drop down list **Select service point** in the upper left corner and choose **aci-bigip**. The service model we commited earlier will show up **studentxx-demo**. 
+* Check box next to **studentxx-demo**
+* Click on the **-** sign
+
+![](images/NSO-cleanup-commit1.png)
+
+Click on the **Cisco** icon on the top left corner to go back to the dashboard
+
+Click on **Commit Manager** located on the dashboard.  
+
+![](images/NSO-cleanup-commit2.png)
+
+Click on **native config** and look how the content is being clean up
+
+![](images/NSO-cleanup-commit3.png)
+
+Click on **commit** to start the cleanup process
+
+![](images/NSO-cleanup-commit4.png)
+
+Cleanup should bec successful with the current transsaction showing as **Empty**
 
 **This concludes the section on using NSO to cleanup the APIC and BIG-IP**
 
