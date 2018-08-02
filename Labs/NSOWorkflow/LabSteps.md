@@ -170,7 +170,7 @@ Click on the self-ip created
 
 ![](images/NSO-sm-lb-selfip2.png)
 
-* Enter the IP address - {}/24
+* Enter the IP address - {TL2F5INTSIP}/24
 * Choose **vlan** from the drop down list
 * Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
 in the upper left corner
@@ -189,7 +189,7 @@ Click on the route created
 
 ![](images/NSO-sm-lb-route2.png)
 
-Enter the gw-address - {}
+Enter the gw-address - {TL2F5VIPGW}
 Enter the destination-network - 0.0.0.0/00
 
 Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/route{default}/
@@ -209,7 +209,7 @@ Click on the virtual server created
 
 ![](images/NSO-sm-lb-vip2.png)
 
-Enter the destination-ip - {}
+Enter the destination-ip - {TL2F5VIP}
 Enter the port number - 80
 
 Under section /profiles , click on the **+** sign
@@ -245,7 +245,7 @@ A pop up window will appear, enter **node1** and click **confrim**
 ![](images/NSO-sm-lb-poolmember1.png)
 
 Click on the node created 
-* Enter Node IP address = {}
+* Enter Node IP address = {TVM2IP}
 * Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
 in the upper left corner
 
@@ -253,7 +253,7 @@ in the upper left corner
 
 Scroll to the bottom and add another node like you did previosuly.  
 * name - **node2**
-* IP address - **{}**
+* IP address - **{TVM3IP}**
 
 After adding node 2, you should see two nodes under **/load-balancer/pool/members**
 
