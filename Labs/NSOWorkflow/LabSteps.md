@@ -26,7 +26,7 @@ The goal is to provide a central point of control to configure both the Cisco AP
 
 ![](images/Ansible-topology1.png)
 
-**Let's begin the lab**
+>**Let's begin the lab**
 
 ## Automate configuration on APIC and BIG-IP using Cisco NSO
 
@@ -447,7 +447,7 @@ Click on **commit** to start the cleanup process
 
 ![](images/NSO-cleanup-commit4.png)
 
-Cleanup should bec successful with the current transsaction showing as **Empty**
+Cleanup should be successful with the current transsaction showing as **Empty**
 
 **This concludes the section on using NSO to cleanup the APIC and BIG-IP**
 
