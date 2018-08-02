@@ -11,11 +11,11 @@ Lab will be used to demonstrate L4-L7 service insertion in unmanaged mode to sim
 
 The topology used for this Lab is as follows:
 
-**IMAGE**
+![](images/Ansible-topology.png)
 
 The goal is to provide a central point of control to configure both the Cisco APIC as well as the F5 BIG-IP. Network stitching is achieved by automating the deployment of a service graph on APIC and L4-L7 configuration is automated directly on the BIG-IP
 
-**IMAGE**
+![](images/NSO-logicaldiagram.png)
 
 **For this lab**
 * We will use the F5 BIG-IP VE Virtual ADC to demonstrate this functionality
@@ -24,7 +24,7 @@ The goal is to provide a central point of control to configure both the Cisco AP
 * SNAT = 'Automap' will be configured on the BIG-IP (return traffic from backend servers are forced to pass back through the BIG-IP)
 * The EPG's used are **web-epg**(provider) and **epg-l3out** (consumer). Bridge domain **vip-bd**
 
-**IMAGE**
+![](images/Ansible-topology1.png)
 
 **Let's begin the lab**
 
@@ -275,7 +275,7 @@ When commited successfully you will see Current Transaction - **empty**
 
 ![](images/NSO-sm-commit2.png)
 
-**This concludes the section on using NSO to configure APIC and BIG-IP**
+>**This concludes the section on using NSO to configure APIC and BIG-IP**
 
 --------------------------------------------------------------------------------------------------
 ## Verifying the Deployment
@@ -409,7 +409,7 @@ Press the enter button (do not use the refresh button of your browser) at the IP
 
 We have verified connectivity to the web server via the ADC VIP.
 
-**This concludes the section for the Lab**
+>**This concludes the section for the Lab**
 
 --------------------------------------------------------------------------------------------------
 
@@ -486,6 +486,6 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 * Click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
 * Click on **Services->L4-L7-Deployed Graph Instances**
 
-**This concludes the section of the Lab**
+>**This concludes the section of the Lab**
 
 >**Congratulations! This session of the lab is completed, please proceed to the next lab session**
