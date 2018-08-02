@@ -224,7 +224,7 @@ The JOB ID in the screen shot does not need to match what you see
 
 ![](images/Tower-RunWorflow6.png)
 
-**This concludes the section on using Ansible playbooks to configure APIC and BIG-IP**
+>**This concludes the section on using Ansible playbooks to configure APIC and BIG-IP**
 
 ## Verifying the Deployment
 
@@ -357,7 +357,7 @@ Press the enter button (do not use the refresh button of your browser) at the IP
 
 We have verified connectivity to the web server via the ADC VIP.
 
-**This concludes the section for the Lab**
+>**This concludes the section for the Lab**
 
 ## Automate cleanup on BIG-IP and APIC using Ansible
 
@@ -518,6 +518,6 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 * Click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
 * Click on **Services->L4-L7-Deployed Graph Instances**
 
-**This concludes the section of the Lab**
+>**This concludes the section of the Lab**
 
 >**Congratulations! This session of the lab is completed, please proceed to the next lab session**
