@@ -2,6 +2,14 @@
 
 >**Please note that the images used in the lab guide are representative and NOT based on any specific pod. Please use the information in the lab guide instead.**
 
+[Getting started](#gettingstarted)
+
+[Pre-requisite](#pre-requisite)
+
+[Topology](#topology)
+
+[Directory structure](#directory-structure)
+
 ## Getting started ##
 
 Cisco Application Centric Infrastructure (ACI) technology provides the capability to insert Layer 4 through Layer 7 (L4-L7) functions using an approach called a service graph. The servive graph controls network connectivity consisting of VLANs.
