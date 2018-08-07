@@ -515,7 +515,7 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 * Click on **Contracts->Standard**
 * Click on **Services->L4-L7->Device Selection Policy**
 * Click on **Application Profiles->app->Application EPGs->web-epg->Contracts** 
-* Click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
+* Click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID) - no consumed contract
 * Click on **Services->L4-L7-Deployed Graph Instances**
 
 >**This concludes the section of the Lab**
