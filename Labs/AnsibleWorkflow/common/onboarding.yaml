@@ -9,15 +9,6 @@
     validate_certs: False
   delegate_to: localhost
 
-- name: Configure BIG-IP hostname
-  bigip_hostname:
-    server: "{{ bigip_ip }}"
-    user: "{{ bigip_username }}"
-    password: "{{ bigip_password }}"
-    validate_certs: False
-    hostname:  "bigip01.lab.test.local"
-  delegate_to: localhost
-
 - name: Manage SSHD setting on BIG-IP
   bigip_device_sshd:
     server: "{{ bigip_ip }}"
