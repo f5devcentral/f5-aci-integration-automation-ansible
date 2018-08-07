@@ -151,10 +151,8 @@ Click on the interface name **1.1**.
 
 ![](images/NSO-sm-lb-vlan7.png)
 
-Change the tagging value to **untagged** from the dropdown list
-
-Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/vlans{vlan}/interfaces{1.1}/
-in the upper left corner
+1) Change the tagging value to **untagged** from the dropdown list
+2) Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/vlans{vlan}/interfaces{1.1}/ in the upper left corner
 
 ![](images/NSO-sm-lb-vlan8.png)
 
@@ -170,9 +168,9 @@ Click on the self-ip created
 
 ![](images/NSO-sm-lb-selfip2.png)
 
-* Enter the IP address - {TL2F5INTSIP}/24
-* Choose **vlan** from the drop down list
-* Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
+1) Enter the IP address - {TL2F5INTSIP}/24
+2) Choose **vlan** from the drop down list
+3) Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
 in the upper left corner
 
 ![](images/NSO-sm-lb-selfip3.png)
@@ -189,10 +187,9 @@ Click on the route created
 
 ![](images/NSO-sm-lb-route2.png)
 
-Enter the gw-address - {TL2F5VIPGW}
-Enter the destination-network - 0.0.0.0/00
-
-Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/route{default}/
+1) Enter the gw-address - {TL2F5VIPGW}
+2) Enter the destination-network - 0.0.0.0/0
+3) Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/route{default}/
 in the upper left corner
 
 ![](images/NSO-sm-lb-route3.png)
@@ -209,10 +206,9 @@ Click on the virtual server created
 
 ![](images/NSO-sm-lb-vip2.png)
 
-Enter the destination-ip - {TL2F5VIP}
-Enter the port number - 80
-
-Under section /profiles , click on the **+** sign
+1) Enter the destination-ip - {TL2F5VIP}
+2) Enter the port number - 80
+3) Under section /profiles , click on the **+** sign
 
 ![](images/NSO-sm-lb-vip3.png)
 
@@ -226,9 +222,9 @@ in the upper left corner
 ![](images/NSO-sm-lb-vip5.png)
 
 Scroll down to section **/load-balancer/pool/**, enter the following
-* name - **http_pool**
-* load-balancing-method - leave it as **round-robin**
-* Under section **/load-balancer/pool/monitor**, click on the **+** sign
+1) name - **http_pool**
+2) load-balancing-method - leave it as **round-robin**
+3) Under section **/load-balancer/pool/monitor**, click on the **+** sign
 
 ![](images/NSO-sm-lb-pool.png)
 
@@ -245,8 +241,8 @@ A pop up window will appear, enter **node1** and click **confrim**
 ![](images/NSO-sm-lb-poolmember1.png)
 
 Click on the node created 
-* Enter Node IP address = {TVM2IP}
-* Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
+1) Enter Node IP address = {TVM2IP}
+2) Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
 in the upper left corner
 
 ![](images/NSO-sm-lb-poolmember2.png)
