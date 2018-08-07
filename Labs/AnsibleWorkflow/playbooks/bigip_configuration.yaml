@@ -3,6 +3,9 @@
   connection: local
   gather_facts: false
     
+  environment:
+    F5_SERVER_PORT: "443"
+    
   tasks:
 
   - include_tasks: ../common/onboarding.yaml 
