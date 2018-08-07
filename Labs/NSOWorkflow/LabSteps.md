@@ -26,7 +26,7 @@ The goal is to provide a central point of control to configure both the Cisco AP
 
 ![](images/Ansible-topology1.png)
 
-**Let's begin the lab**
+>**Let's begin the lab**
 
 ## Automate configuration on APIC and BIG-IP using Cisco NSO
 
@@ -34,7 +34,7 @@ We will provision the APIC and BIG-IP using NSO.
 
 Connect to NSO using the following information:
 
-* **NSO Address**: 172.21.208.249
+* **NSO Address**: http://172.21.208.249:8080
 * **username**: admin
 * **password**: C1sc0123
 
@@ -170,7 +170,7 @@ Click on the self-ip created
 
 ![](images/NSO-sm-lb-selfip2.png)
 
-* Enter the IP address - {}/24
+* Enter the IP address - {TL2F5INTSIP}/24
 * Choose **vlan** from the drop down list
 * Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/load-balancer/self-ip{selfip}/
 in the upper left corner
@@ -189,7 +189,7 @@ Click on the route created
 
 ![](images/NSO-sm-lb-route2.png)
 
-Enter the gw-address - {}
+Enter the gw-address - {TL2F5VIPGW}
 Enter the destination-network - 0.0.0.0/00
 
 Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/route{default}/
@@ -209,7 +209,7 @@ Click on the virtual server created
 
 ![](images/NSO-sm-lb-vip2.png)
 
-Enter the destination-ip - {}
+Enter the destination-ip - {TL2F5VIP}
 Enter the port number - 80
 
 Under section /profiles , click on the **+** sign
@@ -245,7 +245,7 @@ A pop up window will appear, enter **node1** and click **confrim**
 ![](images/NSO-sm-lb-poolmember1.png)
 
 Click on the node created 
-* Enter Node IP address = {}
+* Enter Node IP address = {TVM2IP}
 * Click on **studentxx-demo** on the link ncs:services/aci-bigip:aci-bigip{**student-demo**}/pool/members{node1}/
 in the upper left corner
 
@@ -253,7 +253,7 @@ in the upper left corner
 
 Scroll to the bottom and add another node like you did previosuly.  
 * name - **node2**
-* IP address - **{}**
+* IP address - **{TVM3IP}**
 
 After adding node 2, you should see two nodes under **/load-balancer/pool/members**
 
@@ -417,7 +417,7 @@ We have verified connectivity to the web server via the ADC VIP.
 
 Connect to NSO using the following information:
 
-* **NSO Address**: 172.21.208.249
+* **NSO Address**: http://172.21.208.249:8080
 * **username**: admin
 * **password**: C1sc0123
 
@@ -447,7 +447,7 @@ Click on **commit** to start the cleanup process
 
 ![](images/NSO-cleanup-commit4.png)
 
-Cleanup should bec successful with the current transsaction showing as **Empty**
+Cleanup should be successful with the current transsaction showing as **Empty**
 
 **This concludes the section on using NSO to cleanup the APIC and BIG-IP**
 
