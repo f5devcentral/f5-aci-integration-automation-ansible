@@ -34,7 +34,7 @@ We will provision the APIC and BIG-IP using NSO.
 
 Connect to NSO using the following information:
 
-* **NSO Address**: 172.21.208.249
+* **NSO Address**: http://172.21.208.249:8080
 * **username**: admin
 * **password**: C1sc0123
 
@@ -417,7 +417,7 @@ We have verified connectivity to the web server via the ADC VIP.
 
 Connect to NSO using the following information:
 
-* **NSO Address**: 172.21.208.249
+* **NSO Address**: http://172.21.208.249:8080
 * **username**: admin
 * **password**: C1sc0123
 
