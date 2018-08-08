@@ -1,121 +1,121 @@
 mapping:
 - name: BigIP-01
   address: 172.21.208.109
-  username: student01
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-02
   address: 172.21.208.110
-  username: student02
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-03
   address: 172.21.208.111
-  username: student03
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-04
   address: 172.21.208.112
-  username: student04
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-05
   address: 172.21.208.113
-  username: student05
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-06
   address: 172.21.208.114
-  username: student06
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-07
   address: 172.21.208.115
-  username: student07
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-08
   address: 172.21.208.116
-  username: student08
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-09
   address: 172.21.208.117
-  username: student09
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-10
   address: 172.21.208.118
-  username: student10
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-11
   address: 172.21.208.119
-  username: student11
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-12
   address: 172.21.208.120
-  username: student12
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-13
   address: 172.21.208.121
-  username: student13
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-14
   address: 172.21.208.122
-  username: student14
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-15
   address: 172.21.208.123
-  username: student15
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-16
   address: 172.21.208.124
-  username: student16
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-17
   address: 172.21.208.125
-  username: student17
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-18
   address: 172.21.208.126
-  username: student18
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-19
   address: 172.21.208.127
-  username: student19
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-20
   address: 172.21.208.128
-  username: student20
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-21
   address: 172.21.208.129
-  username: student21
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-22
   address: 172.21.208.130
-  username: student22
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-23
   address: 172.21.208.131
-  username: student23
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-24
   address: 172.21.208.132
-  username: student24
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-25
   address: 172.21.208.133
-  username: student25
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-26
   address: 172.21.208.134
-  username: student26
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-27
   address: 172.21.208.135
-  username: student27
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-28
   address: 172.21.208.136
-  username: student28
-  password: ciscolive.2018
+ username: admin
+  password: cisco123
 - name: BigIP-29
   address: 172.21.208.137
-  username: student29
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
 - name: BigIP-30
   address: 172.21.208.138
-  username: student30
-  password: ciscolive.2018
+  username: admin
+  password: cisco123
