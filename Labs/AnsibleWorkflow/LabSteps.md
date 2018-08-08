@@ -365,7 +365,7 @@ Objective: Manage pool members by providing only the APIC Tenant and Logical dev
 
 Click on **Templates** located in the top level menu: 
 
-![](images/use_c1.png)
+![](images/use_case_1.png)
 
 Click on the template **Pool Member Management**
 * This is a view only job. 
@@ -382,12 +382,12 @@ Click on the template **Pool Member Management**
 
 **Flow of the use case**
 
-![](images/use_case_topology.png)
-
 1) Ansible tower will grab all the playbooks from Github
 2) Playbook on ansible tower will first query the APIC for the tenant name and logical device cluster provided by the user and grab the BIG-IP name being used in the logical device cluster. Example - VM name -> **BigIP-01**
 3) Playbook will then query the variable file with the BIG-IP VM name to IP address matching and grab the correct BIG-IP credentials
 4) Playbook will mamange the pool memnbers on the BIG-IP
+
+![](images/use_case_topology.png)
 
 Before executing the playbook, login to the BIG-IP
 * BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
@@ -397,7 +397,7 @@ Before executing the playbook, login to the BIG-IP
 Once logged in
 * Navigate to Local taffic-> Pool
 * Click on **studentxx_http-pool**
-* Click on the resources tab
+* Click on the members tab
 * View the pool members are in state enabled
 
 ![](images/use_case_3.png)
@@ -431,7 +431,7 @@ Once the playbook has executed sucessfully. Verify the logical device cluster an
 Go back to the BIG-IP
 * Navigate to Local taffic->Pool
 * Click on studentxx_http-pool
-* Click on the resources tab
+* Click on the members tab
 * View the pool members are in state disabled
 
 ![](images/use_case_7.png)
