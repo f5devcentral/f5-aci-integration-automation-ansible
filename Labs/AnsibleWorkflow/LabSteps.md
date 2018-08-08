@@ -361,7 +361,7 @@ We have verified connectivity to the web server via the ADC VIP.
 
 ## Day 1 tasks - Pool member management
 
-Objective: Manage pool members by providing only the APIC Tenant and Logical device cluster name. Automation will take care of figuring out which BIG-IP credenrials to use and manage the pool member state accordingly
+Objective: Manage pool members by providing only the APIC Tenant and Logical device cluster name. Automation will take care of figuring out which BIG-IP credentials to use and manage the pool member state accordingly
 
 Click on **Templates** located in the top level menu: 
 
