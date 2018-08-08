@@ -359,6 +359,53 @@ We have verified connectivity to the web server via the ADC VIP.
 
 >**This concludes the section for the Lab**
 
+## Day 1 tasks - Pool member management
+Click on **Jobs** located in the top level menu: 
+
+<<GIVE AN IMAE>>
+
+Click on the job **Pool_Member_Management**
+* This is a view only job. 
+* There is a project associated with the template (which is the GIT project).
+* There is a ansible playbook associated with the template (pulled from GIT - pool_member_management.yml).
+
+<<GIVE AN IMAE>>
+
+**Playbook contents - pool_member_management.yml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/pool_member_management.yml)
+* Includes a variable file ip_mapping.yml To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/ip_mapping.yaml). The variable file is a mapping of the BIG-IP VM name to the BIG-IP IP address
+* Makes a 'GET' call to the APIC and based on the Tenant and Logical device cluster information passed in by the user pulls our the BIG-IP that is being used in that particular logical device cluster
+* Uses the ip_mapping.yml file to then grab the IP address to correspond to the BIG-IP name obtained from the above step
+* Enables/Disables pool member specified by the user on the BIG-IP using the BIG-IP login credentials
+
+Before executing the playbook, login to the BIG-IP
+* Navigate to Local taffic->Pool
+* Click on studentxx_http-pool
+* Click on the resources tab
+
+<<GIVE AN IMAE>>
+
+Go back to Ansible Tower, Click on the template **Pool_Member_Management**. Scroll to the bottom and click on the 'Rocket' icon next to the job.
+
+<<GIVE AN IMAGE>>
+
+This will launch the playbook. A survey will pop up when the rocket button is clicked.
+The survey is an Ansible Tower feature to allow users to provide input to the playbook while executing the playbook. 
+
+```
+In the Survey enter the following:
+APIC IPAddress = '172.21.208.173'
+APIC username = 'studentxx'	  #Replace xx to your student ID
+APIC password = 'ciscolive.2018'
+APIC Tenant Name = 'studentxx'	  #Replace xx to your student ID
+BIG-IP Pool Member name: '{TVM2IP}'
+BIG-IP Pool Member port: '80'
+BIG-IP Pool Member state: 'disabled'
+
+```
+Click Launch once the Survey is filled according to the parameters above
+
+![](images/Tower-Cleanup-Launchsurvey.png)
+
 ## Automate cleanup on BIG-IP and APIC using Ansible
 
 Connect to the Ansible tower using the following information:
