@@ -3,7 +3,7 @@
 
 >**Please note that the images used in the lab guide are representative and NOT based on any specific pod. Please use the information in the lab guide instead.**
 
->**All students are using the same NSO, so when you are performing the lab you might see other students configurations as well, make sure to only work on your student configuration
+>**All students are using the same NSO, so when you are performing the lab you might see other students configurations as well, make sure to only work on your student configuration.**
 
 ## Getting started ##
 
@@ -29,6 +29,8 @@ The goal is to provide a central point of control to configure both the Cisco AP
 ![](images/Ansible-topology1.png)
 
 >**Let's begin the lab**
+
+>**All students are using the same NSO, so when you are performing the lab you might see other students configurations as well, make sure to only work on your student configuration.**
 
 ## Automate configuration on APIC and BIG-IP using Cisco NSO
 
@@ -424,6 +426,8 @@ Click on the **Cisco** icon on the top left corner to go back to the dashboard
 Click on **Service Manager** located on the dashboard.  
 
 ![](images/NSO-cleanup-commit.png)
+
+>**All students are using the same NSO, so when you are performing the lab you might see other students configurations as well, make sure to only work on your student configuration.**
 
 * Drop down list **Select service point** in the upper left corner and choose **aci-bigip**. The service model we commited earlier will show up **studentxx-demo**. 
 * Check box next to **studentxx-demo**
