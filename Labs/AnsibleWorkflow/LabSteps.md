@@ -380,17 +380,18 @@ Click on the job **Pool_Member_Management**
 * Uses the ip_mapping.yml file to then grab the IP address to correspond to the BIG-IP name obtained from the above step
 * Enables/Disables pool member specified by the user on the BIG-IP using the BIG-IP login credentials
 
-Flow of the use case
+**Flow of the use case**
 
-<<IMAGE>>
+![](images/use_case_topology.png)
 	
 Before executing the playbook, login to the BIG-IP
 * BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
 * Username: **admin**  
 * Password: **cisco123**  
 
-* Navigate to Local taffic->Pool
-* Click on studentxx_http-pool
+Once logged in
+* Navigate to Local taffic-> Pool
+* Click on **studentxx_http-pool**
 * Click on the resources tab
 * View the pool members are in state enabled
 
