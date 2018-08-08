@@ -1,0 +1,21 @@
+- name: License
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - license.yml
+
+  tasks:
+
+  - name: License BIG-IP using a key
+    bigip_device_license:
+      server: "{{ item.IPAddress }}"
+      user: "admin"
+      server_port: 443
+      password: "*****"
+      license_key: "{{item.license_key}}"
+      accept_eula: true
+      validate_certs: false
+    with_items: "{{license}}"
+    delegate_to: localhost
