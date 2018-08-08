@@ -363,16 +363,16 @@ We have verified connectivity to the web server via the ADC VIP.
 
 Objective: Manage pool members by providing only the APIC Tenant and Logical device cluster name. Automation will take care of figuring out which BIG-IP credenrials to use and manage the pool member state accordingly
 
-Click on **Jobs** located in the top level menu: 
+Click on **Templates** located in the top level menu: 
 
-<<GIVE AN IMAE>>
+![](images/use_c1.png)
 
-Click on the job **Pool_Member_Management**
+Click on the template **Pool Member Management**
 * This is a view only job. 
 * There is a project associated with the template (which is the GIT project).
 * There is a ansible playbook associated with the template (pulled from GIT - pool_member_management.yml).
 
-<<GIVE AN IMAE>>
+![](images/use_case_2.png)
 
 **Playbook contents - pool_member_management.yml** - To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/pool_member_management.yml)
 * Includes a variable file ip_mapping.yml To view contents [click here](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/common/ip_mapping.yaml). The variable file is a mapping of the BIG-IP VM name to the BIG-IP IP address
@@ -383,7 +383,12 @@ Click on the job **Pool_Member_Management**
 **Flow of the use case**
 
 ![](images/use_case_topology.png)
-	
+
+1) Ansible tower will grab all the playbooks from Github
+2) Playbook on ansible tower will first query the APIC for the tenant name and logical device cluster provided by the user and grab the BIG-IP name being used in the logical device cluster. Example - VM name -> **BigIP-01**
+3) Playbook will then query the variable file with the BIG-IP VM name to IP address matching and grab the correct BIG-IP credentials
+4) Playbook will mamange the pool memnbers on the BIG-IP
+
 Before executing the playbook, login to the BIG-IP
 * BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
 * Username: **admin**  
@@ -395,11 +400,11 @@ Once logged in
 * Click on the resources tab
 * View the pool members are in state enabled
 
-<<GIVE AN IMAE>>
+![](images/use_case_3.png)
 
-Go back to Ansible Tower, Click on the template **Pool_Member_Management**. Click on the 'Rocket' icon next to the job.
+Go back to Ansible Tower, Scoll to the template **Pool Member Management**. Click on the 'Rocket' icon next to the job.
 
-<<GIVE AN IMAGE>>
+![](images/use_case_4.png)
 
 This will launch the playbook. A survey will pop up when the rocket button is clicked.
 The survey is an Ansible Tower feature to allow users to provide input to the playbook while executing the playbook. 
@@ -417,15 +422,19 @@ BIG-IP Pool Member state: 'disabled'
 ```
 Click Launch once the Survey is filled according to the parameters above
 
-<<IMAGE>>
+![](images/use_case_5.png)
 	
-Once the playbook has executed sucessfully, go back to the BIG-IP
+Once the playbook has executed sucessfully. Verify the logical device cluster and BIG-IP credentials matched as shown below
+
+![](images/use_case_6.png)
+
+Go back to the BIG-IP
 * Navigate to Local taffic->Pool
 * Click on studentxx_http-pool
 * Click on the resources tab
 * View the pool members are in state disabled
 
-<<IMAGE>>
+![](images/use_case_7.png)
 	
 **Bonus:** You can go back to the job in ansible tower and execute the job again but this time with state - enabled
 
