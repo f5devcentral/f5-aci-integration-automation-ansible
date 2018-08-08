@@ -491,9 +491,9 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 
 Do try this lab if you have experience using Putty and are comfortable editing files in a linux environment
 
-Use API to NSO to deploy the service model instead of using the NSO GUI. This gives you one touch point to configure both the ACI and the BIG-IP
+**Objective:** Use API to NSO to deploy the service model instead of using the NSO GUI. This gives you one touch point to configure both the ACI and the BIG-IP
 
-Steps:
+**Steps:**
 * Open notepad in your windows enviroment (Click on the windows icon on the bottm left corner and search for notepad)
 * Copy the following payload and make edits as menitoned below
   *  Under aci-bigip:aci-bigip,  "name": "student-demo"  
@@ -607,3 +607,5 @@ Steps:
   * curl -k -v --header "Content-type:application/vnd.yang.data+json" --user admin:C1sc0123 -X POST -d @sm.json http://172.21.208.249:8080/api/running/services
   
 Once executed you can go to the NSO as well as the APIC and BIG-IP to verify that the service model has been deployed
+
+>**This concludes the section of the Lab**
