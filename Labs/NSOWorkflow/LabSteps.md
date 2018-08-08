@@ -485,3 +485,122 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 >**This concludes the section of the Lab**
 
 >**Congratulations! This session of the lab is completed, please proceed to the next lab session**
+
+-----------------
+# Bonus Lab
+
+Do try this lab if you have experience using Putty and are comfortable editing files in a linux environment
+
+Use API to NSO to deploy the service model instead of using the NSO GUI. This gives you one touch point to configure both the ACI and the BIG-IP
+
+Steps:
+* Open notepad in your windows enviroment (Click on the windows icon on the bottm left corner and search for notepad)
+* Copy the following payload and make edits as menitoned below
+  *  Under aci-bigip:aci-bigip,  "name": "**student**-demo" **Change the value to reflect your demo pod (example: student02-demo)**
+  *  Under tenant , "name": "student**01**" **Change the value to reflect your demo pod (example: student02)**
+  *  Under tenant->vns-ldev-vip, "vm-name": "BigIP-**01**" **Change the value to reflect your demo pod (example: BigIP-02)**
+
+```
+{
+  "aci-bigip:aci-bigip": [
+    {
+      "name": "student-demo",
+      "vlans": [
+        {
+          "name": "vlan-demo",
+          "tag": 1234
+        }
+      ],
+      "sdn-controller": {
+        "device-name": "cisco-apic",
+        "tenant": {
+          "name": "student01",
+          "application-profile-name": "app",
+          "epg-provider-name": "web-epg",
+          "epg-consumer-name": "epg-l3out",
+          "bd-provider-name": "vip-bd",
+          "bd-consumer-name": "vip-bd",
+          "contract-name": "cntr",
+          "vns-ldev-vip": {
+            "name": "bigip",
+            "domain-name": "CLBerlin2016",
+            "vm-name": "BigIP-01"
+          },
+          "vns-abs-graph": {
+            "name": "sgt"
+          }
+        }
+      },
+      "load-balancer": {
+        "device-name": "f5-bigip",
+        "vlans": [
+          {
+            "name": "vlan-demo",
+            "interfaces": [
+              {
+                "name": "1.1",
+                "tagging": "untagged"
+              }
+            ]
+          }
+        ],
+        "self-ip": [
+          {
+            "name": "selfip",
+            "ip-address": "{TL2F5INTSIP}\/24",
+            "vlan": "vlan-demo"
+          }
+        ],
+        "route": [
+          {
+            "name": "default",
+            "gw-address": "{TL2F5VIPGW}",
+            "destination-network": "0.0.0.0\/00"
+          }
+        ],
+        "virtual-server": [
+          {
+            "name": "http_vs",
+            "destination-ip": "{TL2F5VIP}",
+            "destination-port": 80,
+            "profiles": [
+              "http"
+            ]
+          }
+        ],
+        "pool": {
+          "name": "http_pool",
+          "monitor": [
+            "http"
+          ],
+          "members": [
+            {
+              "name": "node1",
+              "ip-address": "{TVM2IP}"
+            },
+            {
+              "name": "node2",
+              "ip-address": "{TVM3IP}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+* Open putty on your desktop. SSH to the BIG-IP
+  * Login - {TBIGIPIP}
+  * Username: root
+  * Password: cisco123
+
+* Run command vi sm.json (this will open up a new file)
+* Copy the edited contents from notepad to the sm.json file (This will be the payload to send to the NSO service model)
+  * Press **i** once you **vi** the file to be able to add content to the file
+* Save the file, command to use **:wq!**
+* This will take you back to the CLI
+* Run command
+  * curl -k -v --header "Content-type:application/vnd.yang.data+json" --user admin:C1sc0123 -X POST -d @sm.json http://172.21.208.249:8080/api/running/services
+  
+Once executed you can go to the NSO as well as the APIC and BIG-IP to verify that the service model has been deployed
