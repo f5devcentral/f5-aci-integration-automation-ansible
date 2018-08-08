@@ -360,6 +360,9 @@ We have verified connectivity to the web server via the ADC VIP.
 >**This concludes the section for the Lab**
 
 ## Day 1 tasks - Pool member management
+
+Objective: Manage pool members by providing only the APIC Tenant and Logical device cluster name. Automation will take care of figuring out which BIG-IP credenrials to use and manage the pool member state accordingly
+
 Click on **Jobs** located in the top level menu: 
 
 <<GIVE AN IMAE>>
@@ -377,6 +380,10 @@ Click on the job **Pool_Member_Management**
 * Uses the ip_mapping.yml file to then grab the IP address to correspond to the BIG-IP name obtained from the above step
 * Enables/Disables pool member specified by the user on the BIG-IP using the BIG-IP login credentials
 
+Flow of the use case
+
+<<IMAGE>>
+	
 Before executing the playbook, login to the BIG-IP
 * BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
 * Username: **admin**  
