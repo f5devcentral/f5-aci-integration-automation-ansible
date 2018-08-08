@@ -3,6 +3,8 @@
 
 >**Please note that the images used in the lab guide are representative and NOT based on any specific pod. Please use the information in the lab guide instead.**
 
+>**All students are using the same NSO, so when you are performing the lab you might see other students configurations as well, make sure to only work on your student configuration
+
 ## Getting started ##
 
 Cisco Application Centric Infrastructure (ACI) technology provides the capability to insert Layer 4 through Layer 7 (L4-L7) functions using an approach called a service graph. The servive graph controls network connectivity consisting of VLANs.
