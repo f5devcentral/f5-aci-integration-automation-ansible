@@ -31,7 +31,7 @@
     with_items: "{{mapping}}"
 
   - name: Display the BIG-IP Address
-    debug: msg="{{bigip_ip}}"
+    debug: msg="{{bigip_ip}} {{bigip_username}} {{bigip_password}}"
     
   - name: Enable/Disable pool members
     bigip_pool_member:
