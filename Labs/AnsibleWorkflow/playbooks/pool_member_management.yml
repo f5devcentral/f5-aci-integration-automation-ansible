@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars_files:
-   - ip_mapping.yml
+   - ../common/ip_mapping.yml
 
   tasks:
 
@@ -33,13 +33,13 @@
     
   - name: Enable/Disable pool members
     bigip_pool_member:
-      server: "{{ bigip1_ip }}"
-      user: "{{ bigip1_username }}"
-      password: "{{ bigip1_password }}"
+      server: "{{ bigip_ip }}"
+      user: "{{ bigip_username }}"
+      password: "{{ bigip_password }}"
       name: "{{pool_member_name}}"
       port: "{{pool_member_port}}"
       pool: "{{pool_name}}"
-      session_state: "{{state}}"
-      monitor_state: "{{state}}"
+      session_state: "{{pool_member_state}}"
+      monitor_state: "{{pool_member_state}}"
       validate_certs: False
     delegate_to: localhost
