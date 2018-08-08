@@ -25,6 +25,8 @@
   - name: Get BIG-IP Address
     set_fact:
      bigip_ip: "{{item.address}}"
+     bigip_username: "{{item.username}}"
+     bigip_password: "{{item.password}}"
     when: 'item.name in bigip_name'
     with_items: "{{mapping}}"
 
