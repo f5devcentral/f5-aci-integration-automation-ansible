@@ -109,7 +109,7 @@ mapping:
   password: cisco123
 - name: BigIP-28
   address: 172.21.208.136
- username: admin
+  username: admin
   password: cisco123
 - name: BigIP-29
   address: 172.21.208.137
