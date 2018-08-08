@@ -496,9 +496,12 @@ Use API to NSO to deploy the service model instead of using the NSO GUI. This gi
 Steps:
 * Open notepad in your windows enviroment (Click on the windows icon on the bottm left corner and search for notepad)
 * Copy the following payload and make edits as menitoned below
-  *  Under aci-bigip:aci-bigip,  "name": "**student**-demo" **Change the value to reflect your demo pod (example: student02-demo)**
-  *  Under tenant , "name": "student**01**" **Change the value to reflect your demo pod (example: student02)**
-  *  Under tenant->vns-ldev-vip, "vm-name": "BigIP-**01**" **Change the value to reflect your demo pod (example: BigIP-02)**
+  *  Under aci-bigip:aci-bigip,  "name": "student-demo" 
+    * **Change the value to reflect your demo pod (example: student02-demo)**
+  *  Under tenant , "name": "student01" 
+    * **Change the value to reflect your demo pod (example: student02)**
+  *  Under tenant->vns-ldev-vip, "vm-name": "BigIP-01" 
+    * **Change the value to reflect your demo pod (example: BigIP-02)**
 
 ```
 {
