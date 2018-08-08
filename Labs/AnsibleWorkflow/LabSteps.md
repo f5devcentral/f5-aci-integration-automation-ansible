@@ -606,7 +606,7 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 # Bonus Playbooks
 Used the following playbooks to license 30 BIG-IP's that were used for this lab. Another good use case of how automation can help in bringing up and getting the BIG-IP ready
 
-[Click here to view the playbook used for licensing](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_license.yml)
+[Click here to view the playbook used for licensing](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/bigip_license.yml)  
 [Click here to view the variable file used for licensing](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/AnsibleWorkflow/playbooks/license.yml)
 
 
