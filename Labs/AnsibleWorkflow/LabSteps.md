@@ -378,13 +378,18 @@ Click on the job **Pool_Member_Management**
 * Enables/Disables pool member specified by the user on the BIG-IP using the BIG-IP login credentials
 
 Before executing the playbook, login to the BIG-IP
+* BIG-IP: **[https://{TBIGIPIP}](https://{TBIGIPIP})**  
+* Username: **admin**  
+* Password: **cisco123**  
+
 * Navigate to Local taffic->Pool
 * Click on studentxx_http-pool
 * Click on the resources tab
+* View the pool members are in state enabled
 
 <<GIVE AN IMAE>>
 
-Go back to Ansible Tower, Click on the template **Pool_Member_Management**. Scroll to the bottom and click on the 'Rocket' icon next to the job.
+Go back to Ansible Tower, Click on the template **Pool_Member_Management**. Click on the 'Rocket' icon next to the job.
 
 <<GIVE AN IMAGE>>
 
@@ -404,7 +409,19 @@ BIG-IP Pool Member state: 'disabled'
 ```
 Click Launch once the Survey is filled according to the parameters above
 
-![](images/Tower-Cleanup-Launchsurvey.png)
+<<IMAGE>>
+	
+Once the playbook has executed sucessfully, go back to the BIG-IP
+* Navigate to Local taffic->Pool
+* Click on studentxx_http-pool
+* Click on the resources tab
+* View the pool members are in state disabled
+
+<<IMAGE>>
+	
+**Bonus:** You can go back to the job in ansible tower and execute the job again but this time with state - enabled
+
+>**This concludes the section of the Lab**
 
 ## Automate cleanup on BIG-IP and APIC using Ansible
 
