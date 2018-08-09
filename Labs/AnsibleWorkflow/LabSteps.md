@@ -296,7 +296,7 @@ In the left hand pane under your tenant to view the provided contract assigned t
 Contract **cntr** is assigned as a Provided contract to EPG **web-epg**
 
 In the left hand pane under your tenant to view the consumer contract assigned to the EPG's click on  
-**Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID)
+**Networking->External Routed Networks->{TSTUDENT}-l3out->Networks->epg-l3out**
 
 ![](images/APIC-Cons-Contract.png)
 
@@ -396,7 +396,7 @@ Before executing the playbook, login to the BIG-IP
 
 Once logged in
 * Navigate to Local taffic-> Pool
-* Click on **studentxx_http-pool**
+* Click on {TSTUDENT}_http-pool
 * Click on the members tab
 * View the pool members are in state enabled
 
@@ -430,7 +430,7 @@ Once the playbook has executed sucessfully. Verify the logical device cluster an
 
 Go back to the BIG-IP
 * Navigate to Local taffic->Pool
-* Click on **studentxx_http-pool**
+* Click on **{TSTUDENT}_http-pool**
 * Click on the members tab
 * View the pool members are in state disabled
 
@@ -596,7 +596,7 @@ On the APIC GUI click on **Tenants**. In the Tenant Search text box enter your s
 * Click on **Contracts->Standard**
 * Click on **Services->L4-L7->Device Selection Policy**
 * Click on **Application Profiles->app->Application EPGs->web-epg->Contracts** 
-* Click on **Networking->External Routed Networks->studentxx-l3out->Networks->epg-l3out** (where studentxx represents your student ID) - no consumed contract
+* Click on **Networking->External Routed Networks->{TSTUDENT}-l3out->Networks->epg-l3out** - no consumed contract
 * Click on **Services->L4-L7-Deployed Graph Instances**
 
 >**This concludes the section of the Lab**
