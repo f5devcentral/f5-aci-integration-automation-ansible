@@ -183,10 +183,10 @@ BIG-IP Default Route: '{TL2F5VIPGW}'
 BIG-IP Pool Member1: '{TVM2IP}'
 BIG-IP Pool Member2: '{TVM3IP}'
 APIC IPAddress = '172.21.208.173'
-APIC username = 'studentxx'	#Replace xx to your student ID
+APIC username = '{TSTUDENT}'
 APIC password = 'ciscolive.2018'
-APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
-APIC - BIG-IP VE name in vcenter = 'BigIP-xx' #Replace xx with your student ID
+APIC Tenant Name = '{TSTUDENT}'
+APIC - BIG-IP VE name in vcenter = '{TBIGIPVM}'
 ```
 Click Launch once the Survey is filled according to the parameters above
 
@@ -383,7 +383,7 @@ Click on the template **Pool Member Management**
 **Flow of the use case**
 
 1) Ansible tower will grab all the playbooks from Github
-2) Playbook on ansible tower will first query the APIC for the tenant name and logical device cluster provided by the user and grab the BIG-IP name being used in the logical device cluster. Example - VM name -> **BigIP-01**
+2) Playbook on ansible tower will first query the APIC for the tenant name and logical device cluster provided by the user and grab the BIG-IP name being used in the logical device cluster. Example - VM name -> **{TBIGIPVM}**
 3) Playbook will then query the variable file with the BIG-IP VM name to IP address matching and grab the correct BIG-IP credentials
 4) Playbook will mamange the pool memnbers on the BIG-IP
 
@@ -412,9 +412,9 @@ The survey is an Ansible Tower feature to allow users to provide input to the pl
 ```
 In the Survey enter the following:
 APIC IPAddress = '172.21.208.173'
-APIC username = 'studentxx'	  #Replace xx to your student ID
+APIC username = '{TBIGIPVM}'
 APIC password = 'ciscolive.2018'
-APIC Tenant Name = 'studentxx'	  #Replace xx to your student ID
+APIC Tenant Name = '{TBIGIPVM}'
 BIG-IP Pool Member name: '{TVM2IP}'
 BIG-IP Pool Member port: '80'
 BIG-IP Pool Member state: 'disabled'
@@ -430,7 +430,7 @@ Once the playbook has executed sucessfully. Verify the logical device cluster an
 
 Go back to the BIG-IP
 * Navigate to Local taffic->Pool
-* Click on studentxx_http-pool
+* Click on **studentxx_http-pool**
 * Click on the members tab
 * View the pool members are in state disabled
 
@@ -526,9 +526,9 @@ BIG-IP Default Route: '{TL2F5VIPGW}'
 BIG-IP Pool Member1: '{TVM2IP}'
 BIG-IP Pool Member2: '{TVM3IP}'
 APIC IPAddress = '172.21.208.173'
-APIC username = 'studentxx'	#Replace xx to your student ID
+APIC username = '{TSTUDENT}'
 APIC password = 'ciscolive.2018'
-APIC Tenant Name = 'studentxx'	#Replace xx to your student ID
+APIC Tenant Name = '{TSTUDENT}'
 ```
 Click Launch once the Survey is filled according to the parameters above
 
