@@ -24,11 +24,13 @@ The goal is to provide a central point of control to configure both the Cisco AP
 * The EPG's used are **web-epg**(provider) and **l3out-epg** (consumer). Bridge domain **vip-bd**
 
 ![](images/Ansible-topology1.png)
-                                                                             * BIG-IP network information
-                                                                                * Self IP: {69.2.101.10}
-                                                                                * VIP: {69.2.101.11}
-                                                                                * Default gateway: {69.2.101.1}
 
+BIG-IP network infomration
+* BIG-IP Virtual IP Address: '{TL2F5VIP}'
+* BIG-IP Self IP Address: '{TL2F5INTSIP}'
+* BIG-IP Default Route: '{TL2F5VIPGW}'
+* BIG-IP Pool Member1: '{TVM2IP}'
+* BIG-IP Pool Member2: '{TVM3IP}'
 
 **Let's begin the lab**
 
