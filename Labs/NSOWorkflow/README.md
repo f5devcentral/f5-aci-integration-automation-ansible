@@ -10,9 +10,9 @@
 * Cisco ACI device has been added and authenticated with the NSO
 * F5 BIG-IP device has been added and authenticated with the NSO
 * Both the devices are in sync with the NSO
-* Service model package has been installed
+* [Service model package](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/tree/master/Labs/NSOWorkflow/serviceModel) has been installed
 
-For details on how to configure the NSO, refer to
+For details on how to configure the above steps, refer to
 https://www.cisco.com/c/en/us/support/cloud-systems-management/network-services-orchestrator-4-7/model.html
 
 Once the setup is in place, you can login to the NSO and run the service model to conifgure ACI and BIG-IP. The [lab guide](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/NSOWorkflow/LabSteps.md) has details on how to configure the service model.
