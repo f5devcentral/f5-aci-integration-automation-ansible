@@ -15,5 +15,5 @@
 For details on how to configure the NSO, refer to
 https://www.cisco.com/c/en/us/support/cloud-systems-management/network-services-orchestrator-4-7/model.html
 
-Once the setup is in place, you can login to the NSO and run the service model to conifgure ACI and BIG-IP. The lab guide has details on how to configure the service model.
+Once the setup is in place, you can login to the NSO and run the service model to conifgure ACI and BIG-IP. The [lab guide](https://github.com/f5devcentral/f5-aci-integration-automation-ansible/blob/master/Labs/NSOWorkflow/LabSteps.md) has details on how to configure the service model.
 
