@@ -1,0 +1,86 @@
+ curl -k -v --header "Content-type:application/vnd.yang.data+json" --user admin:C1sc0123 -X POST -d @sm.json http://172.21.208.249:8080/api/running/services
+ 
+ {
+"aci-bigip:aci-bigip": [
+        {
+          "name": "student-demo",
+          "vlans": [
+            {
+              "name": "vlan-demo",
+              "tag": 1234
+            }
+          ],
+          "sdn-controller": {
+            "device-name": "cisco-apic",
+            "tenant": {
+              "name": "student01",
+              "application-profile-name": "app",
+              "epg-provider-name": "web-epg",
+              "epg-consumer-name": "epg-l3out",
+              "bd-provider-name": "vip-bd",
+              "bd-consumer-name": "vip-bd",
+              "contract-name": "cntr",
+              "vns-ldev-vip": {
+                "name": "bigip",
+                "domain-name": "CLBerlin2016",
+                "vm-name": "BigIP-01"
+              },
+              "vns-abs-graph": {
+                "name": "sgt"
+              }
+            }
+          },
+          "load-balancer": {
+            "device-name": "f5-bigip",
+            "vlans": [
+              {
+                "name": "vlan-demo",
+                "interfaces": [
+                  {
+                    "name": "1.1",
+                    "tagging": "untagged"
+                  }
+                ]
+              }
+            ],
+            "self-ip": [
+              {
+                "name": "selfip",
+                "ip-address": "69.2.101.10/24",
+                "vlan": "vlan-demo"
+              }
+            ],
+         "route": [
+                      {
+                        "name": "default",
+                        "gw-address": "69.2.101.1",
+                        "destination-network": "0.0.0.0/00"
+                      }
+                    ],
+
+            "virtual-server": [
+              {
+                "name": "http_vs",
+                "destination-ip": "69.2.101.11",
+                "destination-port": 80,
+                "profiles": ["http"]
+              }
+            ],
+            "pool": {
+              "name": "http_pool",
+              "monitor": ["http"],
+              "members": [
+                {
+                  "name": "node1",
+                  "ip-address": "69.2.1.100"
+                },
+                {
+                  "name": "node2",
+                  "ip-address": "69.2.1.101"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }

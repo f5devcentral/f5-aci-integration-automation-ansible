@@ -1,0 +1,444 @@
+[root@dmz-nso01 src]# cat yang/aci-bigip.yang
+module aci-bigip {
+
+  namespace "http://example.com/aci-bigip";
+  prefix aci-bigip;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+  import tailf-ned-cisco-apicdc {
+    prefix cisco-apicdc;
+  }
+  import tailf-ned-f5-bigip {
+    prefix bigip;
+  }
+
+  organization "Org name here";
+
+  contact
+    "someone@somedomain.com";
+
+  description
+    "ACI BIG-IP fabric stitching.";
+
+  revision 2018-05-21 {
+    description
+      "Initial revision.";
+  }
+
+  // Service model
+  augment /ncs:services {
+    list aci-bigip {
+      tailf:info "L4-L7 ACI and BIG-IP fabric stiching";
+      key name;
+
+      uses ncs:service-data;
+      ncs:servicepoint aci-bigip-servicepoint;
+
+      // TODO: Change this key to something identifiable
+      leaf name {
+        tailf:info "Unique service id";
+        type string;
+      }
+
+      list vlans {
+        tailf:info "VLAN list";
+        key name;
+
+        leaf name {
+          tailf:info "VLAN name, Interface Name";
+          type string {
+            // TODO: Check this range
+            tailf:info "WORD;;Name (Max Size 64)";
+            length "1..64";
+          }
+        }
+
+        leaf tag {
+          tailf:info "VLAN tag";
+          type uint32 {
+            // TODO: Check this range
+            tailf:info "<1-4094>;;Single VLAN id";
+            range "1..4094";
+          }
+        }
+      }
+
+      container sdn-controller {
+        tailf:info "SDN Controller";
+
+        leaf device-name {
+          tailf:info "Device name";
+          type leafref {
+            path "/ncs:devices/ncs:device/ncs:name";
+          }
+          // Limit the choosable devices
+          must "/ncs:devices/ncs:device[ncs:name=current()]" +
+               "/ncs:device-type/ncs:generic/ncs:ned-id='cisco-apicdc:cisco-apicdc-id'" {
+                 error-message "Device selected is not an SDN controller";
+          }
+        }
+
+        container tenant {
+          tailf:info "Tenant";
+
+          leaf name {
+            tailf:info "Tenant name";
+            type leafref {
+              path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+                   "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant/cisco-apicdc:name";
+            }
+          }
+
+          leaf application-profile-name {
+            tailf:info "Application profile name";
+            type leafref {
+              path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+                   "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant[cisco-apicdc:name=current()/../name]" +
+                   "/cisco-apicdc:fvAp/cisco-apicdc:name";
+            }
+          }
+
+          leaf epg-provider-name {
+            tailf:info "EPG provider name";
+            type leafref {
+              path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+                   "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant[cisco-apicdc:name=current()/../name]" +
+                   "/cisco-apicdc:fvAp[cisco-apicdc:name=current()/../application-profile-name]" +
+                   "/cisco-apicdc:fvAEPg/cisco-apicdc:name";
+            }
+          }
+
+          leaf l3extout {
+            tailf:hidden full;
+            type string;
+            default 'student01-l3out';
+          }
+
+          leaf epg-consumer-name {
+            tailf:info "EPG consumer name";
+            type leafref {
+             // path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+             //      "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant[cisco-apicdc:name=current()/../name]" +
+             //      "/cisco-apicdc:fvAp[cisco-apicdc:name=current()/../application-profile-name]" +
+             //      "/cisco-apicdc:fvAEPg/cisco-apicdc:name";
+
+              path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+                   "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant[cisco-apicdc:name=current()/../name]" +
+                   "/cisco-apicdc:l3extOut[cisco-apicdc:name=current()/../l3extout]/cisco-apicdc:l3extInstP/cisco-apicdc:name";
+
+             }
+          }
+
+          leaf bd-provider-name {
+            type leafref {
+              path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+                   "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant[cisco-apicdc:name=current()/../name]" +
+                   "/cisco-apicdc:fvBD/cisco-apicdc:name";
+            }
+          }
+
+          leaf bd-consumer-name {
+            type leafref {
+              path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+                   "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant[cisco-apicdc:name=current()/../name]" +
+                   "/cisco-apicdc:fvBD/cisco-apicdc:name";
+            }
+          }
+
+          leaf contract-name {
+            tailf:info "Contract name";
+             type cisco-apicdc:name-t;
+             tailf:non-strict-leafref {
+               path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+                    "/ncs:config/cisco-apicdc:apic/cisco-apicdc:fvTenant[cisco-apicdc:name=current()/../name]" +
+                    "/cisco-apicdc:vzBrCP/cisco-apicdc:name";
+             }
+          }
+
+          container vns-ldev-vip {
+            tailf:info "Vns ldev vip";
+
+            leaf name {
+              tailf:info "Logical device cluster name";
+              type string {
+                // TODO: Check this range
+                tailf:info "WORD;;Name (Max Size 64)";
+                length "1..64";
+              }
+            }
+
+            leaf device-type {
+              tailf:info "Device type";
+              type enumeration {
+                enum "PHYSICAL";
+                enum "VIRTUAL";
+              }
+              // TODO: Check if this is a good default
+              default "VIRTUAL";
+            }
+
+            leaf vmm-vendor {
+              tailf:hidden full;
+              type string;
+              default "VMware";
+            }
+
+            leaf domain-name {
+              tailf:info "Domain name";
+              type cisco-apicdc:name-t;
+              tailf:non-strict-leafref {
+                 //path "/ncs:devices/ncs:device[ncs:name=current()/../../../device-name]" +
+                 //   "/ncs:config/cisco-apicdc:apic/cisco-apicdc:physDomP/cisco-apicdc:name";
+                 path "/ncs:devices/ncs:device[ncs:name=current()/../../../device-name]" +
+                      "/ncs:config/cisco-apicdc:apic/cisco-apicdc:vmmProvP[cisco-apicdc:vendor=current()/../vmm-vendor]" +
+                      "/cisco-apicdc:vmmDomP/cisco-apicdc:name";
+              }
+            }
+
+            leaf vm-name {
+               tailf:info "VM Name";
+               type string {
+                tailf:info "WORD;;Name (Max Size 128)";
+                length "1..128";
+              }
+            }
+
+
+          //  leaf path-name {
+          //    tailf:info "Path name";
+          //    type string {
+          //      // TODO: Check this range
+          //      tailf:info "WORD;;Name (Max Size 128)";
+          //      length "1..128";
+          //    }
+          //  }
+          } // vns-ldev-vip
+
+          container vns-abs-graph {
+             leaf name {
+              type string;
+             }
+
+            leaf template-type {
+              type enumeration {
+                enum ADC_TWO_ARM;
+                enum ADC_ONE_ARM;
+              }
+              default ADC_ONE_ARM;
+            }
+          }//vns-abs-graph
+        } // tenant
+      } // sdn-controller
+
+      container load-balancer {
+        tailf:info "Load Balancer";
+
+        leaf device-name {
+          tailf:info "Device name";
+          type leafref {
+            path "/ncs:devices/ncs:device/ncs:name";
+          }
+          // Limit the choosable devices
+          must "/ncs:devices/ncs:device[ncs:name=current()]" +
+               "/ncs:device-type/ncs:generic/ncs:ned-id='bigip:f5-bigip'" {
+                 error-message "Device selected is not a load balancer";
+          }
+        }
+
+        list vlans {
+          tailf:info "VLAN list";
+          key name;
+
+          leaf name {
+            tailf:info "Associated VLAN";
+            type leafref {
+              path "/ncs:services/aci-bigip:aci-bigip/aci-bigip:vlans/aci-bigip:name";
+            }
+          }
+
+          list interfaces {
+            tailf:info "Interfaces";
+            key name;
+
+            leaf name {
+              tailf:info "Interface name";
+              type leafref {
+                path "/ncs:devices/ncs:device[ncs:name=current()/../../../device-name]" +
+                     "/ncs:config/bigip:net/bigip:interface/bigip:name";
+              }
+            }
+
+            leaf tagging {
+              tailf:info "Interface tagging";
+              type enumeration {
+                enum tagged {
+                  tailf:info "Tagged";
+                }
+                enum untagged {
+                  tailf:info "Untagged";
+                }
+              }
+              // TODO: Check if this is a good default
+              default "tagged";
+            }
+          } // interfaces
+        } // vlans
+
+        list self-ip {
+          tailf:info "Self IP";
+          key name;
+
+          leaf name {
+            tailf:info "Self IP name";
+            type string {
+              // TODO: Check this range
+              tailf:info "WORD;;Name (Max Size 32)";
+              length "1..32";
+            }
+          }
+
+          leaf ip-address {
+            tailf:info "IP address / mask";
+            type tailf:ip-address-and-prefix-length;
+          }
+
+          leaf vlan {
+            tailf:info "Associated VLAN";
+            type leafref {
+              path "/ncs:services/aci-bigip:aci-bigip/aci-bigip:load-balancer/aci-bigip:vlans/aci-bigip:name";
+            }
+          }
+        } //self-ip
+
+        list route {
+          tailf:info "Routes";
+          key name;
+
+          leaf name {
+            tailf:info "Route name";
+            type string {
+              // TODO: Check this range
+              tailf:info "WORD;;Name (Max Size 32)";
+              length "1..32";
+            }
+          }
+
+          leaf gw-address {
+            tailf:info "Gateway address";
+            type inet:ipv4-address;
+          }
+
+          leaf destination-network {
+            tailf:info "IP address / mask";
+            type tailf:ip-address-and-prefix-length;
+          }
+        } //route
+
+        list virtual-server {
+          tailf:info "Virtual Server";
+          key name;
+
+          leaf name {
+            tailf:info "Virtual Server name";
+            type string {
+              // TODO: Check this range
+              tailf:info "WORD;;Name (Max Size 32)";
+              length "1..32";
+            }
+          }
+
+          leaf destination-ip {
+            tailf:info "Destination IP";
+            type inet:ipv4-address;
+          }
+
+          leaf destination-port {
+            tailf:info "Destination Port";
+            // TODO: Change this to port-t
+            type uint32 {
+              // TODO: Check this range
+              tailf:info "<0-65535>;;Port";
+              range "0..65535";
+            }
+            default "443";
+          }
+
+          leaf-list profiles {
+            tailf:info "Profiles";
+            tailf:cli-completion-actionpoint profile-completion {
+              tailf:cli-completion-id "path";
+            }
+            type string;
+            // type leafref {
+            //   path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+            //        "/ncs:config/bigip:ltm/bigip:profile/*/bigip:name";
+            // }
+          }
+        } // virtual-server
+
+        container pool {
+          tailf:info "Pool";
+
+          leaf name {
+            tailf:info "Pool name";
+            type string {
+              // TODO: Check this range
+              tailf:info "WORD;;Name (Max Size 32)";
+              length "1..32";
+            }
+          }
+
+          leaf-list monitor {
+            tailf:info "Monitor";
+            // TODO: Make this leafref
+            type string;
+            // type leafref {
+            //   path "/ncs:devices/ncs:device[ncs:name=current()/../../device-name]" +
+            //        "/ncs:config/bigip:ltm/bigip:monitor/*/bigip:name";
+            // }
+          }
+
+          leaf load-balancing-mode {
+            tailf:info "Load balancing mode";
+            type bigip:load-balancing-t;
+            default "round-robin";
+          }
+
+          list members {
+            tailf:info "Pool members";
+            key name;
+
+            leaf name {
+              tailf:info "Pool member name";
+              type string {
+                // TODO: Check this range
+                tailf:info "WORD;;Name (Max Size 16)";
+                length "1..16";
+              }
+            }
+
+            leaf ip-address {
+              tailf:info "IPv4 address";
+              type inet:ipv4-address;
+            }
+
+            leaf port {
+              tailf:info "Port";
+
+              type bigip:port-t;
+              default "http";
+            }
+          } // members
+        } // pool
+      } // load-balancer
+    } // aci-bigip
+  } // /ncs:services
+}
